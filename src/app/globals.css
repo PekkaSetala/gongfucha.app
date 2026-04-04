@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: #F4EFE6;
+  --color-bg-warm: #F0E8DA;
+  --color-surface: #FAF7F2;
+  --color-surface-hover: #F0EBE2;
+  --color-border: #E4DBCC;
+  --color-border-hover: #D0C5B4;
+  --color-primary: #2C2520;
+  --color-secondary: #6B5D4F;
+  --color-tertiary: #9E8E7A;
+  --color-clay: #8C563E;
+  --color-clay-soft: rgba(140, 86, 62, 0.08);
+  --color-clay-hover: #7A4A35;
+  --color-gold: #B89A4C;
+  --color-gold-soft: rgba(184, 154, 76, 0.12);
+
+  --font-sans: var(--font-dm-sans);
+  --font-serif-cn: var(--font-noto-serif-sc);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Press feedback on all interactive elements ─── */
+button,
+[role="button"] {
+  transition: transform 160ms var(--ease-out);
+}
+
+button:active,
+[role="button"]:active {
+  transform: scale(0.97);
+}
+
+/* ─── Hover states gated behind fine pointer ─── */
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    border-color: var(--color-border-hover);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+}
+
+/* ─── Tea list stagger animation ─── */
+@keyframes tea-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tea-stagger {
+  opacity: 0;
+  animation: tea-item-in 350ms var(--ease-out) forwards;
+}
+
+/* ─── Detail card entrance ─── */
+@keyframes detail-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detail-enter {
+  animation: detail-in 250ms var(--ease-out) forwards;
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
