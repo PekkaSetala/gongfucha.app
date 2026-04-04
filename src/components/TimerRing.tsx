@@ -13,8 +13,7 @@ export function TimerRing({
   size,
   color = "#8C563E",
 }: TimerRingProps) {
-  // If no explicit size, fill container
-  const s = size ?? 220;
+  const s = size ?? 240;
   const strokeWidth = 5;
   const radius = (s - strokeWidth * 2) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -35,7 +34,7 @@ export function TimerRing({
           cy={s / 2}
           r={radius}
           fill="none"
-          stroke="#E4DBCC"
+          stroke="var(--color-border)"
           strokeWidth={strokeWidth}
         />
         <circle
@@ -51,7 +50,7 @@ export function TimerRing({
           className="transition-[stroke-dashoffset] duration-1000 ease-linear"
         />
       </svg>
-      <span className="select-none text-primary tabular-nums text-[48px] sm:text-[56px] font-normal tracking-tight">
+      <span className="select-none text-primary tabular-nums text-[56px] sm:text-[64px] font-normal tracking-tight">
         {display}
       </span>
     </div>

@@ -7,10 +7,12 @@ import { TeaList } from "@/components/TeaList";
 import { TeaDetail } from "@/components/TeaDetail";
 import { SecondaryPaths } from "@/components/SecondaryPaths";
 import { BrewingTimer } from "@/components/BrewingTimer";
-import { BottomSheet } from "@/components/BottomSheet";
 import { AIAdvisor } from "@/components/AIAdvisor";
 import { CustomMode } from "@/components/CustomMode";
+import { InlineViewHeader } from "@/components/InlineViewHeader";
 import type { BrewParams } from "@/components/BrewingTimer";
+
+type View = "list" | "ai" | "custom";
 
 const VESSEL_KEY = "gongfucha-vessel-ml";
 const DEFAULT_VESSEL = 120;
@@ -26,8 +28,7 @@ export default function Home() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [vesselMl, setVesselMl] = useState(DEFAULT_VESSEL);
   const [brewParams, setBrewParams] = useState<BrewParams | null>(null);
-  const [showAI, setShowAI] = useState(false);
-  const [showCustom, setShowCustom] = useState(false);
+  const [view, setView] = useState<View>("list");
 
   useEffect(() => {
     setVesselMl(getStoredVessel());
@@ -44,8 +45,7 @@ export default function Home() {
 
   const handleStartBrewing = (params: BrewParams) => {
     setBrewParams(params);
-    setShowAI(false);
-    setShowCustom(false);
+    setView("list");
   };
 
   const handleAIBrew = (
@@ -92,32 +92,55 @@ export default function Home() {
         <Header />
 
         <div className="flex gap-6 items-start">
-          {/* Tea list column */}
+          {/* Main column */}
           <div className="flex-1 min-w-0 md:max-w-[420px]">
-            <TeaList
-              teas={teas}
-              selectedId={selectedId}
-              onSelect={handleSelect}
-            />
-
-            {/* Mobile: inline detail */}
-            {selectedTea && (
-              <div className="md:hidden mt-2">
-                <TeaDetail
-                  tea={selectedTea}
-                  vesselMl={vesselMl}
-                  onVesselChange={handleVesselChange}
-                  onStartBrewing={handleStartBrewing}
-                  variant="inline"
+            {view === "list" && (
+              <>
+                <TeaList
+                  teas={teas}
+                  selectedId={selectedId}
+                  onSelect={handleSelect}
                 />
+
+                {/* Mobile: inline detail */}
+                {selectedTea && (
+                  <div className="md:hidden mt-2">
+                    <TeaDetail
+                      tea={selectedTea}
+                      vesselMl={vesselMl}
+                      onVesselChange={handleVesselChange}
+                      onStartBrewing={handleStartBrewing}
+                      variant="inline"
+                    />
+                  </div>
+                )}
+
+                <SecondaryPaths
+                  onOpenAI={() => setView("ai")}
+                  onOpenCustom={() => setView("custom")}
+                />
+              </>
+            )}
+
+            {view === "ai" && (
+              <div className="px-5">
+                <InlineViewHeader
+                  title="Ask AI"
+                  onBack={() => setView("list")}
+                />
+                <AIAdvisor onStartBrewing={handleAIBrew} />
               </div>
             )}
 
-            {/* Secondary paths — below the tea list */}
-            <SecondaryPaths
-              onOpenAI={() => setShowAI(true)}
-              onOpenCustom={() => setShowCustom(true)}
-            />
+            {view === "custom" && (
+              <div className="px-5">
+                <InlineViewHeader
+                  title="Custom brew"
+                  onBack={() => setView("list")}
+                />
+                <CustomMode vesselMl={vesselMl} onStartBrewing={handleStartBrewing} />
+              </div>
+            )}
           </div>
 
           {/* Desktop: side panel */}
@@ -142,14 +165,6 @@ export default function Home() {
 
         <div className="h-16" />
       </div>
-
-      <BottomSheet open={showAI} onClose={() => setShowAI(false)} title="AI Advisor">
-        <AIAdvisor onStartBrewing={handleAIBrew} />
-      </BottomSheet>
-
-      <BottomSheet open={showCustom} onClose={() => setShowCustom(false)} title="Custom Brew">
-        <CustomMode vesselMl={vesselMl} onStartBrewing={handleStartBrewing} />
-      </BottomSheet>
     </div>
   );
 }

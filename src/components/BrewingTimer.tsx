@@ -30,6 +30,9 @@ type Phase = "rinse" | "rinse2" | "brewing" | "between";
 const RINSE_DURATION = 5;
 const DEFAULT_COLOR = "#8C563E";
 
+const stepperBtnClass =
+  "w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center";
+
 export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   const [phase, setPhase] = useState<Phase>(params.rinse ? "rinse" : "brewing");
   const [infusionIndex, setInfusionIndex] = useState(0);
@@ -72,16 +75,35 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
     onComplete: handleTimerComplete,
   });
 
+  const [autoPlay, setAutoPlay] = useState(false);
+
+  // Auto-play after state settles from handleBrewNext
+  useEffect(() => {
+    if (autoPlay && phase === "brewing") {
+      timer.play();
+      setAutoPlay(false);
+    }
+  }, [autoPlay, phase, timer]);
+
   const handleBrewNext = () => {
     const nextIndex = infusionIndex + 1;
-    if (nextIndex >= schedule.length) {
-      const extended = nextExtendedTime(schedule[schedule.length - 1]);
-      setSchedule((prev) => [...prev, extended]);
-    }
+    const adjusted = adjustedNextTime();
+
+    // Write the adjusted time into the schedule
+    setSchedule((prev) => {
+      const next = [...prev];
+      if (nextIndex < next.length) {
+        next[nextIndex] = adjusted;
+      } else {
+        next.push(adjusted);
+      }
+      return next;
+    });
+
     setInfusionIndex(nextIndex);
     setNextAdjust(0);
     setPhase("brewing");
-    setTimeout(() => timer.play(), 50);
+    setAutoPlay(true);
   };
 
   const adjustedNextTime = () => {
@@ -99,49 +121,30 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
     return `Infusion ${infusionIndex + 1}`;
   };
 
-  const stepperBtn =
-    "w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center";
 
   return (
     <div className="flex flex-col min-h-[100dvh] bg-bg">
-      {/* ─── Top bar ─── */}
-      <div className="flex items-center justify-between px-5 pt-14 pb-3">
-        <div className="flex items-center gap-3">
-          <span
-            className="w-2.5 h-2.5 rounded-full"
-            style={{ backgroundColor: accentColor }}
-          />
-          <span className="text-[15px] font-medium text-primary">
-            {params.teaName}
-          </span>
-        </div>
-        <button
-          onClick={onEnd}
-          className="text-[13px] font-medium text-tertiary"
-          style={{ transition: "color 150ms var(--ease-out)" }}
-        >
-          End
-        </button>
+      {/* ─── Tea name — centered, prominent ─── */}
+      <div className="pt-14 pb-1 text-center">
+        <h1 className="text-xl font-medium text-primary">{params.teaName}</h1>
       </div>
 
-      {/* ─── Phase label ─── */}
-      <div className="text-center px-5 pt-4 pb-2">
-        <p className="text-[12px] font-medium uppercase tracking-[1.5px] text-tertiary">
-          {phaseLabel()}
-        </p>
-        {(phase === "rinse" || phase === "rinse2") && (
-          <p className="text-[14px] text-secondary italic mt-1.5">
-            Pour, wait, discard
-          </p>
-        )}
-      </div>
-
-      {/* ─── Main content — ring or between-infusion ─── */}
+      {/* ─── Main content ─── */}
       <div className="flex-1 flex flex-col items-center justify-center px-5">
         {phase !== "between" ? (
-          <div className="flex flex-col items-center -mt-8">
+          <div className="flex flex-col items-center w-full -mt-6">
+            {/* Phase label */}
+            <p className="text-sm font-medium uppercase tracking-[1.5px] text-secondary mb-4">
+              {phaseLabel()}
+            </p>
+            {(phase === "rinse" || phase === "rinse2") && (
+              <p className="text-sm text-tertiary italic -mt-2 mb-3">
+                Pour, wait, discard
+              </p>
+            )}
+
             {/* Timer ring */}
-            <div className="w-[240px] h-[240px] sm:w-[280px] sm:h-[280px]">
+            <div className="w-[260px] h-[260px] sm:w-[300px] sm:h-[300px]">
               <TimerRing
                 progress={timer.progress}
                 secondsLeft={timer.secondsLeft}
@@ -152,54 +155,88 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             {/* Play / Pause */}
             <button
               onClick={timer.isRunning ? timer.pause : timer.play}
-              className="mt-10 w-14 h-14 flex items-center justify-center rounded-full border border-border bg-surface text-primary"
+              className="mt-5 w-16 h-16 flex items-center justify-center rounded-full border border-border bg-surface text-primary"
               style={{
                 transition: "border-color 150ms var(--ease-out), transform 160ms var(--ease-out)",
               }}
               aria-label={timer.isRunning ? "Pause" : "Play"}
             >
               {timer.isRunning ? (
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                <svg width="22" height="22" viewBox="0 0 18 18" fill="currentColor">
                   <rect x="4" y="3" width="3.5" height="12" rx="1" />
                   <rect x="10.5" y="3" width="3.5" height="12" rx="1" />
                 </svg>
               ) : (
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                <svg width="22" height="22" viewBox="0 0 18 18" fill="currentColor">
                   <path d="M5 3l10 6-10 6V3z" />
                 </svg>
               )}
             </button>
+
+            {/* Session info */}
+            <p className="text-sm text-secondary mt-5">
+              {params.tempC}°C · {params.actualLeaf}g · {params.vesselMl}ml
+            </p>
+            <div className="flex gap-2 justify-center flex-wrap mt-3 max-w-[340px]">
+              {schedule.map((s, i) => {
+                const isCurrent = i === infusionIndex && phase === "brewing";
+                const isDone = i < infusionIndex;
+
+                return (
+                  <span
+                    key={i}
+                    className={`text-sm font-medium ${
+                      isDone
+                        ? "text-tertiary line-through"
+                        : !isCurrent
+                          ? "text-secondary"
+                          : ""
+                    }`}
+                    style={{
+                      transition: "color 200ms var(--ease-out)",
+                      ...(isCurrent
+                        ? { color: accentColor, fontWeight: 600 }
+                        : {}),
+                    }}
+                  >
+                    {s}s
+                  </span>
+                );
+              })}
+            </div>
           </div>
         ) : (
           /* ─── Between infusions ─── */
-          <div className="flex flex-col items-center w-full max-w-[320px] -mt-8 detail-enter">
-            {/* Completed time */}
-            <p className="text-[48px] font-normal text-primary mb-10">
+          <div className="flex flex-col items-center w-full max-w-[320px] detail-enter">
+            <p className="text-sm font-medium uppercase tracking-[1.5px] text-secondary mb-3">
+              {phaseLabel()}
+            </p>
+
+            <p className="text-[44px] font-normal text-primary mb-8">
               {schedule[infusionIndex]}s
             </p>
 
             {/* Next infusion adjuster */}
-            <div className="w-full bg-surface border border-border rounded-[14px] p-5 mb-5">
-              <p className="text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-4 text-center">
+            <div className="w-full bg-surface border border-border rounded-[14px] px-5 py-4 mb-4">
+              <p className="text-xs font-medium uppercase tracking-[1px] text-tertiary mb-3 text-center">
                 Next infusion
               </p>
               <div className="flex items-center justify-center gap-4">
-                <button onClick={() => setNextAdjust((a) => a - 3)} className={stepperBtn}>
+                <button onClick={() => setNextAdjust((a) => a - 3)} className={stepperBtnClass}>
                   −3
                 </button>
-                <span className="text-[22px] font-medium min-w-[60px] text-center text-primary">
+                <span className="text-xl font-medium min-w-[56px] text-center text-primary">
                   {adjustedNextTime()}s
                 </span>
-                <button onClick={() => setNextAdjust((a) => a + 3)} className={stepperBtn}>
+                <button onClick={() => setNextAdjust((a) => a + 3)} className={stepperBtnClass}>
                   +3
                 </button>
               </div>
             </div>
 
-            {/* Brew Next */}
             <button
               onClick={handleBrewNext}
-              className="w-full py-4 rounded-[14px] font-medium text-[15px]"
+              className="w-full py-4 rounded-[14px] font-medium text-base"
               style={{
                 backgroundColor: accentColor,
                 color: "#FAF7F2",
@@ -212,42 +249,15 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
         )}
       </div>
 
-      {/* ─── Bottom: params + schedule pills ─── */}
-      <div className="px-5 pb-8 pt-6">
-        <p className="text-[12px] text-tertiary text-center mb-3">
-          {params.tempC}°C · {params.actualLeaf}g · {params.vesselMl}ml
-        </p>
-        <div className="flex gap-1.5 justify-center flex-wrap">
-          {schedule.map((s, i) => {
-            const isCurrent = i === infusionIndex && phase === "brewing";
-            const isDone = i < infusionIndex || (i === infusionIndex && phase === "between");
-
-            return (
-              <span
-                key={i}
-                className={`px-2.5 py-1 rounded-md text-[12px] font-medium border ${
-                  isDone
-                    ? "bg-bg border-border text-tertiary line-through"
-                    : !isCurrent
-                      ? "bg-bg border-border text-secondary"
-                      : ""
-                }`}
-                style={{
-                  transition: "background-color 200ms var(--ease-out), color 200ms var(--ease-out)",
-                  ...(isCurrent
-                    ? {
-                        backgroundColor: `${accentColor}0D`,
-                        borderColor: `${accentColor}26`,
-                        color: accentColor,
-                      }
-                    : {}),
-                }}
-              >
-                {s}s
-              </span>
-            );
-          })}
-        </div>
+      {/* ─── End session — bottom, subtle, proper tap target ─── */}
+      <div className="pb-10 pt-3 flex justify-center">
+        <button
+          onClick={onEnd}
+          className="text-sm text-tertiary min-h-[48px] min-w-[48px] px-6 flex items-center justify-center"
+          style={{ transition: "color 150ms var(--ease-out)" }}
+        >
+          End session
+        </button>
       </div>
     </div>
   );
