@@ -52,6 +52,13 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!OPENROUTER_API_KEY) {
+      return NextResponse.json(
+        { error: "AI service not configured" },
+        { status: 503 }
+      );
+    }
+
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
@@ -84,7 +91,8 @@ export async function POST(request: Request) {
       throw new Error("No response from AI");
     }
 
-    const parsed = JSON.parse(content);
+    const cleaned = content.replace(/^```(?:json)?\s*\n?|\n?```\s*$/g, "").trim();
+    const parsed = JSON.parse(cleaned);
 
     // Validate and clamp all values
     const tempC = clamp(Math.round(parsed.tempC ?? 95), 70, 100);
