@@ -88,7 +88,7 @@ export default function Home() {
 
   return (
     <div className="flex-1">
-      <div className="max-w-[960px] mx-auto min-h-screen">
+      <div className="max-w-[800px] mx-auto min-h-screen">
         <Header />
 
         <div className="flex gap-6 items-start">
