@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "Gongfu Cha",
   description: "A gongfu-style tea brewing timer and guide",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export const viewport: Viewport = {

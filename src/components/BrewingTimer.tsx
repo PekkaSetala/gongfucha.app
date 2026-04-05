@@ -33,6 +33,14 @@ const DEFAULT_COLOR = "#8C563E";
 const stepperBtnClass =
   "w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center";
 
+const PLAY_BTN_STYLE = {
+  transition: "border-color 150ms var(--ease-out), transform 160ms var(--ease-out)",
+} as const;
+
+const END_BTN_STYLE = {
+  transition: "color 150ms var(--ease-out)",
+} as const;
+
 export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   const [phase, setPhase] = useState<Phase>(params.rinse ? "rinse" : "brewing");
   const [infusionIndex, setInfusionIndex] = useState(0);
@@ -43,8 +51,14 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   const accentColor = params.teaColor || DEFAULT_COLOR;
 
   useEffect(() => {
-    audioRef.current = new Audio("/sounds/ceramic-tap.wav");
-    audioRef.current.volume = 0.25;
+    const audio = new Audio("/sounds/ceramic-tap.wav");
+    audio.volume = 0.25;
+    audioRef.current = audio;
+    return () => {
+      audio.pause();
+      audio.src = "";
+      audioRef.current = null;
+    };
   }, []);
 
   const playSound = useCallback(() => {
@@ -123,16 +137,22 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
 
   return (
-    <div className="flex flex-col min-h-[100dvh] bg-bg">
+    <div
+      className="flex flex-col min-h-[100dvh] paper-texture"
+      style={{
+        "--tea-accent": accentColor,
+        background: `linear-gradient(to bottom, var(--tea-accent-soft), transparent 40%), var(--color-bg)`,
+      } as React.CSSProperties}
+    >
       {/* ─── Tea name — centered, prominent ─── */}
       <div className="pt-14 pb-1 text-center">
-        <h1 className="text-xl font-medium text-primary">{params.teaName}</h1>
+        <h1 className="text-xl font-medium text-primary font-serif-cn">{params.teaName}</h1>
       </div>
 
       {/* ─── Main content ─── */}
       <div className="flex-1 flex flex-col items-center justify-center px-5">
-        {phase !== "between" ? (
-          <div className="flex flex-col items-center w-full -mt-6">
+        {phase !== "between" && (
+          <div key={`timer-${phase}`} className="phase-enter flex flex-col items-center w-full -mt-6">
             {/* Phase label */}
             <p className="text-sm font-medium uppercase tracking-[1.5px] text-secondary mb-4">
               {phaseLabel()}
@@ -156,19 +176,17 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             <button
               onClick={timer.isRunning ? timer.pause : timer.play}
               className="mt-5 w-16 h-16 flex items-center justify-center rounded-full border border-border bg-surface text-primary"
-              style={{
-                transition: "border-color 150ms var(--ease-out), transform 160ms var(--ease-out)",
-              }}
+              style={PLAY_BTN_STYLE}
               aria-label={timer.isRunning ? "Pause" : "Play"}
             >
               {timer.isRunning ? (
-                <svg width="22" height="22" viewBox="0 0 18 18" fill="currentColor">
-                  <rect x="4" y="3" width="3.5" height="12" rx="1" />
-                  <rect x="10.5" y="3" width="3.5" height="12" rx="1" />
+                <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                  <line x1="6" y1="4" x2="6" y2="14" />
+                  <line x1="12" y1="4" x2="12" y2="14" />
                 </svg>
               ) : (
-                <svg width="22" height="22" viewBox="0 0 18 18" fill="currentColor">
-                  <path d="M5 3l10 6-10 6V3z" />
+                <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M6 4l8 5-8 5V4z" />
                 </svg>
               )}
             </button>
@@ -205,9 +223,10 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
               })}
             </div>
           </div>
-        ) : (
+        )}
+        {phase === "between" && (
           /* ─── Between infusions ─── */
-          <div className="flex flex-col items-center w-full max-w-[320px] detail-enter">
+          <div key="between" className="phase-enter flex flex-col items-center w-full max-w-[320px]">
             <p className="text-sm font-medium uppercase tracking-[1.5px] text-secondary mb-3">
               {phaseLabel()}
             </p>
@@ -254,7 +273,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
         <button
           onClick={onEnd}
           className="text-sm text-tertiary min-h-[48px] min-w-[48px] px-6 flex items-center justify-center"
-          style={{ transition: "color 150ms var(--ease-out)" }}
+          style={END_BTN_STYLE}
         >
           End session
         </button>

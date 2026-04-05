@@ -41,7 +41,7 @@ export function TeaList({ teas, selectedId, onSelect }: TeaListProps) {
             />
             <span className="flex-1 min-w-0">
               <span className="flex items-center gap-2">
-                <span className="text-[15px] font-[450] text-primary">
+                <span className="text-[15px] font-serif-cn font-[450] text-primary">
                   {tea.name}
                 </span>
                 {seasonal && (

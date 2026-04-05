@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef, useEffect } from "react";
+
 interface TimerRingProps {
   progress: number;
   secondsLeft: number;
@@ -13,6 +15,11 @@ export function TimerRing({
   size,
   color = "#8C563E",
 }: TimerRingProps) {
+  const circleRef = useRef<SVGCircleElement>(null);
+  useEffect(() => {
+    if (circleRef.current) circleRef.current.style.opacity = "1";
+  }, []);
+
   const s = size ?? 240;
   const strokeWidth = 5;
   const radius = (s - strokeWidth * 2) / 2;
@@ -38,6 +45,7 @@ export function TimerRing({
           strokeWidth={strokeWidth}
         />
         <circle
+          ref={circleRef}
           cx={s / 2}
           cy={s / 2}
           r={radius}
@@ -47,10 +55,13 @@ export function TimerRing({
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
-          className="transition-[stroke-dashoffset] duration-1000 ease-linear"
+          style={{
+            opacity: 0,
+            transition: "stroke-dashoffset 1000ms linear, opacity 600ms var(--ease-out)",
+          }}
         />
       </svg>
-      <span className="select-none text-primary tabular-nums text-[56px] sm:text-[64px] font-normal tracking-tight">
+      <span className="select-none text-primary tabular-nums text-[56px] sm:text-[64px] font-light tracking-tight digit-enter">
         {display}
       </span>
     </div>

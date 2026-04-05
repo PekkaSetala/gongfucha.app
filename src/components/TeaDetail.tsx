@@ -46,7 +46,7 @@ export function TeaDetail({
       >
         {variant === "panel" && (
           <div className="mb-5">
-            <h2 className="text-xl font-medium mb-1">{tea.name}</h2>
+            <h2 className="text-xl font-serif-cn font-medium mb-1">{tea.name}</h2>
             <p className="text-[13px] text-tertiary">{tea.subtitle}</p>
           </div>
         )}
@@ -111,7 +111,7 @@ export function TeaDetail({
         </div>
 
         {/* Brew note */}
-        <p className="text-[13px] italic text-secondary leading-relaxed border-t border-border pt-4 mb-4">
+        <p className="text-[13px] font-serif-cn italic text-secondary leading-relaxed border-t border-border pt-4 mb-4">
           {params.brewNote}
         </p>
 

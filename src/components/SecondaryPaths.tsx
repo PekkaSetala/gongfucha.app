@@ -16,7 +16,7 @@ export function SecondaryPaths({ onOpenAI, onOpenCustom }: SecondaryPathsProps) 
         }}
       >
         <span className="w-9 h-9 rounded-full bg-surface border border-border flex items-center justify-center text-tertiary shrink-0">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
             <circle cx="8" cy="8" r="5.5" />
             <path d="M5.5 7h5M5.5 9h3" />
           </svg>
@@ -39,7 +39,7 @@ export function SecondaryPaths({ onOpenAI, onOpenCustom }: SecondaryPathsProps) 
         }}
       >
         <span className="w-9 h-9 rounded-full bg-surface border border-border flex items-center justify-center text-tertiary shrink-0">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
             <path d="M3 5.5h10M3 10.5h10" />
             <circle cx="5.5" cy="5.5" r="1.5" fill="var(--color-bg)" />
             <circle cx="10.5" cy="10.5" r="1.5" fill="var(--color-bg)" />

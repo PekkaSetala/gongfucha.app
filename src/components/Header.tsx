@@ -8,7 +8,7 @@ export function Header() {
 
   return (
     <header className="px-5 pt-14 pb-6">
-      <span className="block text-[13px] font-medium tracking-[2px] uppercase text-tertiary mb-7">
+      <span className="block text-[14px] font-serif-cn font-normal tracking-[3px] uppercase text-tertiary mb-7">
         Gongfu Cha
       </span>
       <h1 className="text-[26px] font-light leading-tight mb-1.5">
