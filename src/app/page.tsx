@@ -8,6 +8,7 @@ import { TeaDetail } from "@/components/TeaDetail";
 import { SecondaryPaths } from "@/components/SecondaryPaths";
 import { BrewingTimer } from "@/components/BrewingTimer";
 import { AIAdvisor } from "@/components/AIAdvisor";
+import type { AIResult } from "@/components/AIAdvisor";
 import { CustomMode } from "@/components/CustomMode";
 import { InlineViewHeader } from "@/components/InlineViewHeader";
 import type { BrewParams } from "@/components/BrewingTimer";
@@ -49,29 +50,25 @@ export default function Home() {
   };
 
   const handleAIBrew = (
-    result: {
-      teaName: string;
-      category: string;
-      tempC: number;
-      ratioGPerMl: number;
-      rinse: boolean;
-      schedule: number[];
-      summary: string;
-    },
-    aiVesselMl: number
+    result: AIResult,
+    aiVesselMl: number,
+    leafG: number,
+    schedule: number[],
+    adjusted: boolean
   ) => {
-    const leaf = Math.round(result.ratioGPerMl * aiVesselMl * 10) / 10;
+    const recommendedLeaf =
+      Math.round(result.ratioGPerMl * aiVesselMl * 10) / 10;
     handleStartBrewing({
       teaId: "ai-identified",
       teaName: result.teaName,
       tempC: result.tempC,
       vesselMl: aiVesselMl,
-      recommendedLeaf: leaf,
-      actualLeaf: leaf,
+      recommendedLeaf,
+      actualLeaf: leafG,
       rinse: result.rinse,
-      doubleRinse: false,
-      schedule: result.schedule,
-      scheduleAdjusted: false,
+      doubleRinse: result.doubleRinse,
+      schedule,
+      scheduleAdjusted: adjusted,
       brewNote: result.summary,
     });
   };
@@ -128,7 +125,11 @@ export default function Home() {
                   title="Ask AI"
                   onBack={() => setView("list")}
                 />
-                <AIAdvisor onStartBrewing={handleAIBrew} />
+                <AIAdvisor
+                  vesselMl={vesselMl}
+                  onVesselChange={handleVesselChange}
+                  onStartBrewing={handleAIBrew}
+                />
               </div>
             )}
 
