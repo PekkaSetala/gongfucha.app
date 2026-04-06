@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getTeas, getTeaById } from "@/data/teas";
 import { Header } from "@/components/Header";
 import { TeaList } from "@/components/TeaList";
@@ -18,6 +18,8 @@ function getStoredVessel(): number {
   return stored ? parseInt(stored, 10) : DEFAULT_VESSEL;
 }
 
+type ViewState = "list" | "enter-brewing" | "brewing" | "exit-brewing";
+
 export default function Home() {
   const teas = getTeas();
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -25,6 +27,8 @@ export default function Home() {
   const [customExpanded, setCustomExpanded] = useState(false);
   const [vesselMl, setVesselMl] = useState(DEFAULT_VESSEL);
   const [brewParams, setBrewParams] = useState<BrewParams | null>(null);
+  const [viewState, setViewState] = useState<ViewState>("list");
+  const timerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setVesselMl(getStoredVessel());
@@ -63,6 +67,13 @@ export default function Home() {
 
   const handleStartBrewing = (params: BrewParams) => {
     setBrewParams(params);
+    setViewState("enter-brewing");
+
+    // Phase 1: list fades out (250ms)
+    // Phase 2: bridge overlay shows + brewing fades in (300ms)
+    setTimeout(() => {
+      setViewState("brewing");
+    }, 600);
   };
 
   const handleAIBrew = (
@@ -92,37 +103,91 @@ export default function Home() {
   };
 
   const handleEndBrewing = () => {
-    setBrewParams(null);
+    setViewState("exit-brewing");
+    setTimeout(() => {
+      setBrewParams(null);
+      setViewState("list");
+    }, 500);
   };
 
-  if (brewParams) {
-    return <BrewingTimer params={brewParams} onEnd={handleEndBrewing} />;
-  }
+  const bridgeColor = brewParams?.teaColor || "#8C563E";
+  const showBrewing = viewState === "enter-brewing" || viewState === "brewing" || viewState === "exit-brewing";
 
   const selectedTea = selectedId ? getTeaById(selectedId) ?? null : null;
 
   return (
-    <main id="main-content" className="flex-1">
-      <div className="max-w-[680px] mx-auto min-h-screen">
-        <Header />
-        <div className="max-w-[680px] mx-auto">
-          <TeaList
-            teas={teas}
-            selectedId={selectedId}
-            onSelect={handleSelect}
-            selectedTea={selectedTea}
-            aiExpanded={aiExpanded}
-            onToggleAI={handleToggleAI}
-            customExpanded={customExpanded}
-            onToggleCustom={handleToggleCustom}
-            vesselMl={vesselMl}
-            onVesselChange={handleVesselChange}
-            onStartBrewing={handleStartBrewing}
-            onAIBrew={handleAIBrew}
-          />
-        </div>
-        <div className="h-16" />
+    <div className="relative min-h-[100dvh]">
+      {/* ─── Bridge overlay ─── */}
+      {(viewState === "enter-brewing" || viewState === "exit-brewing") && (
+        <div
+          className="fixed inset-0 pointer-events-none bridge-overlay"
+          style={{
+            background: `radial-gradient(circle at 50% 40%, color-mix(in srgb, ${bridgeColor} 25%, transparent), transparent 70%)`,
+            zIndex: 50,
+          }}
+        />
+      )}
+
+      {/* ─── Main list view ─── */}
+      <div
+        className={`${
+          viewState === "enter-brewing"
+            ? "view-fade-out"
+            : viewState === "exit-brewing"
+              ? "view-fade-in"
+              : viewState === "brewing"
+                ? "opacity-0 pointer-events-none"
+                : ""
+        }`}
+        style={{
+          position: viewState === "brewing" ? "absolute" : undefined,
+          inset: viewState === "brewing" ? 0 : undefined,
+        }}
+      >
+        <main id="main-content" className="flex-1">
+          <div className="max-w-[680px] mx-auto min-h-screen">
+            <Header />
+            <div className="max-w-[680px] mx-auto">
+              <TeaList
+                teas={teas}
+                selectedId={selectedId}
+                onSelect={handleSelect}
+                selectedTea={selectedTea}
+                aiExpanded={aiExpanded}
+                onToggleAI={handleToggleAI}
+                customExpanded={customExpanded}
+                onToggleCustom={handleToggleCustom}
+                vesselMl={vesselMl}
+                onVesselChange={handleVesselChange}
+                onStartBrewing={handleStartBrewing}
+                onAIBrew={handleAIBrew}
+              />
+            </div>
+            <div className="h-16" />
+          </div>
+        </main>
       </div>
-    </main>
+
+      {/* ─── Brewing view ─── */}
+      {showBrewing && brewParams && (
+        <div
+          ref={timerRef}
+          className={`${
+            viewState === "enter-brewing"
+              ? "view-fade-in"
+              : viewState === "exit-brewing"
+                ? "view-fade-out"
+                : ""
+          }`}
+          style={{
+            position: viewState !== "brewing" ? "absolute" : undefined,
+            inset: viewState !== "brewing" ? 0 : undefined,
+            zIndex: viewState !== "brewing" ? 40 : undefined,
+          }}
+        >
+          <BrewingTimer params={brewParams} onEnd={handleEndBrewing} />
+        </div>
+      )}
+    </div>
   );
 }
