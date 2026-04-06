@@ -115,7 +115,7 @@ export default function Home() {
     setTimeout(() => {
       setBrewParams(null);
       setViewState("list");
-    }, 3000);
+    }, 800);
   };
 
   const bridgeColor = brewParams?.teaColor || "#8C563E";

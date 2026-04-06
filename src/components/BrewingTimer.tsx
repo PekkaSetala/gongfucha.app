@@ -290,10 +290,10 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
           )}
 
           {/* ─── Timer area ─── */}
-          {isBrewing && !transitioning && (
+          {isBrewing && (
             <div
               key={`timer-${phase}`}
-              className={`flex flex-col items-center mt-6 ${transitioning && prevPhase !== "between" ? "phase-exit" : "phase-enter"}`}
+              className={`flex flex-col items-center mt-6 ${transitioning ? "phase-exit" : "phase-enter"}`}
             >
               <div role="timer" aria-label={`${timer.secondsLeft} seconds remaining`}>
                 <TimerRing

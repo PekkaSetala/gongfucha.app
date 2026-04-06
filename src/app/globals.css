@@ -326,19 +326,19 @@ textarea:focus-visible {
   animation: bridge-in 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Exit brewing — unhurried, the user is drinking tea */
+/* Exit brewing — quick, system responds to user's decision */
 .view-fade-out-slow {
-  animation: view-fade-out 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: view-fade-out 400ms var(--ease-out) forwards;
 }
 
 .view-fade-in-slow {
-  animation: view-fade-in 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  animation-delay: 600ms;
+  animation: view-fade-in 350ms var(--ease-out) forwards;
+  animation-delay: 100ms;
   opacity: 0;
 }
 
 .bridge-overlay-slow {
-  animation: bridge-in 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: bridge-in 700ms var(--ease-out) forwards;
 }
 
 /* ─── Reduced motion ─── */
