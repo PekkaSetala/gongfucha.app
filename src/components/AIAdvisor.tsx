@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { StepperControl } from "./StepperControl";
 import {
   calculateLeafAmount,
   actualRatio,
@@ -102,9 +103,6 @@ export function AIAdvisor({
     onStartBrewing(result, vesselMl, currentLeaf, displaySchedule, scheduleAdjusted);
   };
 
-  const stepperBtn =
-    "w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center disabled:opacity-30";
-
   return (
     <div className="flex flex-col gap-4">
       <p className="text-[13px] text-secondary leading-relaxed">
@@ -136,7 +134,7 @@ export function AIAdvisor({
         </button>
       </div>
 
-      {error && <p id="ai-error" role="alert" className="text-[13px] text-clay italic">{error}</p>}
+      {error && <p id="ai-error" role="alert" className="text-[13px] text-error italic">{error}</p>}
 
       {result && (
         <div className="bg-surface border border-border rounded-[14px] p-5 mt-2 detail-enter">
@@ -147,63 +145,31 @@ export function AIAdvisor({
 
           {/* Vessel & Leaf steppers */}
           <div className="grid grid-cols-2 gap-4 mb-4">
-            <div>
-              <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
-                Vessel
-              </label>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => handleVesselChange(-10)}
-                  className={stepperBtn}
-                  aria-label="Decrease vessel size"
-                  disabled={vesselMl <= 40}
-                >
-                  −
-                </button>
-                <span className="text-[14px] font-medium min-w-[48px] text-center">
-                  {vesselMl}ml
+            <StepperControl
+              label="Vessel"
+              value={`${vesselMl}ml`}
+              onDecrement={() => handleVesselChange(-10)}
+              onIncrement={() => handleVesselChange(10)}
+              decrementDisabled={vesselMl <= 40}
+              incrementDisabled={vesselMl >= 300}
+              decrementLabel="Decrease vessel size"
+              incrementLabel="Increase vessel size"
+            />
+            <StepperControl
+              label="Leaf"
+              value={`${currentLeaf}g`}
+              onDecrement={() => handleLeafChange(-0.5)}
+              onIncrement={() => handleLeafChange(0.5)}
+              decrementDisabled={currentLeaf <= 0.5}
+              incrementDisabled={currentLeaf >= 30}
+              decrementLabel="Decrease leaf amount"
+              incrementLabel="Increase leaf amount"
+              suffix={scheduleAdjusted ? (
+                <span className="ml-1.5 normal-case tracking-normal text-gold">
+                  adjusted
                 </span>
-                <button
-                  onClick={() => handleVesselChange(10)}
-                  className={stepperBtn}
-                  aria-label="Increase vessel size"
-                  disabled={vesselMl >= 300}
-                >
-                  +
-                </button>
-              </div>
-            </div>
-            <div>
-              <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
-                Leaf
-                {scheduleAdjusted && (
-                  <span className="ml-1.5 normal-case tracking-normal text-gold">
-                    adjusted
-                  </span>
-                )}
-              </label>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => handleLeafChange(-0.5)}
-                  className={stepperBtn}
-                  aria-label="Decrease leaf amount"
-                  disabled={currentLeaf <= 0.5}
-                >
-                  −
-                </button>
-                <span className="text-[14px] font-medium min-w-[48px] text-center">
-                  {currentLeaf}g
-                </span>
-                <button
-                  onClick={() => handleLeafChange(0.5)}
-                  className={stepperBtn}
-                  aria-label="Increase leaf amount"
-                  disabled={currentLeaf >= 30}
-                >
-                  +
-                </button>
-              </div>
-            </div>
+              ) : undefined}
+            />
           </div>
 
           {/* Compact params row */}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import type { TeaPreset } from "@/data/teas";
 import { buildBrewParams } from "@/lib/brewing";
+import { StepperControl } from "./StepperControl";
 
 interface TeaDetailProps {
   tea: TeaPreset;
@@ -36,9 +37,6 @@ export function TeaDetail({
     onVesselChange(clamped);
   };
 
-  const stepperBtn =
-    "w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center disabled:opacity-30";
-
   return (
     <div className={variant === "panel" ? "detail-enter" : "px-5 mt-1 detail-enter"}>
       <div
@@ -46,68 +44,46 @@ export function TeaDetail({
       >
         {variant === "panel" && (
           <div className="mb-5">
-            <h2 className="text-xl font-serif-cn font-medium mb-1">{tea.name}</h2>
+            <h2 className="text-xl font-serif-cn font-bold mb-1">{tea.name}</h2>
             <p className="text-[13px] text-tertiary">{tea.subtitle}</p>
           </div>
         )}
 
         {/* Vessel & Leaf controls */}
         <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>
-            <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
-              Vessel
-            </label>
-            <div className="flex items-center gap-2">
-              <button onClick={() => handleVesselChange(vesselMl - 10)} className={stepperBtn} aria-label="Decrease vessel size" disabled={vesselMl <= 40}>
-                −
-              </button>
-              <span className="text-[14px] font-medium min-w-[48px] text-center">
-                {vesselMl}ml
-              </span>
-              <button onClick={() => handleVesselChange(vesselMl + 10)} className={stepperBtn} aria-label="Increase vessel size" disabled={vesselMl >= 300}>
-                +
-              </button>
-            </div>
-          </div>
-          <div>
-            <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
-              Leaf
-              {params.scheduleAdjusted && (
-                <span className="ml-1.5 normal-case tracking-normal text-gold">adjusted</span>
-              )}
-            </label>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => handleLeafChange((leafOverride ?? params.recommendedLeaf) - 0.5)}
-                className={stepperBtn}
-                aria-label="Decrease leaf amount"
-                disabled={params.actualLeaf <= 0.5}
-              >
-                −
-              </button>
-              <span className="text-[14px] font-medium min-w-[48px] text-center">
-                {params.actualLeaf}g
-              </span>
-              <button
-                onClick={() => handleLeafChange((leafOverride ?? params.recommendedLeaf) + 0.5)}
-                className={stepperBtn}
-                aria-label="Increase leaf amount"
-                disabled={params.actualLeaf >= 30}
-              >
-                +
-              </button>
-            </div>
-          </div>
+          <StepperControl
+            label="Vessel"
+            value={`${vesselMl}ml`}
+            onDecrement={() => handleVesselChange(vesselMl - 10)}
+            onIncrement={() => handleVesselChange(vesselMl + 10)}
+            decrementDisabled={vesselMl <= 40}
+            incrementDisabled={vesselMl >= 300}
+            decrementLabel="Decrease vessel size"
+            incrementLabel="Increase vessel size"
+          />
+          <StepperControl
+            label="Leaf"
+            value={`${params.actualLeaf}g`}
+            onDecrement={() => handleLeafChange((leafOverride ?? params.recommendedLeaf) - 0.5)}
+            onIncrement={() => handleLeafChange((leafOverride ?? params.recommendedLeaf) + 0.5)}
+            decrementDisabled={params.actualLeaf <= 0.5}
+            incrementDisabled={params.actualLeaf >= 30}
+            decrementLabel="Decrease leaf amount"
+            incrementLabel="Increase leaf amount"
+            suffix={params.scheduleAdjusted ? (
+              <span className="ml-1.5 normal-case tracking-normal text-gold">adjusted</span>
+            ) : undefined}
+          />
         </div>
 
         {/* Params row */}
         <div className="flex gap-5 mb-4">
           <div>
-            <span className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary">Temp</span>
+            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Temp</span>
             <span className="text-[14px] font-medium">{params.tempC}°C</span>
           </div>
           <div>
-            <span className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary">Rinse</span>
+            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Rinse</span>
             <span className="text-[14px] font-medium">
               {tea.doubleRinse ? "2×" : tea.rinse ? "Yes" : "No"}
             </span>
@@ -122,7 +98,7 @@ export function TeaDetail({
         {/* Schedule pills (panel only) */}
         {variant === "panel" && (
           <div className="border-t border-border pt-4 mb-5">
-            <span className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-2.5">
+            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2.5">
               Infusion schedule (seconds)
             </span>
             <div className="flex flex-wrap gap-1.5">

@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Noto_Serif_SC } from "next/font/google";
 import "./globals.css";
+import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500"],
 });
 
 const notoSerifSC = Noto_Serif_SC({
@@ -15,12 +16,25 @@ const notoSerifSC = Noto_Serif_SC({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000"),
   title: "Gongfu Cha",
   description: "A gongfu-style tea brewing timer and guide",
   manifest: "/manifest.json",
   icons: {
     icon: "/icon.svg",
-    apple: "/icon.svg",
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "Gongfu Cha",
+    description: "A gongfu-style tea brewing timer and guide",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gongfu Cha",
+    description: "A gongfu-style tea brewing timer and guide",
+    images: ["/og-image.png"],
   },
 };
 
@@ -45,6 +59,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );

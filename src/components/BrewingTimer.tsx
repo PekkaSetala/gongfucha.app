@@ -30,9 +30,6 @@ type Phase = "rinse" | "rinse2" | "brewing" | "between";
 const RINSE_DURATION = 5;
 const DEFAULT_COLOR = "#8C563E";
 
-const stepperBtnClass =
-  "w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center";
-
 const PLAY_BTN_STYLE = {
   transition: "border-color 150ms var(--ease-out), transform 160ms var(--ease-out)",
 } as const;
@@ -166,7 +163,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
       {/* ─── Tea name — centered, prominent ─── */}
       <div className="pt-14 pb-1 text-center">
-        <h1 ref={titleRef} tabIndex={-1} className="text-xl font-medium text-primary font-serif-cn outline-none">{params.teaName}</h1>
+        <h1 ref={titleRef} tabIndex={-1} className="text-xl font-normal text-primary font-serif-cn outline-none">{params.teaName}</h1>
       </div>
 
       {/* ─── Main content ─── */}
@@ -261,13 +258,13 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                 Adjust time
               </p>
               <div className="flex items-center justify-center gap-4">
-                <button onClick={() => setNextAdjust((a) => a - 3)} className={stepperBtnClass} aria-label="Decrease next infusion time by 3 seconds">
+                <button onClick={() => setNextAdjust((a) => a - 3)} className="w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center" aria-label="Decrease next infusion time by 3 seconds">
                   −3
                 </button>
                 <span className="text-xl font-medium min-w-[56px] text-center text-primary">
                   {adjustedNextTime()}s
                 </span>
-                <button onClick={() => setNextAdjust((a) => a + 3)} className={stepperBtnClass} aria-label="Increase next infusion time by 3 seconds">
+                <button onClick={() => setNextAdjust((a) => a + 3)} className="w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center" aria-label="Increase next infusion time by 3 seconds">
                   +3
                 </button>
               </div>
@@ -292,7 +289,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
       <div className="pb-10 pt-3 flex justify-center">
         <button
           onClick={onEnd}
-          className="text-sm text-tertiary min-h-[48px] min-w-[48px] px-6 flex items-center justify-center"
+          className="text-sm text-tertiary min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl border border-border bg-surface hover-lift"
           style={END_BTN_STYLE}
         >
           End session

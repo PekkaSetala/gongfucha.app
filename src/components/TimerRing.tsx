@@ -57,7 +57,7 @@ export function TimerRing({
           strokeDashoffset={offset}
           style={{
             opacity: 0,
-            transition: "stroke-dashoffset 1000ms linear, opacity 600ms var(--ease-out)",
+            transition: "stroke-dashoffset 300ms var(--ease-out), opacity 600ms var(--ease-out)",
           }}
         />
       </svg>

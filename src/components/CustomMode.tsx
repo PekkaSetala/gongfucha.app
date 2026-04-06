@@ -48,7 +48,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <label htmlFor="custom-tea-name" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+        <label htmlFor="custom-tea-name" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
           Tea name
         </label>
         <input
@@ -63,7 +63,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="custom-temp" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label htmlFor="custom-temp" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Temperature (°C)
           </label>
           <input
@@ -77,7 +77,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
           />
         </div>
         <div>
-          <label htmlFor="custom-vessel" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label htmlFor="custom-vessel" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Vessel (ml)
           </label>
           <input
@@ -94,7 +94,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="custom-leaf" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label htmlFor="custom-leaf" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Leaf (g)
           </label>
           <input
@@ -109,7 +109,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
           />
         </div>
         <div>
-          <label htmlFor="custom-base-time" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label htmlFor="custom-base-time" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Base steep (seconds)
           </label>
           <input
@@ -126,7 +126,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="custom-infusions" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label htmlFor="custom-infusions" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Infusions
           </label>
           <input
@@ -140,7 +140,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
           />
         </div>
         <div>
-          <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Rinse
           </label>
           <button
