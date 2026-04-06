@@ -107,10 +107,6 @@ export function AIAdvisor({
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-[13px] text-secondary leading-relaxed">
-        Name or describe your tea — get gongfu brewing parameters.
-      </p>
-
       <div className="flex gap-2">
         <input
           type="text"

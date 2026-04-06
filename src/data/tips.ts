@@ -31,14 +31,8 @@ const tips = [
 ];
 
 /**
- * Get a tip that rotates daily.
- * Uses day-of-year so it changes once per day, not per page load.
+ * Get a random tip — different each time the app is opened.
  */
 export function getDailyTip(): string {
-  const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 0);
-  const dayOfYear = Math.floor(
-    (now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
-  );
-  return tips[dayOfYear % tips.length];
+  return tips[Math.floor(Math.random() * tips.length)];
 }

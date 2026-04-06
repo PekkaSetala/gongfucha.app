@@ -1,48 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { StepperControl } from "./StepperControl";
-import { teaCategories, getTeaColor } from "@/data/tea-categories";
 import type { BrewParams } from "./BrewingTimer";
+
+type RinseMode = "none" | "once" | "twice";
+type ExtensionCurve = "gentle" | "standard" | "steep";
+
+const EXTENSION_FACTORS: Record<ExtensionCurve, number> = {
+  gentle: 1.15,
+  standard: 1.35,
+  steep: 1.5,
+};
 
 interface CustomModeProps {
   vesselMl: number;
   onStartBrewing: (params: BrewParams) => void;
 }
 
-const TEMP_PRESETS = [80, 85, 90, 95, 100] as const;
+const pillBtn = (active: boolean) =>
+  `flex-1 py-2.5 rounded-xl text-[13px] font-medium border transition-colors duration-150 ${
+    active
+      ? "border-clay bg-clay-soft text-clay"
+      : "border-border bg-surface text-secondary"
+  }`;
 
 export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
-  const [name, setName] = useState("");
-  const [teaType, setTeaType] = useState<string | null>(null);
-  const [temp, setTemp] = useState(95);
-  const [vessel, setVessel] = useState(vesselMl);
-  const [leaf, setLeaf] = useState(6);
-  const [rinse, setRinse] = useState(false);
   const [baseTime, setBaseTime] = useState(10);
   const [infusions, setInfusions] = useState(8);
+  const [rinseMode, setRinseMode] = useState<RinseMode>("none");
+  const [curve, setCurve] = useState<ExtensionCurve>("standard");
 
-  const generateSchedule = (): number[] => {
-    const schedule: number[] = [baseTime];
+  const leafG = Math.round(vesselMl * 0.06 * 10) / 10;
+  const factor = EXTENSION_FACTORS[curve];
+
+  const schedule = useMemo(() => {
+    const s: number[] = [baseTime];
     for (let i = 1; i < infusions; i++) {
-      schedule.push(Math.round(schedule[i - 1] * 1.35));
+      s.push(Math.round(s[i - 1] * factor));
     }
-    return schedule;
-  };
-
-  const schedule = generateSchedule();
+    return s;
+  }, [baseTime, infusions, factor]);
 
   const handleStart = () => {
     const params: BrewParams = {
-      teaId: teaType ?? "custom",
-      teaName: name || "Custom Tea",
-      teaColor: teaType ? getTeaColor(teaType) : undefined,
-      tempC: temp,
-      vesselMl: vessel,
-      recommendedLeaf: leaf,
-      actualLeaf: leaf,
-      rinse,
-      doubleRinse: false,
+      teaId: "custom",
+      teaName: "Custom Tea",
+      teaColor: undefined,
+      tempC: 95,
+      vesselMl,
+      recommendedLeaf: leafG,
+      actualLeaf: leafG,
+      rinse: rinseMode !== "none",
+      doubleRinse: rinseMode === "twice",
       schedule,
       scheduleAdjusted: false,
       brewNote: "",
@@ -51,88 +61,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
   };
 
   return (
-    <div className="flex flex-col gap-5">
-      <div>
-        <label htmlFor="custom-tea-name" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
-          Tea name
-        </label>
-        <input
-          id="custom-tea-name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="What are you brewing?"
-          className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-[14px] text-primary placeholder:text-tertiary focus-visible:outline-none focus-visible:border-clay transition-colors duration-150"
-        />
-      </div>
-
-      <div>
-        <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
-          Tea type
-        </span>
-        <div className="flex gap-1.5">
-          {teaCategories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setTeaType(teaType === cat.id ? null : cat.id)}
-              aria-pressed={teaType === cat.id}
-              className={`flex-1 py-2.5 rounded-xl text-[13px] font-medium border transition-colors duration-150 ${
-                teaType === cat.id
-                  ? "border-clay bg-clay-soft text-clay"
-                  : "border-border bg-surface text-secondary"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
-          Temperature
-        </span>
-        <div className="flex gap-1.5">
-          {TEMP_PRESETS.map((t) => (
-            <button
-              key={t}
-              onClick={() => setTemp(t)}
-              aria-pressed={temp === t}
-              className={`flex-1 py-2.5 rounded-xl text-[13px] font-medium border transition-colors duration-150 ${
-                temp === t
-                  ? "border-clay bg-clay-soft text-clay"
-                  : "border-border bg-surface text-secondary"
-              }`}
-            >
-              {t}°
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <StepperControl
-          label="Vessel"
-          value={`${vessel}ml`}
-          onDecrement={() => setVessel(Math.max(40, vessel - 10))}
-          onIncrement={() => setVessel(Math.min(300, vessel + 10))}
-          decrementDisabled={vessel <= 40}
-          incrementDisabled={vessel >= 300}
-          decrementLabel="Decrease vessel size"
-          incrementLabel="Increase vessel size"
-        />
-        <StepperControl
-          label="Leaf"
-          value={`${leaf}g`}
-          onDecrement={() => setLeaf(Math.max(0.5, Math.round((leaf - 0.5) * 10) / 10))}
-          onIncrement={() => setLeaf(Math.min(30, Math.round((leaf + 0.5) * 10) / 10))}
-          decrementDisabled={leaf <= 0.5}
-          incrementDisabled={leaf >= 30}
-          decrementLabel="Decrease leaf amount"
-          incrementLabel="Increase leaf amount"
-        />
-      </div>
-
+    <div className="flex flex-col gap-4">
       <div className="grid grid-cols-2 gap-4">
         <StepperControl
           label="Base steep"
@@ -143,7 +72,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
           incrementDisabled={baseTime >= 120}
           decrementLabel="Decrease base steep time"
           incrementLabel="Increase base steep time"
-          decrementText="−2"
+          decrementText="-2"
           incrementText="+2"
         />
         <StepperControl
@@ -158,7 +87,43 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
         />
       </div>
 
-      {/* Schedule preview */}
+      <div>
+        <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
+          Rinse
+        </span>
+        <div className="flex gap-1.5">
+          {(["none", "once", "twice"] as const).map((mode) => (
+            <button
+              key={mode}
+              onClick={() => setRinseMode(mode)}
+              aria-pressed={rinseMode === mode}
+              className={pillBtn(rinseMode === mode)}
+            >
+              {mode === "none" ? "None" : mode === "once" ? "Once" : "Twice"}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
+          Extension curve
+        </span>
+        <div className="flex gap-1.5">
+          {(["gentle", "standard", "steep"] as const).map((c) => (
+            <button
+              key={c}
+              onClick={() => setCurve(c)}
+              aria-pressed={curve === c}
+              className={pillBtn(curve === c)}
+            >
+              <span className="block capitalize">{c}</span>
+              <span className="block text-[10px] opacity-60">{EXTENSION_FACTORS[c]}x</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="border-t border-border pt-4">
         <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2.5">
           Infusion schedule (seconds)
@@ -174,36 +139,6 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
               {s}s
             </span>
           ))}
-        </div>
-      </div>
-
-      <div>
-        <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
-          Rinse
-        </span>
-        <div className="flex gap-1.5">
-          <button
-            onClick={() => setRinse(false)}
-            aria-pressed={!rinse}
-            className={`flex-1 py-2.5 rounded-xl text-[13px] font-medium border transition-colors duration-150 ${
-              !rinse
-                ? "border-clay bg-clay-soft text-clay"
-                : "border-border bg-surface text-secondary"
-            }`}
-          >
-            No rinse
-          </button>
-          <button
-            onClick={() => setRinse(true)}
-            aria-pressed={rinse}
-            className={`flex-1 py-2.5 rounded-xl text-[13px] font-medium border transition-colors duration-150 ${
-              rinse
-                ? "border-clay bg-clay-soft text-clay"
-                : "border-border bg-surface text-secondary"
-            }`}
-          >
-            Rinse
-          </button>
         </div>
       </div>
 
