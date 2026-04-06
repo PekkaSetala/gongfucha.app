@@ -76,6 +76,17 @@ export function TeaDetail({
           />
         </div>
 
+        {/* Reset to defaults */}
+        {leafOverride !== null && (
+          <button
+            onClick={() => setLeafOverride(null)}
+            className="text-[12px] text-tertiary underline underline-offset-2 mb-3 hover:text-secondary"
+            style={{ transition: "color 150ms var(--ease-out)" }}
+          >
+            Reset to defaults
+          </button>
+        )}
+
         {/* Params row */}
         <div className="flex gap-5 mb-4">
           <div>

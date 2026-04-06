@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { getTeas, getTeaById } from "@/data/teas";
 import { Header } from "@/components/Header";
 import { TeaList } from "@/components/TeaList";
-import { TeaDetail } from "@/components/TeaDetail";
 import { SecondaryPaths } from "@/components/SecondaryPaths";
 import { BrewingTimer } from "@/components/BrewingTimer";
 import { AIAdvisor } from "@/components/AIAdvisor";
@@ -96,7 +95,7 @@ export default function Home() {
     return <BrewingTimer params={brewParams} onEnd={handleEndBrewing} />;
   }
 
-  const selectedTea = selectedId ? getTeaById(selectedId) : null;
+  const selectedTea = selectedId ? getTeaById(selectedId) ?? null : null;
 
   return (
     <main id="main-content" className="flex-1">
@@ -109,19 +108,11 @@ export default function Home() {
               teas={teas}
               selectedId={selectedId}
               onSelect={handleSelect}
+              selectedTea={selectedTea}
+              vesselMl={vesselMl}
+              onVesselChange={handleVesselChange}
+              onStartBrewing={handleStartBrewing}
             />
-
-            {selectedTea && (
-              <div className="mt-2">
-                <TeaDetail
-                  tea={selectedTea}
-                  vesselMl={vesselMl}
-                  onVesselChange={handleVesselChange}
-                  onStartBrewing={handleStartBrewing}
-                  variant="inline"
-                />
-              </div>
-            )}
 
             <SecondaryPaths
               onOpenAI={() => { setSelectedId(null); setView("ai"); }}

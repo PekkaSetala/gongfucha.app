@@ -204,7 +204,12 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
       {/* ─── Tea name — centered, prominent ─── */}
       <div className="pt-14 pb-1 text-center">
-        <h1 ref={titleRef} tabIndex={-1} className="text-xl font-normal text-primary font-serif-cn outline-none">{params.teaName}</h1>
+        <h1
+          ref={titleRef}
+          tabIndex={-1}
+          className="text-xl font-normal font-serif-cn outline-none"
+          style={{ color: accentColor }}
+        >{params.teaName}</h1>
       </div>
 
       {/* ─── Main content ─── */}
@@ -216,7 +221,10 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
               className={`${transitioning && prevPhase !== "between" ? "phase-exit" : "phase-enter"} w-full`}
             >
               {/* Phase label — always above */}
-              <p className="text-sm font-medium uppercase tracking-[1.5px] text-secondary mb-4 text-center md:text-left">
+              <p
+                className="text-sm font-medium uppercase tracking-[1.5px] mb-4 text-center md:text-left"
+                style={{ color: `color-mix(in srgb, ${accentColor} 60%, var(--color-secondary))` }}
+              >
                 {phaseLabel()}
               </p>
               {(phase === "rinse" || phase === "rinse2") && (
@@ -268,7 +276,13 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
                 {/* Right: Session info (desktop) / below ring (mobile) */}
                 <div className="mt-6 md:mt-0">
-                  <div className="bg-surface/60 border border-border/50 rounded-xl px-5 py-3 w-full">
+                  <div
+                    className="rounded-xl px-5 py-3 w-full"
+                    style={{
+                      backgroundColor: `color-mix(in srgb, ${accentColor} 5%, var(--color-surface))`,
+                      border: `1px solid color-mix(in srgb, ${accentColor} 15%, var(--color-border))`,
+                    }}
+                  >
                     <p className="text-sm text-secondary text-center md:text-left mb-2">
                       {params.tempC}°C · {params.actualLeaf}g · {params.vesselMl}ml
                     </p>
@@ -309,7 +323,10 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
           {phase === "between" && !transitioning && (
             <div key="between" className="phase-enter w-full">
-              <p className="text-sm font-medium uppercase tracking-[1.5px] text-secondary mb-3 text-center md:text-left">
+              <p
+                className="text-sm font-medium uppercase tracking-[1.5px] mb-3 text-center md:text-left"
+                style={{ color: `color-mix(in srgb, ${accentColor} 60%, var(--color-secondary))` }}
+              >
                 {phaseLabel()}
               </p>
 
@@ -317,13 +334,29 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                 {/* Left: Adjuster + Brew Next */}
                 <div className="flex flex-col items-center">
                   <div className="flex items-center justify-center gap-5 mb-8">
-                    <button onClick={() => setNextAdjust((a) => a - 3)} className="w-12 h-12 rounded-xl border border-border bg-surface text-secondary text-[14px] font-medium flex items-center justify-center" aria-label="Decrease next infusion time by 3 seconds">
+                    <button
+                      onClick={() => setNextAdjust((a) => a - 3)}
+                      className="w-12 h-12 rounded-xl bg-surface text-[14px] font-medium flex items-center justify-center"
+                      style={{
+                        border: `1px solid color-mix(in srgb, ${accentColor} 20%, var(--color-border))`,
+                        color: `color-mix(in srgb, ${accentColor} 40%, var(--color-secondary))`,
+                      }}
+                      aria-label="Decrease next infusion time by 3 seconds"
+                    >
                       −3
                     </button>
                     <span className="text-[44px] font-normal text-primary min-w-[80px] text-center tabular-nums">
                       {adjustedNextTime()}s
                     </span>
-                    <button onClick={() => setNextAdjust((a) => a + 3)} className="w-12 h-12 rounded-xl border border-border bg-surface text-secondary text-[14px] font-medium flex items-center justify-center" aria-label="Increase next infusion time by 3 seconds">
+                    <button
+                      onClick={() => setNextAdjust((a) => a + 3)}
+                      className="w-12 h-12 rounded-xl bg-surface text-[14px] font-medium flex items-center justify-center"
+                      style={{
+                        border: `1px solid color-mix(in srgb, ${accentColor} 20%, var(--color-border))`,
+                        color: `color-mix(in srgb, ${accentColor} 40%, var(--color-secondary))`,
+                      }}
+                      aria-label="Increase next infusion time by 3 seconds"
+                    >
                       +3
                     </button>
                   </div>
@@ -361,7 +394,13 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                     })}
                   </div>
 
-                  <div className="bg-surface/60 border border-border/50 rounded-xl px-5 py-3 w-full">
+                  <div
+                    className="rounded-xl px-5 py-3 w-full"
+                    style={{
+                      backgroundColor: `color-mix(in srgb, ${accentColor} 5%, var(--color-surface))`,
+                      border: `1px solid color-mix(in srgb, ${accentColor} 15%, var(--color-border))`,
+                    }}
+                  >
                     <p className="text-sm text-secondary text-center md:text-left">
                       {params.tempC}°C · {formatRatio(params.actualLeaf, params.vesselMl)} · {params.vesselMl}ml
                     </p>
@@ -393,8 +432,13 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             setTotalTime(finalTime);
             setShowSummary(true);
           }}
-          className="text-sm text-tertiary min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl border border-border bg-surface hover-lift"
-          style={END_BTN_STYLE}
+          className="text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl hover-lift"
+          style={{
+            ...END_BTN_STYLE,
+            color: `color-mix(in srgb, ${accentColor} 30%, var(--color-tertiary))`,
+            border: `1px solid color-mix(in srgb, ${accentColor} 12%, var(--color-border))`,
+            backgroundColor: "var(--color-surface)",
+          }}
         >
           End session
         </button>
