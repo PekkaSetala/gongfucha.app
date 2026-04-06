@@ -311,6 +311,7 @@ textarea:focus-visible {
   100% { opacity: 0; }
 }
 
+/* Enter brewing — deliberate */
 .view-fade-out {
   animation: view-fade-out 700ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
@@ -323,6 +324,21 @@ textarea:focus-visible {
 
 .bridge-overlay {
   animation: bridge-in 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Exit brewing — unhurried, the user is drinking tea */
+.view-fade-out-slow {
+  animation: view-fade-out 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.view-fade-in-slow {
+  animation: view-fade-in 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 600ms;
+  opacity: 0;
+}
+
+.bridge-overlay-slow {
+  animation: bridge-in 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* ─── Reduced motion ─── */
@@ -340,17 +356,20 @@ textarea:focus-visible {
     animation: none !important;
   }
 
-  .view-fade-out {
+  .view-fade-out,
+  .view-fade-out-slow {
     animation: none !important;
     opacity: 0;
   }
 
-  .view-fade-in {
+  .view-fade-in,
+  .view-fade-in-slow {
     animation: none !important;
     opacity: 1;
   }
 
-  .bridge-overlay {
+  .bridge-overlay,
+  .bridge-overlay-slow {
     display: none !important;
   }
 }

@@ -115,7 +115,7 @@ export default function Home() {
     setTimeout(() => {
       setBrewParams(null);
       setViewState("list");
-    }, 1200);
+    }, 3000);
   };
 
   const bridgeColor = brewParams?.teaColor || "#8C563E";
@@ -128,7 +128,7 @@ export default function Home() {
       {/* ─── Bridge overlay ─── */}
       {(viewState === "enter-brewing" || viewState === "exit-brewing") && (
         <div
-          className="fixed inset-0 pointer-events-none bridge-overlay"
+          className={`fixed inset-0 pointer-events-none ${viewState === "exit-brewing" ? "bridge-overlay-slow" : "bridge-overlay"}`}
           style={{
             background: `radial-gradient(circle at 50% 40%, color-mix(in srgb, ${bridgeColor} 25%, transparent), transparent 70%)`,
             zIndex: 50,
@@ -142,7 +142,7 @@ export default function Home() {
           viewState === "enter-brewing"
             ? "view-fade-out"
             : viewState === "exit-brewing"
-              ? "view-fade-in"
+              ? "view-fade-in-slow"
               : viewState === "brewing"
                 ? "opacity-0 pointer-events-none"
                 : ""
@@ -184,7 +184,7 @@ export default function Home() {
             viewState === "enter-brewing"
               ? "view-fade-in"
               : viewState === "exit-brewing"
-                ? "view-fade-out"
+                ? "view-fade-out-slow"
                 : ""
           }`}
           style={{

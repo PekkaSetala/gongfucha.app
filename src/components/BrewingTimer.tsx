@@ -201,17 +201,22 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
         "--tea-accent": accentColor,
       } as React.CSSProperties}
     >
-      {/* ─── Color wash ─── */}
+      {/* ─── Color wash — intensity deepens with steep progress ─── */}
       <div
         className={`fixed inset-0 pointer-events-none ${isBrewing && timer.isRunning ? "wash-breathe" : ""}`}
         style={{
-          background: `radial-gradient(
-            ellipse 90% 55% at 50% 30%,
-            color-mix(in srgb, ${accentColor} 14%, transparent),
-            color-mix(in srgb, ${accentColor} 5%, transparent) 55%,
-            transparent 100%
-          )`,
-          opacity: isBetween ? 0.55 : undefined,
+          background: (() => {
+            const p = isBrewing ? timer.progress : 0;
+            const centerPct = Math.round(6 + p * 8);  // 6% → 14%
+            const midPct = Math.round(3 + p * 2);     // 3% → 5%
+            return `radial-gradient(
+              ellipse 90% 55% at 50% 30%,
+              color-mix(in srgb, ${accentColor} ${centerPct}%, transparent),
+              color-mix(in srgb, ${accentColor} ${midPct}%, transparent) 55%,
+              transparent 100%
+            )`;
+          })(),
+          opacity: isBetween ? 0.55 : 0.5 + (isBrewing ? timer.progress * 0.5 : 0),
           transition: "opacity 600ms var(--ease-in-out)",
           zIndex: 0,
         }}
