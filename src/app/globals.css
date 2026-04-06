@@ -217,6 +217,112 @@ textarea:focus-visible {
   animation: phase-exit 200ms var(--ease-out) forwards;
 }
 
+/* ─── Color wash breathing ─── */
+@keyframes wash-breathe {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.wash-breathe {
+  animation: wash-breathe 8s ease-in-out infinite;
+}
+
+/* ─── Wash flash on completion ─── */
+@keyframes wash-flash {
+  0% { opacity: 0; }
+  12% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.wash-flash {
+  animation: wash-flash 1.2s ease-out forwards;
+}
+
+/* ─── Digit vertical settle ─── */
+@keyframes digit-settle {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.digit-settle {
+  animation: digit-settle 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─── Steam wisp drift ─── */
+@keyframes wisp-rise {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(-60px) scaleX(1.3);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateY(-130px) scaleX(0.5);
+    opacity: 0;
+  }
+}
+
+/* ─── Ring idle breathe (between state) ─── */
+@keyframes ring-idle-breathe {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.3; }
+}
+
+.ring-idle-breathe {
+  animation: ring-idle-breathe 4s ease-in-out infinite;
+}
+
+/* ─── Between-phase enter (fade only, no translateY) ─── */
+@keyframes between-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.between-enter {
+  animation: between-enter 350ms var(--ease-out) forwards;
+}
+
+/* ─── View transition (tea color bridge) ─── */
+@keyframes view-fade-out {
+  from { opacity: 1; filter: blur(0); }
+  to { opacity: 0; filter: blur(4px); }
+}
+
+@keyframes view-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bridge-in {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.view-fade-out {
+  animation: view-fade-out 250ms var(--ease-out) forwards;
+}
+
+.view-fade-in {
+  animation: view-fade-in 300ms var(--ease-out) forwards;
+}
+
+.bridge-overlay {
+  animation: bridge-in 600ms var(--ease-out) forwards;
+}
+
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -225,5 +331,24 @@ textarea:focus-visible {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .wash-breathe,
+  .ring-idle-breathe {
+    animation: none !important;
+  }
+
+  .view-fade-out {
+    animation: none !important;
+    opacity: 0;
+  }
+
+  .view-fade-in {
+    animation: none !important;
+    opacity: 1;
+  }
+
+  .bridge-overlay {
+    display: none !important;
   }
 }
