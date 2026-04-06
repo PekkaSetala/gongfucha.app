@@ -11,7 +11,7 @@ interface TeaListProps {
 
 export function TeaList({ teas, selectedId, onSelect }: TeaListProps) {
   return (
-    <div className="flex flex-col gap-2 px-5">
+    <div className="flex flex-col gap-2 px-5" role="group" aria-label="Tea selection">
       {teas.map((tea, index) => {
         const selected = tea.id === selectedId;
         const seasonal = isInSeason(tea);
@@ -20,6 +20,7 @@ export function TeaList({ teas, selectedId, onSelect }: TeaListProps) {
           <button
             key={tea.id}
             onClick={() => onSelect(tea.id)}
+            aria-pressed={selected}
             className={`
               tea-stagger hover-lift
               flex items-center gap-3.5 px-4 py-3.5 rounded-[14px] text-left
@@ -41,11 +42,11 @@ export function TeaList({ teas, selectedId, onSelect }: TeaListProps) {
             />
             <span className="flex-1 min-w-0">
               <span className="flex items-center gap-2">
-                <span className="text-[15px] font-serif-cn font-[450] text-primary">
+                <span className="text-[15px] font-serif-cn font-medium text-primary">
                   {tea.name}
                 </span>
                 {seasonal && (
-                  <span className="text-[9px] font-medium tracking-[0.5px] uppercase px-1.5 py-0.5 rounded bg-gold-soft text-gold">
+                  <span className="text-[10px] font-medium tracking-[0.5px] uppercase px-1.5 py-0.5 rounded bg-gold-soft text-gold">
                     In season
                   </span>
                 )}

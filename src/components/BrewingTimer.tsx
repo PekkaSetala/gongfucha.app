@@ -49,6 +49,11 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const accentColor = params.teaColor || DEFAULT_COLOR;
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    titleRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     const audio = new Audio("/sounds/ceramic-tap.wav");
@@ -99,6 +104,18 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
     }
   }, [autoPlay, phase, timer]);
 
+  // Spacebar play/pause (desktop convenience)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === "Space" && phase !== "between" && !(e.target instanceof HTMLInputElement || e.target instanceof HTMLButtonElement)) {
+        e.preventDefault();
+        if (timer.isRunning) { timer.pause(); } else { timer.play(); }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [phase, timer]);
+
   const handleBrewNext = () => {
     const nextIndex = infusionIndex + 1;
     const adjusted = adjustedNextTime();
@@ -144,9 +161,12 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
         background: `linear-gradient(to bottom, var(--tea-accent-soft), transparent 40%), var(--color-bg)`,
       } as React.CSSProperties}
     >
+      {/* ─── SR phase announcements ─── */}
+      <div className="sr-only" aria-live="polite">{phaseLabel()}</div>
+
       {/* ─── Tea name — centered, prominent ─── */}
       <div className="pt-14 pb-1 text-center">
-        <h1 className="text-xl font-medium text-primary font-serif-cn">{params.teaName}</h1>
+        <h1 ref={titleRef} tabIndex={-1} className="text-xl font-medium text-primary font-serif-cn outline-none">{params.teaName}</h1>
       </div>
 
       {/* ─── Main content ─── */}
@@ -164,7 +184,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             )}
 
             {/* Timer ring */}
-            <div className="w-[260px] h-[260px] sm:w-[300px] sm:h-[300px]">
+            <div className="w-[260px] h-[260px] sm:w-[300px] sm:h-[300px]" role="timer" aria-label={`${timer.secondsLeft} seconds remaining`}>
               <TimerRing
                 progress={timer.progress}
                 secondsLeft={timer.secondsLeft}
@@ -232,22 +252,22 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             </p>
 
             <p className="text-[44px] font-normal text-primary mb-8">
-              {schedule[infusionIndex]}s
+              {adjustedNextTime()}s
             </p>
 
             {/* Next infusion adjuster */}
             <div className="w-full bg-surface border border-border rounded-[14px] px-5 py-4 mb-4">
               <p className="text-xs font-medium uppercase tracking-[1px] text-tertiary mb-3 text-center">
-                Next infusion
+                Adjust time
               </p>
               <div className="flex items-center justify-center gap-4">
-                <button onClick={() => setNextAdjust((a) => a - 3)} className={stepperBtnClass}>
+                <button onClick={() => setNextAdjust((a) => a - 3)} className={stepperBtnClass} aria-label="Decrease next infusion time by 3 seconds">
                   −3
                 </button>
                 <span className="text-xl font-medium min-w-[56px] text-center text-primary">
                   {adjustedNextTime()}s
                 </span>
-                <button onClick={() => setNextAdjust((a) => a + 3)} className={stepperBtnClass}>
+                <button onClick={() => setNextAdjust((a) => a + 3)} className={stepperBtnClass} aria-label="Increase next infusion time by 3 seconds">
                   +3
                 </button>
               </div>
@@ -258,7 +278,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
               className="w-full py-4 rounded-[14px] font-medium text-base"
               style={{
                 backgroundColor: accentColor,
-                color: "#FAF7F2",
+                color: "var(--color-surface)",
                 transition: "background-color 150ms var(--ease-out), transform 160ms var(--ease-out)",
               }}
             >

@@ -8,12 +8,12 @@
   --color-border: #E4DBCC;
   --color-border-hover: #D0C5B4;
   --color-primary: #2C2520;
-  --color-secondary: #6B5D4F;
-  --color-tertiary: #857562;
+  --color-secondary: #645747;
+  --color-tertiary: #73624F;
   --color-clay: #8C563E;
   --color-clay-soft: rgba(140, 86, 62, 0.08);
   --color-clay-hover: #7A4A35;
-  --color-gold: #B89A4C;
+  --color-gold: #96793A;
   --color-gold-soft: rgba(184, 154, 76, 0.12);
 
   --font-sans: var(--font-dm-sans);
@@ -42,6 +42,19 @@ button,
 button:active,
 [role="button"]:active {
   transform: scale(0.97);
+}
+
+/* ─── Focus-visible rings ─── */
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 2px;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: -1px;
 }
 
 /* ─── Hover states gated behind fine pointer ─── */
@@ -115,7 +128,7 @@ button:active,
 }
 
 .digit-enter {
-  animation: digit-fade 500ms var(--ease-out) forwards;
+  animation: digit-fade 200ms var(--ease-out) forwards;
 }
 
 /* ─── Phase crossfade ─── */

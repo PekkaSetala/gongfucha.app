@@ -37,7 +37,7 @@ export function TeaDetail({
   };
 
   const stepperBtn =
-    "w-9 h-9 rounded-lg border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center";
+    "w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center disabled:opacity-30";
 
   return (
     <div className={variant === "panel" ? "detail-enter" : "px-5 mt-1 detail-enter"}>
@@ -58,13 +58,13 @@ export function TeaDetail({
               Vessel
             </label>
             <div className="flex items-center gap-2">
-              <button onClick={() => handleVesselChange(vesselMl - 10)} className={stepperBtn}>
+              <button onClick={() => handleVesselChange(vesselMl - 10)} className={stepperBtn} aria-label="Decrease vessel size" disabled={vesselMl <= 40}>
                 −
               </button>
               <span className="text-[14px] font-medium min-w-[48px] text-center">
                 {vesselMl}ml
               </span>
-              <button onClick={() => handleVesselChange(vesselMl + 10)} className={stepperBtn}>
+              <button onClick={() => handleVesselChange(vesselMl + 10)} className={stepperBtn} aria-label="Increase vessel size" disabled={vesselMl >= 300}>
                 +
               </button>
             </div>
@@ -80,6 +80,8 @@ export function TeaDetail({
               <button
                 onClick={() => handleLeafChange((leafOverride ?? params.recommendedLeaf) - 0.5)}
                 className={stepperBtn}
+                aria-label="Decrease leaf amount"
+                disabled={params.actualLeaf <= 0.5}
               >
                 −
               </button>
@@ -89,6 +91,8 @@ export function TeaDetail({
               <button
                 onClick={() => handleLeafChange((leafOverride ?? params.recommendedLeaf) + 0.5)}
                 className={stepperBtn}
+                aria-label="Increase leaf amount"
+                disabled={params.actualLeaf >= 30}
               >
                 +
               </button>
@@ -139,7 +143,7 @@ export function TeaDetail({
         {/* Start Brewing */}
         <button
           onClick={() => onStartBrewing(params)}
-          className="w-full py-4 rounded-[14px] bg-clay text-[#FAF7F2] font-medium text-[15px]"
+          className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] hover:bg-clay-hover"
           style={{
             transition: "background-color 150ms var(--ease-out), transform 160ms var(--ease-out)",
           }}

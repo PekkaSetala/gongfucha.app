@@ -35,6 +35,18 @@ export default function Home() {
     setVesselMl(getStoredVessel());
   }, []);
 
+  useEffect(() => {
+    if (brewParams) {
+      document.title = `Brewing ${brewParams.teaName} — Gongfu Cha`;
+    } else if (view === "ai") {
+      document.title = "Ask AI — Gongfu Cha";
+    } else if (view === "custom") {
+      document.title = "Custom Brew — Gongfu Cha";
+    } else {
+      document.title = "Gongfu Cha";
+    }
+  }, [view, brewParams]);
+
   const handleVesselChange = (ml: number) => {
     setVesselMl(ml);
     localStorage.setItem(VESSEL_KEY, String(ml));
@@ -84,15 +96,14 @@ export default function Home() {
   const selectedTea = selectedId ? getTeaById(selectedId) : null;
 
   return (
-    <div className="flex-1">
+    <main id="main-content" className="flex-1">
       <div className="max-w-[800px] mx-auto min-h-screen">
         <Header />
 
         <div className="flex gap-6 items-start">
           {/* Main column */}
-          <div className="flex-1 min-w-0 md:max-w-[420px]">
-            {view === "list" && (
-              <>
+          <div className={`flex-1 min-w-0 ${view === "list" ? "md:max-w-[420px]" : "md:max-w-[560px]"}`}>
+            <div className={view !== "list" ? "hidden" : ""}>
                 <TeaList
                   teas={teas}
                   selectedId={selectedId}
@@ -113,16 +124,14 @@ export default function Home() {
                 )}
 
                 <SecondaryPaths
-                  onOpenAI={() => setView("ai")}
-                  onOpenCustom={() => setView("custom")}
+                  onOpenAI={() => { setSelectedId(null); setView("ai"); }}
+                  onOpenCustom={() => { setSelectedId(null); setView("custom"); }}
                 />
-              </>
-            )}
+            </div>
 
             {view === "ai" && (
               <div className="px-5">
                 <InlineViewHeader
-                  title="Ask AI"
                   onBack={() => setView("list")}
                 />
                 <AIAdvisor
@@ -136,7 +145,6 @@ export default function Home() {
             {view === "custom" && (
               <div className="px-5">
                 <InlineViewHeader
-                  title="Custom brew"
                   onBack={() => setView("list")}
                 />
                 <CustomMode vesselMl={vesselMl} onStartBrewing={handleStartBrewing} />
@@ -145,6 +153,7 @@ export default function Home() {
           </div>
 
           {/* Desktop: side panel */}
+          {view === "list" && (
           <div className="hidden md:block sticky top-6 w-[340px] shrink-0 pr-2">
             {selectedTea ? (
               <TeaDetail
@@ -155,17 +164,18 @@ export default function Home() {
                 variant="panel"
               />
             ) : (
-              <div className="bg-surface border border-border rounded-[18px] p-7 flex items-center justify-center h-[300px]">
+              <div className="bg-surface border border-border rounded-[14px] p-7 flex items-center justify-center h-[300px]">
                 <p className="text-tertiary text-sm italic">
                   Select a tea to see details
                 </p>
               </div>
             )}
           </div>
+          )}
         </div>
 
         <div className="h-16" />
       </div>
-    </div>
+    </main>
   );
 }

@@ -103,7 +103,7 @@ export function AIAdvisor({
   };
 
   const stepperBtn =
-    "w-9 h-9 rounded-lg border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center";
+    "w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center disabled:opacity-30";
 
   return (
     <div className="flex flex-col gap-4">
@@ -118,13 +118,15 @@ export function AIAdvisor({
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
           placeholder='e.g. "Da Hong Pao" or "2020 Yiwu sheng"'
-          className="flex-1 px-4 py-3 rounded-xl border border-border bg-surface text-[14px] text-primary placeholder:text-tertiary focus:outline-none focus:border-clay transition-colors duration-150"
+          aria-label="Describe your tea"
+          aria-describedby={error ? "ai-error" : undefined}
+          className="flex-1 px-4 py-3 rounded-xl border border-border bg-surface text-[14px] text-primary placeholder:text-tertiary focus-visible:outline-none focus-visible:border-clay transition-colors duration-150"
           disabled={loading}
         />
         <button
           onClick={handleSubmit}
           disabled={loading || !query.trim()}
-          className="px-5 py-3 rounded-xl bg-clay text-[#FAF7F2] text-[14px] font-medium disabled:opacity-40 transition-opacity duration-150"
+          className="px-5 py-3 rounded-xl bg-clay text-surface text-[14px] font-medium disabled:opacity-40 transition-opacity duration-150"
         >
           {loading ? (
             <span className="animate-pulse">Identifying...</span>
@@ -134,7 +136,7 @@ export function AIAdvisor({
         </button>
       </div>
 
-      {error && <p className="text-[13px] text-clay italic">{error}</p>}
+      {error && <p id="ai-error" role="alert" className="text-[13px] text-clay italic">{error}</p>}
 
       {result && (
         <div className="bg-surface border border-border rounded-[14px] p-5 mt-2 detail-enter">
@@ -153,6 +155,8 @@ export function AIAdvisor({
                 <button
                   onClick={() => handleVesselChange(-10)}
                   className={stepperBtn}
+                  aria-label="Decrease vessel size"
+                  disabled={vesselMl <= 40}
                 >
                   −
                 </button>
@@ -162,6 +166,8 @@ export function AIAdvisor({
                 <button
                   onClick={() => handleVesselChange(10)}
                   className={stepperBtn}
+                  aria-label="Increase vessel size"
+                  disabled={vesselMl >= 300}
                 >
                   +
                 </button>
@@ -180,6 +186,8 @@ export function AIAdvisor({
                 <button
                   onClick={() => handleLeafChange(-0.5)}
                   className={stepperBtn}
+                  aria-label="Decrease leaf amount"
+                  disabled={currentLeaf <= 0.5}
                 >
                   −
                 </button>
@@ -189,6 +197,8 @@ export function AIAdvisor({
                 <button
                   onClick={() => handleLeafChange(0.5)}
                   className={stepperBtn}
+                  aria-label="Increase leaf amount"
+                  disabled={currentLeaf >= 30}
                 >
                   +
                 </button>
@@ -214,7 +224,7 @@ export function AIAdvisor({
           {/* Start Brewing */}
           <button
             onClick={handleStartBrewing}
-            className="w-full py-4 rounded-[14px] bg-clay text-[#FAF7F2] font-medium text-[15px]"
+            className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] hover:bg-clay-hover"
             style={{
               transition:
                 "background-color 150ms var(--ease-out), transform 160ms var(--ease-out)",

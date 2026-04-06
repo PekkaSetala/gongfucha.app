@@ -43,15 +43,16 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
   };
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-border bg-surface text-[14px] text-primary placeholder:text-tertiary focus:outline-none focus:border-clay transition-colors duration-150";
+    "w-full px-4 py-3 rounded-xl border border-border bg-surface text-[14px] text-primary placeholder:text-tertiary focus-visible:outline-none focus-visible:border-clay transition-colors duration-150";
 
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+        <label htmlFor="custom-tea-name" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
           Tea name
         </label>
         <input
+          id="custom-tea-name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -62,10 +63,11 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label htmlFor="custom-temp" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Temperature (°C)
           </label>
           <input
+            id="custom-temp"
             type="number"
             value={temp}
             onChange={(e) => setTemp(Number(e.target.value))}
@@ -75,10 +77,11 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
           />
         </div>
         <div>
-          <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label htmlFor="custom-vessel" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Vessel (ml)
           </label>
           <input
+            id="custom-vessel"
             type="number"
             value={vessel}
             onChange={(e) => setVessel(Number(e.target.value))}
@@ -91,10 +94,11 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label htmlFor="custom-leaf" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Leaf (g)
           </label>
           <input
+            id="custom-leaf"
             type="number"
             value={leaf}
             onChange={(e) => setLeaf(Number(e.target.value))}
@@ -105,10 +109,11 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
           />
         </div>
         <div>
-          <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label htmlFor="custom-base-time" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Base steep (seconds)
           </label>
           <input
+            id="custom-base-time"
             type="number"
             value={baseTime}
             onChange={(e) => setBaseTime(Number(e.target.value))}
@@ -121,10 +126,11 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
+          <label htmlFor="custom-infusions" className="block text-[10px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
             Infusions
           </label>
           <input
+            id="custom-infusions"
             type="number"
             value={infusions}
             onChange={(e) => setInfusions(Number(e.target.value))}
@@ -139,6 +145,8 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
           </label>
           <button
             onClick={() => setRinse(!rinse)}
+            aria-pressed={rinse}
+            aria-label="Include rinse step"
             className={`w-full px-4 py-3 rounded-xl border text-[14px] font-medium transition-colors duration-150 ${
               rinse
                 ? "border-clay bg-clay-soft text-clay"
@@ -152,7 +160,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
 
       <button
         onClick={handleStart}
-        className="w-full py-4 rounded-[14px] bg-clay text-[#FAF7F2] font-medium text-[15px] mt-2 transition-colors duration-150 hover:bg-clay-hover"
+        className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] mt-2 transition-colors duration-150 hover:bg-clay-hover"
         style={{ transitionTimingFunction: "var(--ease-out)" }}
       >
         Start Brewing
