@@ -24,20 +24,22 @@ export function TeaList({ teas, selectedId, onSelect }: TeaListProps) {
             className={`
               tea-stagger hover-lift
               flex items-center gap-3.5 px-4 py-3.5 rounded-[14px] text-left
-              border bg-surface
-              ${selected ? "border-clay shadow-[0_2px_12px_rgba(140,86,62,0.1)]" : "border-border"}
+              border
+              ${selected ? "border-clay/30 shadow-[0_2px_12px_rgba(140,86,62,0.08)]" : "border-border bg-surface"}
             `}
             style={{
               animationDelay: `${index * 40}ms`,
-              transition: "border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out)",
+              transition: "border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out), background-color 200ms var(--ease-out)",
+              backgroundColor: selected ? `color-mix(in srgb, ${tea.color} 6%, var(--color-surface))` : undefined,
             }}
           >
             <span
-              className="w-3 h-3 rounded-full shrink-0"
+              className="w-5 h-5 rounded-full shrink-0"
               style={{
                 backgroundColor: tea.color,
-                transition: "transform 250ms var(--ease-out)",
-                transform: selected ? "scale(1.3)" : "scale(1)",
+                transition: "transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out)",
+                transform: selected ? "scale(1.15)" : "scale(1)",
+                boxShadow: selected ? `0 0 0 3px color-mix(in srgb, ${tea.color} 20%, transparent)` : "none",
               }}
             />
             <span className="flex-1 min-w-0">

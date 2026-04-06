@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { StepperControl } from "./StepperControl";
 import type { BrewParams } from "./BrewingTimer";
 
 interface CustomModeProps {
   vesselMl: number;
   onStartBrewing: (params: BrewParams) => void;
 }
+
+const TEMP_PRESETS = [80, 85, 90, 95, 100] as const;
 
 export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
   const [name, setName] = useState("");
@@ -42,11 +45,9 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
     onStartBrewing(params);
   };
 
-  const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-border bg-surface text-[14px] text-primary placeholder:text-tertiary focus-visible:outline-none focus-visible:border-clay transition-colors duration-150";
-
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5">
+      {/* Tea name */}
       <div>
         <label htmlFor="custom-tea-name" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
           Tea name
@@ -57,111 +58,118 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="What are you brewing?"
-          className={inputClass}
+          className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-[14px] text-primary placeholder:text-tertiary focus-visible:outline-none focus-visible:border-clay transition-colors duration-150"
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="custom-temp" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
-            Temperature (°C)
-          </label>
-          <input
-            id="custom-temp"
-            type="number"
-            value={temp}
-            onChange={(e) => setTemp(Number(e.target.value))}
-            min={60}
-            max={100}
-            className={inputClass}
-          />
-        </div>
-        <div>
-          <label htmlFor="custom-vessel" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
-            Vessel (ml)
-          </label>
-          <input
-            id="custom-vessel"
-            type="number"
-            value={vessel}
-            onChange={(e) => setVessel(Number(e.target.value))}
-            min={40}
-            max={300}
-            className={inputClass}
-          />
+      {/* Temperature — segmented presets */}
+      <div>
+        <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
+          Temperature
+        </span>
+        <div className="flex gap-1.5">
+          {TEMP_PRESETS.map((t) => (
+            <button
+              key={t}
+              onClick={() => setTemp(t)}
+              aria-pressed={temp === t}
+              className={`flex-1 py-2.5 rounded-xl text-[13px] font-medium border transition-colors duration-150 ${
+                temp === t
+                  ? "border-clay bg-clay-soft text-clay"
+                  : "border-border bg-surface text-secondary"
+              }`}
+            >
+              {t}°
+            </button>
+          ))}
         </div>
       </div>
 
+      {/* Vessel & Leaf — steppers */}
       <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="custom-leaf" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
-            Leaf (g)
-          </label>
-          <input
-            id="custom-leaf"
-            type="number"
-            value={leaf}
-            onChange={(e) => setLeaf(Number(e.target.value))}
-            min={1}
-            max={30}
-            step={0.5}
-            className={inputClass}
-          />
-        </div>
-        <div>
-          <label htmlFor="custom-base-time" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
-            Base steep (seconds)
-          </label>
-          <input
-            id="custom-base-time"
-            type="number"
-            value={baseTime}
-            onChange={(e) => setBaseTime(Number(e.target.value))}
-            min={3}
-            max={120}
-            className={inputClass}
-          />
-        </div>
+        <StepperControl
+          label="Vessel"
+          value={`${vessel}ml`}
+          onDecrement={() => setVessel(Math.max(40, vessel - 10))}
+          onIncrement={() => setVessel(Math.min(300, vessel + 10))}
+          decrementDisabled={vessel <= 40}
+          incrementDisabled={vessel >= 300}
+          decrementLabel="Decrease vessel size"
+          incrementLabel="Increase vessel size"
+        />
+        <StepperControl
+          label="Leaf"
+          value={`${leaf}g`}
+          onDecrement={() => setLeaf(Math.max(0.5, Math.round((leaf - 0.5) * 10) / 10))}
+          onIncrement={() => setLeaf(Math.min(30, Math.round((leaf + 0.5) * 10) / 10))}
+          decrementDisabled={leaf <= 0.5}
+          incrementDisabled={leaf >= 30}
+          decrementLabel="Decrease leaf amount"
+          incrementLabel="Increase leaf amount"
+        />
       </div>
 
+      {/* Base steep & Infusions — steppers */}
       <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="custom-infusions" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
-            Infusions
-          </label>
-          <input
-            id="custom-infusions"
-            type="number"
-            value={infusions}
-            onChange={(e) => setInfusions(Number(e.target.value))}
-            min={1}
-            max={20}
-            className={inputClass}
-          />
-        </div>
-        <div>
-          <label className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
-            Rinse
-          </label>
+        <StepperControl
+          label="Base steep"
+          value={`${baseTime}s`}
+          onDecrement={() => setBaseTime(Math.max(3, baseTime - 2))}
+          onIncrement={() => setBaseTime(Math.min(120, baseTime + 2))}
+          decrementDisabled={baseTime <= 3}
+          incrementDisabled={baseTime >= 120}
+          decrementLabel="Decrease base steep time"
+          incrementLabel="Increase base steep time"
+          decrementText="−2"
+          incrementText="+2"
+        />
+        <StepperControl
+          label="Infusions"
+          value={`${infusions}`}
+          onDecrement={() => setInfusions(Math.max(1, infusions - 1))}
+          onIncrement={() => setInfusions(Math.min(20, infusions + 1))}
+          decrementDisabled={infusions <= 1}
+          incrementDisabled={infusions >= 20}
+          decrementLabel="Decrease number of infusions"
+          incrementLabel="Increase number of infusions"
+        />
+      </div>
+
+      {/* Rinse toggle */}
+      <div>
+        <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
+          Rinse
+        </span>
+        <div className="flex gap-1.5">
           <button
-            onClick={() => setRinse(!rinse)}
+            onClick={() => setRinse(false)}
+            aria-pressed={!rinse}
+            className={`flex-1 py-2.5 rounded-xl text-[13px] font-medium border transition-colors duration-150 ${
+              !rinse
+                ? "border-clay bg-clay-soft text-clay"
+                : "border-border bg-surface text-secondary"
+            }`}
+          >
+            No rinse
+          </button>
+          <button
+            onClick={() => setRinse(true)}
             aria-pressed={rinse}
-            aria-label="Include rinse step"
-            className={`w-full px-4 py-3 rounded-xl border text-[14px] font-medium transition-colors duration-150 ${
+            className={`flex-1 py-2.5 rounded-xl text-[13px] font-medium border transition-colors duration-150 ${
               rinse
                 ? "border-clay bg-clay-soft text-clay"
                 : "border-border bg-surface text-secondary"
             }`}
           >
-            {rinse ? "Yes" : "No"}
+            Rinse
           </button>
         </div>
       </div>
 
       <button
         onClick={handleStart}
-        className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] mt-2 transition-colors duration-150 hover:bg-clay-hover"
-        style={{ transitionTimingFunction: "var(--ease-out)" }}
+        className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] mt-1 hover:bg-clay-hover shadow-[0_2px_8px_rgba(122,74,53,0.25)]"
+        style={{ transition: "background-color 150ms var(--ease-out), transform 160ms var(--ease-out), box-shadow 150ms var(--ease-out)" }}
       >
         Start Brewing
       </button>

@@ -136,6 +136,19 @@ export function AIAdvisor({
 
       {error && <p id="ai-error" role="alert" className="text-[13px] text-error italic">{error}</p>}
 
+      {loading && (
+        <div className="bg-surface border border-border rounded-[14px] p-5 mt-2 animate-pulse" aria-busy="true" aria-label="Identifying tea…">
+          <div className="h-5 w-2/5 bg-border/50 rounded mb-3" />
+          <div className="h-3 w-full bg-border/30 rounded mb-2" />
+          <div className="h-3 w-3/4 bg-border/30 rounded mb-4 pb-3 border-b border-border" />
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="h-14 bg-border/20 rounded-xl" />
+            <div className="h-14 bg-border/20 rounded-xl" />
+          </div>
+          <div className="h-12 bg-border/20 rounded-[14px] mt-4" />
+        </div>
+      )}
+
       {result && (
         <div className="bg-surface border border-border rounded-[14px] p-5 mt-2 detail-enter">
           <h3 className="text-lg font-medium mb-1">{result.teaName}</h3>
@@ -176,6 +189,8 @@ export function AIAdvisor({
           <div className="flex gap-3 text-[13px] text-secondary mb-4">
             <span>{result.tempC}°C</span>
             <span className="text-border">·</span>
+            <span>{Math.round(currentLeaf / vesselMl * 10000) / 100}g/100ml</span>
+            <span className="text-border">·</span>
             <span>
               {result.doubleRinse
                 ? "Rinse 2×"
@@ -187,13 +202,32 @@ export function AIAdvisor({
             <span>{displaySchedule.length} infusions</span>
           </div>
 
+          {/* Schedule pills */}
+          <div className="border-t border-border pt-3 mb-4">
+            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
+              Infusion schedule (seconds)
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {displaySchedule.map((s, i) => (
+                <span
+                  key={i}
+                  className={`px-2.5 py-1 rounded-md text-[12px] font-medium border ${
+                    i === 0 ? "bg-clay-soft border-clay/20 text-clay" : "bg-bg border-border text-secondary"
+                  }`}
+                >
+                  {s}s
+                </span>
+              ))}
+            </div>
+          </div>
+
           {/* Start Brewing */}
           <button
             onClick={handleStartBrewing}
-            className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] hover:bg-clay-hover"
+            className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] hover:bg-clay-hover shadow-[0_2px_8px_rgba(122,74,53,0.25)]"
             style={{
               transition:
-                "background-color 150ms var(--ease-out), transform 160ms var(--ease-out)",
+                "background-color 150ms var(--ease-out), transform 160ms var(--ease-out), box-shadow 150ms var(--ease-out)",
             }}
           >
             Start Brewing

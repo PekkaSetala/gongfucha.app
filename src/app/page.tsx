@@ -130,8 +130,9 @@ export default function Home() {
             </div>
 
             {view === "ai" && (
-              <div className="px-5">
+              <div className="px-5 view-enter">
                 <InlineViewHeader
+                  title="Ask AI"
                   onBack={() => setView("list")}
                 />
                 <AIAdvisor
@@ -143,8 +144,9 @@ export default function Home() {
             )}
 
             {view === "custom" && (
-              <div className="px-5">
+              <div className="px-5 view-enter">
                 <InlineViewHeader
+                  title="Custom Brew"
                   onBack={() => setView("list")}
                 />
                 <CustomMode vesselMl={vesselMl} onStartBrewing={handleStartBrewing} />
@@ -164,9 +166,15 @@ export default function Home() {
                 variant="panel"
               />
             ) : (
-              <div className="bg-surface border border-border rounded-[14px] p-7 flex items-center justify-center h-[300px]">
-                <p className="text-tertiary text-sm italic">
-                  Select a tea to see details
+              <div className="bg-surface border border-border rounded-[14px] p-7 flex flex-col items-center justify-center h-[300px] text-center">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-border-hover)" strokeWidth="1.2" strokeLinecap="round" className="mb-4" aria-hidden="true">
+                  <path d="M4 6h12a2 2 0 0 1 2 2v1a4 4 0 0 1-4 4H4V6z" />
+                  <path d="M16 9h2a2 2 0 0 1 0 4h-2" />
+                  <line x1="4" y1="13" x2="4" y2="16" />
+                  <path d="M6 16h8" />
+                </svg>
+                <p className="text-tertiary text-[13px]">
+                  Pick a tea to get started
                 </p>
               </div>
             )}

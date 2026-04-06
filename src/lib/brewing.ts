@@ -104,6 +104,7 @@ export function buildBrewParams(
     actualLeaf,
     rinse: tea.rinse,
     doubleRinse: tea.doubleRinse,
+    rinseHint: tea.rinseHint,
     schedule,
     scheduleAdjusted: adjusted,
     brewNote: tea.brewNote,

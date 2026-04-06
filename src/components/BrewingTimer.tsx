@@ -15,6 +15,7 @@ export interface BrewParams {
   actualLeaf: number;
   rinse: boolean;
   doubleRinse: boolean;
+  rinseHint?: string;
   schedule: number[];
   scheduleAdjusted: boolean;
   brewNote: string;
@@ -175,8 +176,8 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
               {phaseLabel()}
             </p>
             {(phase === "rinse" || phase === "rinse2") && (
-              <p className="text-sm text-tertiary italic -mt-2 mb-3">
-                Pour, wait, discard
+              <p className="text-sm text-tertiary italic -mt-2 mb-3 text-center max-w-[280px]">
+                {params.rinseHint || "Pour, wait, discard"}
               </p>
             )}
 
@@ -192,8 +193,15 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             {/* Play / Pause */}
             <button
               onClick={timer.isRunning ? timer.pause : timer.play}
-              className="mt-5 w-16 h-16 flex items-center justify-center rounded-full border border-border bg-surface text-primary"
-              style={PLAY_BTN_STYLE}
+              className={`mt-5 w-16 h-16 flex items-center justify-center rounded-full ${
+                timer.isRunning
+                  ? "border border-border bg-surface text-primary"
+                  : "text-surface shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
+              }`}
+              style={{
+                ...PLAY_BTN_STYLE,
+                ...(!timer.isRunning ? { backgroundColor: accentColor } : {}),
+              }}
               aria-label={timer.isRunning ? "Pause" : "Play"}
             >
               {timer.isRunning ? (
@@ -209,10 +217,11 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             </button>
 
             {/* Session info */}
-            <p className="text-sm text-secondary mt-5">
+            <div className="mt-6 bg-surface/60 border border-border/50 rounded-xl px-5 py-3 max-w-[340px] w-full">
+            <p className="text-sm text-secondary text-center mb-2">
               {params.tempC}°C · {params.actualLeaf}g · {params.vesselMl}ml
             </p>
-            <div className="flex gap-2 justify-center flex-wrap mt-3 max-w-[340px]">
+            <div className="flex gap-2 justify-center flex-wrap">
               {schedule.map((s, i) => {
                 const isCurrent = i === infusionIndex && phase === "brewing";
                 const isDone = i < infusionIndex;
@@ -239,6 +248,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                 );
               })}
             </div>
+            </div>
           </div>
         )}
         {phase === "between" && (
@@ -248,31 +258,41 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
               {phaseLabel()}
             </p>
 
-            <p className="text-[44px] font-normal text-primary mb-8">
-              {adjustedNextTime()}s
-            </p>
+            {/* Next infusion adjuster — single display with inline controls */}
+            <div className="flex items-center justify-center gap-5 mb-8">
+              <button onClick={() => setNextAdjust((a) => a - 3)} className="w-12 h-12 rounded-xl border border-border bg-surface text-secondary text-[14px] font-medium flex items-center justify-center" aria-label="Decrease next infusion time by 3 seconds">
+                −3
+              </button>
+              <span className="text-[44px] font-normal text-primary min-w-[80px] text-center tabular-nums">
+                {adjustedNextTime()}s
+              </span>
+              <button onClick={() => setNextAdjust((a) => a + 3)} className="w-12 h-12 rounded-xl border border-border bg-surface text-secondary text-[14px] font-medium flex items-center justify-center" aria-label="Increase next infusion time by 3 seconds">
+                +3
+              </button>
+            </div>
 
-            {/* Next infusion adjuster */}
-            <div className="w-full bg-surface border border-border rounded-[14px] px-5 py-4 mb-4">
-              <p className="text-xs font-medium uppercase tracking-[1px] text-tertiary mb-3 text-center">
-                Adjust time
-              </p>
-              <div className="flex items-center justify-center gap-4">
-                <button onClick={() => setNextAdjust((a) => a - 3)} className="w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center" aria-label="Decrease next infusion time by 3 seconds">
-                  −3
-                </button>
-                <span className="text-xl font-medium min-w-[56px] text-center text-primary">
-                  {adjustedNextTime()}s
-                </span>
-                <button onClick={() => setNextAdjust((a) => a + 3)} className="w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center" aria-label="Increase next infusion time by 3 seconds">
-                  +3
-                </button>
-              </div>
+            {/* Schedule context */}
+            <div className="flex gap-2 justify-center flex-wrap mb-6 max-w-[320px]">
+              {schedule.map((s, i) => {
+                const isDone = i <= infusionIndex;
+                const isNext = i === infusionIndex + 1;
+                return (
+                  <span
+                    key={i}
+                    className={`text-sm font-medium ${
+                      isDone ? "text-tertiary line-through" : isNext ? "" : "text-secondary"
+                    }`}
+                    style={isNext ? { color: accentColor, fontWeight: 600 } : undefined}
+                  >
+                    {i === infusionIndex + 1 ? `${adjustedNextTime()}s` : `${s}s`}
+                  </span>
+                );
+              })}
             </div>
 
             <button
               onClick={handleBrewNext}
-              className="w-full py-4 rounded-[14px] font-medium text-base"
+              className="w-full py-4 rounded-[14px] font-medium text-base shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
               style={{
                 backgroundColor: accentColor,
                 color: "var(--color-surface)",

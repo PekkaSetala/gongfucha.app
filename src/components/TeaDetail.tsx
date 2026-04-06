@@ -83,6 +83,10 @@ export function TeaDetail({
             <span className="text-[14px] font-medium">{params.tempC}°C</span>
           </div>
           <div>
+            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Ratio</span>
+            <span className="text-[14px] font-medium">{Math.round(params.actualLeaf / params.vesselMl * 10000) / 100}g/100ml</span>
+          </div>
+          <div>
             <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Rinse</span>
             <span className="text-[14px] font-medium">
               {tea.doubleRinse ? "2×" : tea.rinse ? "Yes" : "No"}
@@ -95,9 +99,8 @@ export function TeaDetail({
           {params.brewNote}
         </p>
 
-        {/* Schedule pills (panel only) */}
-        {variant === "panel" && (
-          <div className="border-t border-border pt-4 mb-5">
+        {/* Schedule pills */}
+        <div className={`border-t border-border pt-4 mb-5 ${variant === "inline" ? "mt-1" : ""}`}>
             <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2.5">
               Infusion schedule (seconds)
             </span>
@@ -114,14 +117,13 @@ export function TeaDetail({
               ))}
             </div>
           </div>
-        )}
 
         {/* Start Brewing */}
         <button
           onClick={() => onStartBrewing(params)}
-          className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] hover:bg-clay-hover"
+          className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] hover:bg-clay-hover shadow-[0_2px_8px_rgba(122,74,53,0.25)]"
           style={{
-            transition: "background-color 150ms var(--ease-out), transform 160ms var(--ease-out)",
+            transition: "background-color 150ms var(--ease-out), transform 160ms var(--ease-out), box-shadow 150ms var(--ease-out)",
           }}
         >
           Start Brewing

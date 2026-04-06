@@ -45,7 +45,7 @@ export function StepperControl({
         >
           {decrementText}
         </button>
-        <span className="text-[14px] font-medium min-w-[48px] text-center">
+        <span className="text-[16px] font-medium min-w-[52px] text-center">
           {value}
         </span>
         <button

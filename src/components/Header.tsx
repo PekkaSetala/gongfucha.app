@@ -1,10 +1,9 @@
 "use client";
 
-import { getCurrentSeason, getSeasonalHint } from "@/lib/seasons";
+import { getDailyTip } from "@/data/tips";
 
 export function Header() {
-  const season = getCurrentSeason();
-  const hint = getSeasonalHint(season);
+  const tip = getDailyTip();
 
   return (
     <header className="px-5 pt-14 pb-6">
@@ -14,7 +13,7 @@ export function Header() {
       <h1 className="text-[26px] font-light leading-tight mb-1.5">
         What are we <strong className="font-medium">brewing?</strong>
       </h1>
-      <p className="text-[13px] text-tertiary italic">{hint}</p>
+      <p className="text-[13px] text-tertiary italic leading-relaxed">{tip}</p>
     </header>
   );
 }

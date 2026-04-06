@@ -21,7 +21,7 @@ export function TimerRing({
   }, []);
 
   const s = size ?? 240;
-  const strokeWidth = 5;
+  const strokeWidth = 7;
   const radius = (s - strokeWidth * 2) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - progress);
@@ -33,9 +33,21 @@ export function TimerRing({
       ? `${minutes}:${String(seconds).padStart(2, "0")}`
       : `${seconds}`;
 
+  const filterId = "ring-glow";
+
   return (
     <div className="relative flex items-center justify-center w-full h-full">
       <svg viewBox={`0 0 ${s} ${s}`} className="absolute inset-0 -rotate-90 w-full h-full">
+        <defs>
+          <filter id={filterId} x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        {/* Track */}
         <circle
           cx={s / 2}
           cy={s / 2}
@@ -43,7 +55,9 @@ export function TimerRing({
           fill="none"
           stroke="var(--color-border)"
           strokeWidth={strokeWidth}
+          opacity="0.5"
         />
+        {/* Progress arc with glow */}
         <circle
           ref={circleRef}
           cx={s / 2}
@@ -55,6 +69,7 @@ export function TimerRing({
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
+          filter={progress > 0 ? `url(#${filterId})` : undefined}
           style={{
             opacity: 0,
             transition: "stroke-dashoffset 300ms var(--ease-out), opacity 600ms var(--ease-out)",

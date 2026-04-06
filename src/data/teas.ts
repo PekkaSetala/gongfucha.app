@@ -7,6 +7,7 @@ export interface TeaPreset {
   tempC: number;
   rinse: boolean;
   doubleRinse: boolean;
+  rinseHint?: string;
   baselineSchedule: number[];
   brewNote: string;
   seasons: ("spring" | "summer" | "autumn" | "winter")[];
@@ -48,6 +49,7 @@ export const teas: TeaPreset[] = [
     tempC: 95,
     rinse: true,
     doubleRinse: false,
+    rinseHint: "Flash rinse — pour on, pour off. Just enough to wake the leaf.",
     baselineSchedule: [6, 8, 10, 12, 16, 22, 30, 45],
     brewNote: "Short, careful steeps keep the bitterness in check.",
     seasons: ["summer"],
@@ -74,6 +76,7 @@ export const teas: TeaPreset[] = [
     tempC: 100,
     rinse: true,
     doubleRinse: false,
+    rinseHint: "A proper rinse here — let the hot water sit a few seconds to open the roast.",
     baselineSchedule: [8, 10, 12, 15, 20, 28, 38, 55],
     brewNote: "Let the roast open gradually. Early steeps stay short.",
     seasons: ["autumn", "winter"],
@@ -100,6 +103,7 @@ export const teas: TeaPreset[] = [
     tempC: 95,
     rinse: true,
     doubleRinse: false,
+    rinseHint: "Aged leaf benefits from a slow rinse — let it hydrate and open.",
     baselineSchedule: [10, 12, 15, 20, 28, 38, 55, 75],
     brewNote: "Higher heat unlocks the jujube and wood notes.",
     seasons: ["autumn", "winter"],
@@ -113,6 +117,7 @@ export const teas: TeaPreset[] = [
     tempC: 100,
     rinse: true,
     doubleRinse: true,
+    rinseHint: "Two rinses — the first clears pile taste, the second opens the leaf. Don't rush them.",
     baselineSchedule: [10, 12, 15, 18, 24, 32, 45, 60],
     brewNote: "A double rinse clears pile notes. Let the middle steeps linger.",
     seasons: ["winter"],
