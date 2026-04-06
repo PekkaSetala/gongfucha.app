@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import type { TeaPreset } from "@/data/teas";
-import { buildBrewParams } from "@/lib/brewing";
+import { buildBrewParams, formatRatio } from "@/lib/brewing";
 import { StepperControl } from "./StepperControl";
 
 interface TeaDetailProps {
@@ -84,7 +84,7 @@ export function TeaDetail({
           </div>
           <div>
             <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Ratio</span>
-            <span className="text-[14px] font-medium">{Math.round(params.actualLeaf / params.vesselMl * 10000) / 100}g/100ml</span>
+            <span className="text-[14px] font-medium">{formatRatio(params.actualLeaf, params.vesselMl)}</span>
           </div>
           <div>
             <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Rinse</span>

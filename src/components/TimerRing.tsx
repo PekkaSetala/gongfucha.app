@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useId } from "react";
 
 interface TimerRingProps {
   progress: number;
@@ -33,7 +33,7 @@ export function TimerRing({
       ? `${minutes}:${String(seconds).padStart(2, "0")}`
       : `${seconds}`;
 
-  const filterId = "ring-glow";
+  const filterId = useId();
 
   return (
     <div className="relative flex items-center justify-center w-full h-full">

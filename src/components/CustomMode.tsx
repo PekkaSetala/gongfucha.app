@@ -47,7 +47,6 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
 
   return (
     <div className="flex flex-col gap-5">
-      {/* Tea name */}
       <div>
         <label htmlFor="custom-tea-name" className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5">
           Tea name
@@ -62,7 +61,6 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
         />
       </div>
 
-      {/* Temperature — segmented presets */}
       <div>
         <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
           Temperature
@@ -85,7 +83,6 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
         </div>
       </div>
 
-      {/* Vessel & Leaf — steppers */}
       <div className="grid grid-cols-2 gap-4">
         <StepperControl
           label="Vessel"
@@ -109,7 +106,6 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
         />
       </div>
 
-      {/* Base steep & Infusions — steppers */}
       <div className="grid grid-cols-2 gap-4">
         <StepperControl
           label="Base steep"
@@ -135,7 +131,6 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
         />
       </div>
 
-      {/* Rinse toggle */}
       <div>
         <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
           Rinse

@@ -21,6 +21,13 @@ export function actualRatio(leafG: number, vesselMl: number): number {
 }
 
 /**
+ * Format ratio as g/100ml for display (how the Western gongfu community thinks).
+ */
+export function formatRatio(leafG: number, vesselMl: number): string {
+  return `${Math.round(leafG / vesselMl * 10000) / 100}g/100ml`;
+}
+
+/**
  * Adjust a baseline schedule based on deviation from ideal ratio.
  * Lower ratio (less leaf) → longer times. Higher ratio → shorter times.
  * Returns adjusted schedule in seconds, rounded to integers.

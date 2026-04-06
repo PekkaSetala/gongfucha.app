@@ -7,6 +7,7 @@ import {
   actualRatio,
   adjustSchedule,
   isScheduleAdjusted,
+  formatRatio,
 } from "@/lib/brewing";
 
 interface AIResult {
@@ -189,7 +190,7 @@ export function AIAdvisor({
           <div className="flex gap-3 text-[13px] text-secondary mb-4">
             <span>{result.tempC}°C</span>
             <span className="text-border">·</span>
-            <span>{Math.round(currentLeaf / vesselMl * 10000) / 100}g/100ml</span>
+            <span>{formatRatio(currentLeaf, vesselMl)}</span>
             <span className="text-border">·</span>
             <span>
               {result.doubleRinse
