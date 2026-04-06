@@ -28,7 +28,7 @@ export function SessionSummary({
 }: SessionSummaryProps) {
   return (
     <div
-      className="flex flex-col min-h-[100dvh] paper-texture"
+      className="flex flex-col h-[100dvh] overflow-hidden paper-texture"
       style={{
         "--tea-accent": teaColor,
         background: `linear-gradient(to bottom, var(--tea-accent-soft), transparent 40%), var(--color-bg)`,
@@ -48,19 +48,19 @@ export function SessionSummary({
 
           <div className="bg-surface/60 border border-border/50 rounded-xl px-6 py-5 w-full mb-8">
             <div className="grid grid-cols-2 gap-y-4 gap-x-6">
-              <div>
+              <div className="text-center">
                 <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Infusions</span>
                 <span className="text-[16px] font-medium text-primary">{infusionsCompleted}</span>
               </div>
-              <div>
+              <div className="text-center">
                 <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Total time</span>
                 <span className="text-[16px] font-medium text-primary">{formatTime(totalTimeSeconds)}</span>
               </div>
-              <div>
+              <div className="text-center">
                 <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Leaf</span>
                 <span className="text-[16px] font-medium text-primary">{leafG}g</span>
               </div>
-              <div>
+              <div className="text-center">
                 <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Vessel</span>
                 <span className="text-[16px] font-medium text-primary">{vesselMl}ml</span>
               </div>

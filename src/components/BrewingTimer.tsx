@@ -194,7 +194,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
   return (
     <div
-      className="flex flex-col min-h-[100dvh] paper-texture"
+      className="flex flex-col h-[100dvh] overflow-hidden paper-texture"
       style={{
         "--tea-accent": accentColor,
       } as React.CSSProperties}
@@ -275,7 +275,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
           {/* Rinse hint */}
           {(phase === "rinse" || phase === "rinse2") && (
-            <p className="text-[13px] font-serif-cn italic text-secondary mt-1">
+            <p className="text-[13px] font-serif-cn italic text-secondary mt-1 text-center max-w-[280px]">
               {params.rinseHint || "Pour, wait, discard"}
             </p>
           )}

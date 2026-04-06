@@ -69,11 +69,11 @@ export default function Home() {
     setBrewParams(params);
     setViewState("enter-brewing");
 
-    // Phase 1: list fades out (250ms)
-    // Phase 2: bridge overlay shows + brewing fades in (300ms)
+    // Phase 1: list fades out (450ms)
+    // Phase 2: bridge overlay shows + brewing fades in (500ms)
     setTimeout(() => {
       setViewState("brewing");
-    }, 600);
+    }, 950);
   };
 
   const handleAIBrew = (
@@ -107,7 +107,7 @@ export default function Home() {
     setTimeout(() => {
       setBrewParams(null);
       setViewState("list");
-    }, 500);
+    }, 750);
   };
 
   const bridgeColor = brewParams?.teaColor || "#8C563E";

@@ -306,21 +306,21 @@ textarea:focus-visible {
 
 @keyframes bridge-in {
   0% { opacity: 0; }
-  40% { opacity: 1; }
-  70% { opacity: 1; }
+  30% { opacity: 1; }
+  65% { opacity: 1; }
   100% { opacity: 0; }
 }
 
 .view-fade-out {
-  animation: view-fade-out 250ms var(--ease-out) forwards;
+  animation: view-fade-out 450ms var(--ease-in-out) forwards;
 }
 
 .view-fade-in {
-  animation: view-fade-in 300ms var(--ease-out) forwards;
+  animation: view-fade-in 500ms var(--ease-in-out) forwards;
 }
 
 .bridge-overlay {
-  animation: bridge-in 600ms var(--ease-out) forwards;
+  animation: bridge-in 900ms var(--ease-in-out) forwards;
 }
 
 /* ─── Reduced motion ─── */
