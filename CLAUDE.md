@@ -39,12 +39,14 @@ src/
     BrewingTimer.tsx      # Full-screen timer — phases: rinse → rinse2 → brewing → between
     TimerRing.tsx         # SVG circular progress
     AIAdvisor.tsx         # Text input → /api/identify → brew from AI result
-    CustomMode.tsx        # Manual temp/ratio/schedule entry
-    Header.tsx            # App header with season hint
+    CustomMode.tsx        # Stepper-based custom brew config (temp presets, vessel/leaf steppers, rinse toggle)
+    Header.tsx            # App header with rotating daily tip
+    StepperControl.tsx    # Reusable ±stepper for vessel, leaf, time, infusions
     SecondaryPaths.tsx    # Links to AI and Custom views
-    InlineViewHeader.tsx  # Back-arrow header for inline views
+    InlineViewHeader.tsx  # Back-arrow + view title header for inline views
   data/
-    teas.ts               # 8 tea presets (TeaPreset type) with ratios, temps, schedules
+    teas.ts               # 8 tea presets (TeaPreset type) with ratios, temps, schedules, rinseHints
+    tips.ts               # 24 rotating daily gongfu tips for Western hobbyists
   lib/
     brewing.ts            # Pure functions: leaf calc, schedule adjustment, extension
     seasons.ts            # Season detection, seasonal tea filtering
@@ -62,7 +64,10 @@ tests/
 - **AI identify**: `AIAdvisor` → POST `/api/identify` → OpenRouter API → matches response to closest `TeaPreset` by `categoryId`. Requires `OPENROUTER_API_KEY` env var.
 - **Design tokens**: defined as CSS custom properties in `globals.css` via Tailwind v4 `@theme inline`. Colors: `bg`, `surface`, `border`, `primary`, `secondary`, `tertiary`, `clay`, `gold`. Easing: `--ease-out`, `--ease-in-out`, `--ease-drawer`.
 - **Vessel persistence**: `localStorage` key `gongfucha-vessel-ml`, default 120ml.
-- **Animations**: `tea-stagger` (list items), `detail-enter` (cards). Respects `prefers-reduced-motion`.
+- **Animations**: `tea-stagger` (list items), `detail-enter` (cards), `view-enter` (AI/Custom crossfade), `phase-enter` (timer phases). Respects `prefers-reduced-motion`.
+- **Ratio display**: shown as g/100ml (how the Western gongfu community thinks), not raw g/ml.
+- **Rinse hints**: per-tea `rinseHint` field on `TeaPreset` — shown during rinse phase instead of generic text.
+- **Daily tips**: `tips.ts` rotates by day-of-year. Replaces seasonal TCM hints in header. Aimed at Western hobbyists.
 
 ## Testing
 
