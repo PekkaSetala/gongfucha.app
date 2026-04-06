@@ -35,6 +35,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (viewState !== "list") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [viewState]);
+
+  useEffect(() => {
     if (brewParams) {
       document.title = `Brewing ${brewParams.teaName} — Gongfu Cha`;
     } else {
@@ -69,11 +77,11 @@ export default function Home() {
     setBrewParams(params);
     setViewState("enter-brewing");
 
-    // Phase 1: list fades out (450ms)
-    // Phase 2: bridge overlay shows + brewing fades in (500ms)
+    // Phase 1: list fades out (700ms)
+    // Phase 2: bridge holds + brewing fades in (800ms + 150ms delay)
     setTimeout(() => {
       setViewState("brewing");
-    }, 950);
+    }, 1500);
   };
 
   const handleAIBrew = (
@@ -107,7 +115,7 @@ export default function Home() {
     setTimeout(() => {
       setBrewParams(null);
       setViewState("list");
-    }, 750);
+    }, 1200);
   };
 
   const bridgeColor = brewParams?.teaColor || "#8C563E";

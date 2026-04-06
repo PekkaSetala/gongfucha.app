@@ -55,6 +55,8 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
   useEffect(() => {
     titleRef.current?.focus();
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
   }, []);
 
   useEffect(() => {
