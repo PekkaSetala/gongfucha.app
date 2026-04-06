@@ -1,0 +1,113 @@
+export interface BrewTip {
+  id: string;
+  text: string;
+  category: "sensory" | "troubleshooting" | "vocabulary" | "historical" | "comparison";
+  teaTypes: string[];
+  infusionRange: [number, number];
+}
+
+export const brewTips: BrewTip[] = [
+  // ── Sensory: Universal ──
+  { id: "s01", text: "Before you sip, breathe in the steam. The aroma carries notes that your tongue will miss.", category: "sensory", teaTypes: ["all"], infusionRange: [1, 3] },
+  { id: "s02", text: "Hold the liquor against something white — a saucer, your palm. The color tells you the extraction strength.", category: "sensory", teaTypes: ["all"], infusionRange: [1, 4] },
+  { id: "s03", text: "Let the tea cool for a moment. Flavors become clearer as the temperature drops below scalding.", category: "sensory", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "s04", text: "After swallowing, breathe out slowly through your nose. The retronasal aroma is often the most complex part.", category: "sensory", teaTypes: ["all"], infusionRange: [2, 8] },
+  { id: "s05", text: "Pay attention to where you feel the tea — the tip of the tongue, the sides, the throat. Each tells you something different.", category: "sensory", teaTypes: ["all"], infusionRange: [1, 6] },
+  { id: "s06", text: "Notice the texture. Is it silky, oily, thin, brothy? Mouthfeel is as important as flavor.", category: "sensory", teaTypes: ["all"], infusionRange: [2, 8] },
+  { id: "s07", text: "Sniff the empty cup after you drink. The lingering fragrance — the cup aroma — is often more revealing than the taste.", category: "sensory", teaTypes: ["all"], infusionRange: [1, 5] },
+  { id: "s08", text: "Swirl the tea gently in your cup before sipping. It opens up the aroma the way swirling wine does.", category: "sensory", teaTypes: ["all"], infusionRange: [1, 12] },
+
+  // ── Sensory: Tea-specific ──
+  { id: "s09", text: "Green tea should taste clean and bright. If it's bitter, the water was too hot or the steep too long.", category: "sensory", teaTypes: ["green"], infusionRange: [1, 4] },
+  { id: "s10", text: "Look for a marine or seaweed note — some green teas carry an umami character that lingers on the tongue.", category: "sensory", teaTypes: ["green"], infusionRange: [1, 3] },
+  { id: "s11", text: "White tea is subtle by design. If you can't taste much, slow down — it rewards patience and attention.", category: "sensory", teaTypes: ["white", "fresh-white", "aged-white"], infusionRange: [1, 4] },
+  { id: "s12", text: "Aged white develops jujube and wood notes that young white never shows. Notice how different it is from fresh white.", category: "sensory", teaTypes: ["white", "aged-white"], infusionRange: [2, 6] },
+  { id: "s13", text: "Oolong has the widest flavor range of any tea type. Focus on what makes this one unique — floral? fruity? mineral?", category: "sensory", teaTypes: ["oolong", "light-oolong", "dark-oolong"], infusionRange: [1, 4] },
+  { id: "s14", text: "In high-mountain oolong, look for a cooling sensation at the back of the throat. That's the elevation talking.", category: "sensory", teaTypes: ["oolong", "light-oolong"], infusionRange: [2, 6] },
+  { id: "s15", text: "Roasted oolong should taste like charcoal transformed into something sweet — not like burnt toast. The roast should enhance, not dominate.", category: "sensory", teaTypes: ["oolong", "dark-oolong"], infusionRange: [2, 5] },
+  { id: "s16", text: "Young sheng often starts with a sharp bitterness that transforms in the mouth. Wait for the shift — that's the character of the tea.", category: "sensory", teaTypes: ["puerh", "sheng"], infusionRange: [1, 4] },
+  { id: "s17", text: "Shou pu-erh should taste earthy, not muddy. If it's clean and smooth with notes of dark chocolate or dried fruit, the fermentation was done well.", category: "sensory", teaTypes: ["puerh", "shou"], infusionRange: [2, 6] },
+  { id: "s18", text: "Black tea in gongfu often reveals honey and stone fruit notes that Western-style brewing drowns out.", category: "sensory", teaTypes: ["black"], infusionRange: [1, 4] },
+  { id: "s19", text: "Dian Hong (Yunnan black) has a distinctive peppery sweetness — look for it alongside the malt.", category: "sensory", teaTypes: ["black"], infusionRange: [2, 5] },
+  { id: "s20", text: "Lift the lid of your vessel and smell the wet leaves. That aroma — the lid scent — often reveals what the next steep will bring.", category: "sensory", teaTypes: ["all"], infusionRange: [1, 6] },
+  { id: "s21", text: "Does the tea leave a coating on your tongue, or does it vanish cleanly? Both can be qualities — they tell you about the body.", category: "sensory", teaTypes: ["all"], infusionRange: [3, 8] },
+  { id: "s22", text: "Notice the finish — how long the flavor lingers after you swallow. A long, evolving finish usually indicates quality.", category: "sensory", teaTypes: ["all"], infusionRange: [2, 8] },
+
+  // ── Troubleshooting ──
+  { id: "t01", text: "Too bitter? Your water may be too hot, or the steep ran a few seconds long. Try a flash pour next time.", category: "troubleshooting", teaTypes: ["all"], infusionRange: [1, 5] },
+  { id: "t02", text: "Thin and watery? The leaf may need more time, or you might want more leaf next session. For now, add a few seconds to the next steep.", category: "troubleshooting", teaTypes: ["all"], infusionRange: [2, 8] },
+  { id: "t03", text: "If the tea tastes flat and lifeless, try a 5-10 minute rest before the next infusion. The leaves sometimes need time to recover.", category: "troubleshooting", teaTypes: ["all"], infusionRange: [4, 12] },
+  { id: "t04", text: "Astringent and drying? That's tannin extraction. Back off the temperature 5°C or steep shorter next time.", category: "troubleshooting", teaTypes: ["all"], infusionRange: [1, 6] },
+  { id: "t05", text: "If your green tea is bitter from steep one, the water was too hot. Try 75-80°C — it makes a dramatic difference.", category: "troubleshooting", teaTypes: ["green"], infusionRange: [1, 3] },
+  { id: "t06", text: "Shou still tasting muddy after the rinses? Some cakes need a third rinse — or just accept that the first steep is a warmup.", category: "troubleshooting", teaTypes: ["puerh", "shou"], infusionRange: [1, 3] },
+  { id: "t07", text: "If the roast flavor in your yancha is overpowering, let it rest a few months. Fresh-roasted oolong often needs time to settle.", category: "troubleshooting", teaTypes: ["oolong", "dark-oolong"], infusionRange: [1, 4] },
+  { id: "t08", text: "Getting a sour note? The water temperature may be too low for this tea. Try bringing it up 5°C.", category: "troubleshooting", teaTypes: ["all"], infusionRange: [1, 5] },
+  { id: "t09", text: "If the tea peaks early and drops off fast, you may be using too much leaf. A lighter ratio often extends the session.", category: "troubleshooting", teaTypes: ["all"], infusionRange: [3, 8] },
+  { id: "t10", text: "White tea fading fast? That's normal — white tea gives its best in the first few steeps. A short session isn't a failure.", category: "troubleshooting", teaTypes: ["white", "fresh-white"], infusionRange: [3, 6] },
+  { id: "t11", text: "If your sheng is painfully bitter and won't transform, the tea may be young plantation material. Shorter steeps help, but there are limits.", category: "troubleshooting", teaTypes: ["puerh", "sheng"], infusionRange: [1, 4] },
+  { id: "t12", text: "Overextracted? Don't worry — just pour the next one faster. Each steep is a fresh start.", category: "troubleshooting", teaTypes: ["all"], infusionRange: [1, 8] },
+  { id: "t13", text: "If every steep tastes the same, try varying your pour speed and height. A gentle pour and an aggressive pour can produce different cups.", category: "troubleshooting", teaTypes: ["all"], infusionRange: [3, 8] },
+  { id: "t14", text: "A metallic taste usually comes from the water, not the tea. If it persists across different teas, try filtered or spring water.", category: "troubleshooting", teaTypes: ["all"], infusionRange: [1, 4] },
+  { id: "t15", text: "Black tea going flat early? Try flash steeps — gongfu black tea often does best with very short infusions and a high leaf ratio.", category: "troubleshooting", teaTypes: ["black"], infusionRange: [3, 6] },
+
+  // ── Vocabulary ──
+  { id: "v01", text: "Huí gān (回甘) — 'returning sweetness.' The aftertaste that turns sweet after you swallow. One of the most prized qualities in Chinese tea.", category: "vocabulary", teaTypes: ["all"], infusionRange: [2, 8] },
+  { id: "v02", text: "Chá qì (茶气) — 'tea energy.' That warming, buzzing feeling that spreads through your body with a powerful tea. Especially notable in aged pu-erh.", category: "vocabulary", teaTypes: ["all"], infusionRange: [3, 8] },
+  { id: "v03", text: "Shā gǎn (杀感) — 'killing sensation.' The sharp astringency of young sheng pu-erh that grips the throat. It mellows with age.", category: "vocabulary", teaTypes: ["puerh", "sheng"], infusionRange: [1, 5] },
+  { id: "v04", text: "Yán yùn (岩韵) — 'rock rhyme.' The mineral, stony character unique to Wuyi yancha. It's what the cliffs leave in the leaf.", category: "vocabulary", teaTypes: ["oolong", "dark-oolong"], infusionRange: [2, 6] },
+  { id: "v05", text: "Hóu yùn (喉韵) — 'throat resonance.' A deep, lingering sensation in the throat after swallowing. Sign of a well-made tea.", category: "vocabulary", teaTypes: ["all"], infusionRange: [2, 8] },
+  { id: "v06", text: "Kǒu gǎn (口感) — 'mouth feel.' The physical texture of the tea — smooth, thick, dry, slippery. Distinct from flavor.", category: "vocabulary", teaTypes: ["all"], infusionRange: [1, 6] },
+  { id: "v07", text: "Duī wèi (堆味) — 'pile taste.' The earthy, sometimes fishy flavor in shou pu-erh from the fermentation process. Clears with rinses and age.", category: "vocabulary", teaTypes: ["puerh", "shou"], infusionRange: [1, 3] },
+  { id: "v08", text: "Gài xiāng (盖香) — 'lid fragrance.' The aroma captured on the lid of a gaiwan. Often more complex than the liquor aroma.", category: "vocabulary", teaTypes: ["all"], infusionRange: [1, 5] },
+  { id: "v09", text: "Chén xiāng (陈香) — 'aged aroma.' The distinctive scent of well-aged tea — camphor, dried fruit, old wood. It develops over years.", category: "vocabulary", teaTypes: ["puerh", "sheng", "shou", "aged-white"], infusionRange: [1, 5] },
+  { id: "v10", text: "Shēng jīn (生津) — 'producing fluid.' When the tea causes your mouth to salivate, especially at the sides of the tongue. A sign of vibrancy.", category: "vocabulary", teaTypes: ["all"], infusionRange: [2, 6] },
+  { id: "v11", text: "Chá tāng (茶汤) — 'tea soup.' What we call the brewed liquor. In Chinese, tea is always 'soup,' never 'water.'", category: "vocabulary", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "v12", text: "Nèi zhì (内质) — 'inner substance.' The depth and complexity inside a tea, as opposed to its surface aroma. The part that reveals itself over many steeps.", category: "vocabulary", teaTypes: ["all"], infusionRange: [3, 8] },
+  { id: "v13", text: "Gāo xiāng (高香) — 'high fragrance.' The bright, lifted aroma typical of high-mountain oolongs and quality green teas.", category: "vocabulary", teaTypes: ["oolong", "light-oolong", "green"], infusionRange: [1, 4] },
+  { id: "v14", text: "Shuǐ lù (水路) — 'water path.' How smoothly the tea travels down your throat. A fine, silky water path is prized.", category: "vocabulary", teaTypes: ["all"], infusionRange: [2, 8] },
+  { id: "v15", text: "Tián rùn (甜润) — 'sweet and moist.' A quality in tea where sweetness feels hydrating rather than cloying. Common in well-made black tea.", category: "vocabulary", teaTypes: ["black", "all"], infusionRange: [2, 6] },
+
+  // ── Historical ──
+  { id: "h01", text: "Lu Yu wrote: 'Tea is of a cold nature and may be used to reduce internal heat.' The Chá Jīng saw tea as medicine before it was pleasure.", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h02", text: "Lu Yu believed the best water for tea came from mountain springs, the second best from river water, and well water was the poorest.", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h03", text: "In the Chá Jīng, Lu Yu described nine stages of boiling water — from 'fish eyes' to 'surging waves.' Each had its proper use.", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h04", text: "Zhang Yuan's Tea Record: 'Tea that is fragrant and sweet, with a lingering aftertaste, is of the highest quality.'", category: "historical", teaTypes: ["all"], infusionRange: [2, 8] },
+  { id: "h05", text: "Sen no Rikyū's four principles of tea: harmony (wa), respect (kei), purity (sei), and tranquility (jaku).", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h06", text: "Rikyū taught: 'Make a delicious bowl of tea; lay the charcoal so that it heats the water; arrange the flowers as they are in the field.' Simplicity was the point.", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h07", text: "The Ming dynasty ended brick tea and began loose-leaf steeping — the start of the gongfu method you're using now.", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h08", text: "Chaozhou gongfu cha originally used only three cups — no matter how many people were present. Pouring for three was the ritual.", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h09", text: "Lu Tong's 'Seven Cups of Tea' poem ends at the seventh cup: 'I feel only the breath of cool wind that rises in my two sleeves.' The poem was written in the Tang dynasty.", category: "historical", teaTypes: ["all"], infusionRange: [5, 12] },
+  { id: "h10", text: "Eisai brought tea seeds from China to Japan in 1191 and wrote that tea was 'a miraculous medicine for the maintenance of health.'", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h11", text: "The Yixing teapot tradition holds that a well-seasoned pot remembers every tea brewed in it. Dedicated pots are said to improve over decades.", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h12", text: "Xu Cishu wrote in the Ming dynasty: 'When drinking tea, one needs a quiet place.' The setting was considered part of the tea.", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h13", text: "Pu-erh tea was traditionally compressed into cakes for transport along the Tea Horse Road — a trade route through the mountains of Yunnan.", category: "historical", teaTypes: ["puerh", "sheng", "shou"], infusionRange: [1, 12] },
+  { id: "h14", text: "The word 'gongfu' (功夫) means effort, skill, and time invested. Gongfu cha is tea made with care and attention — not speed.", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h15", text: "Zhang Dafu wrote: 'Water is the mother of tea, the teapot its father, and fire its friend.' All three must be right.", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+  { id: "h16", text: "Emperor Huizong of Song wrote an entire treatise on tea. He believed the finest tea revealed itself 'like clouds and mist in a mountain valley.'", category: "historical", teaTypes: ["all"], infusionRange: [2, 8] },
+  { id: "h17", text: "Wuyi's yancha (rock tea) grows in the crevices of cliffs. The terroir — mineral soil, mist, and filtered light — defines the tea's character.", category: "historical", teaTypes: ["oolong", "dark-oolong"], infusionRange: [1, 12] },
+  { id: "h18", text: "The oldest known tea tree is roughly 3,200 years old, growing in Fengqing, Yunnan. Pu-erh from old trees carries a different depth than plantation tea.", category: "historical", teaTypes: ["puerh", "sheng", "shou"], infusionRange: [1, 12] },
+  { id: "h19", text: "In traditional Chaozhou gongfu, the first steep is poured over the outside of the cups to warm them. Nothing is wasted.", category: "historical", teaTypes: ["all"], infusionRange: [1, 3] },
+  { id: "h20", text: "Okakura Kakuzō wrote in The Book of Tea: 'Tea is a work of art and needs a master hand to bring out its noblest qualities.'", category: "historical", teaTypes: ["all"], infusionRange: [1, 12] },
+
+  // ── Comparison ──
+  { id: "c01", text: "How does the color of this steep compare to the first? Deepening color usually means the leaves are opening up.", category: "comparison", teaTypes: ["all"], infusionRange: [2, 5] },
+  { id: "c02", text: "Has the aroma changed since the first steep? Many teas shift from bright and floral to deeper and sweeter as the session progresses.", category: "comparison", teaTypes: ["all"], infusionRange: [2, 5] },
+  { id: "c03", text: "Compare the body of this cup to the last. Is it thickening, thinning, or holding steady?", category: "comparison", teaTypes: ["all"], infusionRange: [3, 8] },
+  { id: "c04", text: "Notice whether the bitterness has shifted. Early steeps extract surface compounds; later steeps reach deeper into the leaf.", category: "comparison", teaTypes: ["all"], infusionRange: [3, 7] },
+  { id: "c05", text: "Is the sweetness coming earlier now? As the leaf opens, sugars often become more accessible in later steeps.", category: "comparison", teaTypes: ["all"], infusionRange: [3, 8] },
+  { id: "c06", text: "Compare the aftertaste to steep one. Has the hui gan (returning sweetness) become more pronounced?", category: "comparison", teaTypes: ["all"], infusionRange: [3, 8] },
+  { id: "c07", text: "How has the aroma on the lid changed? The shift from bright top notes to deeper base notes tells the leaf's story.", category: "comparison", teaTypes: ["all"], infusionRange: [2, 6] },
+  { id: "c08", text: "Is the tea getting smoother? Roasted oolongs often need 2-3 steeps before the roast softens and the underlying sweetness emerges.", category: "comparison", teaTypes: ["oolong", "dark-oolong"], infusionRange: [2, 5] },
+  { id: "c09", text: "Compare this steep's throat feel to earlier ones. The throat sensation often deepens as the session progresses.", category: "comparison", teaTypes: ["all"], infusionRange: [3, 8] },
+  { id: "c10", text: "Has the astringency mellowed since the first steep? Sheng often transforms from sharp to sweet over the course of a session.", category: "comparison", teaTypes: ["puerh", "sheng"], infusionRange: [2, 6] },
+  { id: "c11", text: "This is the middle of the session — often where a tea shows its true character. The surface notes are gone; what remains?", category: "comparison", teaTypes: ["all"], infusionRange: [4, 6] },
+  { id: "c12", text: "Notice whether the texture has changed. Some teas start thin and build body; others peak early and gradually thin out.", category: "comparison", teaTypes: ["all"], infusionRange: [3, 8] },
+  { id: "c13", text: "The late steeps reveal what's left after the easy flavors are gone. This is the leaf's true endurance — savor it.", category: "comparison", teaTypes: ["all"], infusionRange: [6, 12] },
+  { id: "c14", text: "Compare the energy you feel now to the start of the session. Good tea often builds a cumulative warmth or calm.", category: "comparison", teaTypes: ["all"], infusionRange: [4, 10] },
+  { id: "c15", text: "Has the tea found a steady state, or is it still evolving? Some teas plateau in the middle steeps; others keep shifting.", category: "comparison", teaTypes: ["all"], infusionRange: [4, 8] },
+  { id: "c16", text: "The transition from steep 1 to here is the arc of the session. Is it a gentle hill or a steep climb?", category: "comparison", teaTypes: ["all"], infusionRange: [3, 6] },
+  { id: "c17", text: "If the tea is fading, that's not a failure. Knowing when a tea is done is part of the gongfu skill.", category: "comparison", teaTypes: ["all"], infusionRange: [6, 12] },
+  { id: "c18", text: "Green tea evolves fast — the first and third steeps can taste like different teas entirely. What changed?", category: "comparison", teaTypes: ["green"], infusionRange: [2, 4] },
+  { id: "c19", text: "Shou pu-erh often becomes sweeter and cleaner as the session goes on. The best cups may be ahead of you.", category: "comparison", teaTypes: ["puerh", "shou"], infusionRange: [3, 6] },
+  { id: "c20", text: "White tea reveals itself gradually. If steep one was quiet, steep three may surprise you.", category: "comparison", teaTypes: ["white", "fresh-white", "aged-white"], infusionRange: [2, 4] },
+];

@@ -7,6 +7,7 @@ interface TimerRingProps {
   secondsLeft: number;
   size?: number;
   color?: string;
+  completed?: boolean;
 }
 
 export function TimerRing({
@@ -14,6 +15,7 @@ export function TimerRing({
   secondsLeft,
   size,
   color = "#8C563E",
+  completed = false,
 }: TimerRingProps) {
   const circleRef = useRef<SVGCircleElement>(null);
   const glowRef = useRef<SVGCircleElement>(null);
@@ -61,6 +63,7 @@ export function TimerRing({
             strokeLinecap="round"
             strokeDasharray={circumference}
             strokeDashoffset={offset}
+            className={completed ? "ring-glow-complete" : ""}
             style={{
               opacity: 0,
               transition: "stroke-dashoffset 300ms var(--ease-out), opacity 600ms var(--ease-out)",
@@ -79,6 +82,7 @@ export function TimerRing({
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
+          className={completed ? "ring-complete" : ""}
           style={{
             opacity: 0,
             transition: "stroke-dashoffset 300ms var(--ease-out), opacity 600ms var(--ease-out)",

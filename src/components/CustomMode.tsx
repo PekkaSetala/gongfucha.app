@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { StepperControl } from "./StepperControl";
+import { teaCategories, getTeaColor } from "@/data/tea-categories";
 import type { BrewParams } from "./BrewingTimer";
 
 interface CustomModeProps {
@@ -13,6 +14,7 @@ const TEMP_PRESETS = [80, 85, 90, 95, 100] as const;
 
 export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
   const [name, setName] = useState("");
+  const [teaType, setTeaType] = useState<string | null>(null);
   const [temp, setTemp] = useState(95);
   const [vessel, setVessel] = useState(vesselMl);
   const [leaf, setLeaf] = useState(6);
@@ -28,17 +30,20 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
     return schedule;
   };
 
+  const schedule = generateSchedule();
+
   const handleStart = () => {
     const params: BrewParams = {
-      teaId: "custom",
+      teaId: teaType ?? "custom",
       teaName: name || "Custom Tea",
+      teaColor: teaType ? getTeaColor(teaType) : undefined,
       tempC: temp,
       vesselMl: vessel,
       recommendedLeaf: leaf,
       actualLeaf: leaf,
       rinse,
       doubleRinse: false,
-      schedule: generateSchedule(),
+      schedule,
       scheduleAdjusted: false,
       brewNote: "",
     };
@@ -59,6 +64,28 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
           placeholder="What are you brewing?"
           className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-[14px] text-primary placeholder:text-tertiary focus-visible:outline-none focus-visible:border-clay transition-colors duration-150"
         />
+      </div>
+
+      <div>
+        <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
+          Tea type
+        </span>
+        <div className="flex gap-1.5">
+          {teaCategories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setTeaType(teaType === cat.id ? null : cat.id)}
+              aria-pressed={teaType === cat.id}
+              className={`flex-1 py-2.5 rounded-xl text-[13px] font-medium border transition-colors duration-150 ${
+                teaType === cat.id
+                  ? "border-clay bg-clay-soft text-clay"
+                  : "border-border bg-surface text-secondary"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div>
@@ -129,6 +156,25 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
           decrementLabel="Decrease number of infusions"
           incrementLabel="Increase number of infusions"
         />
+      </div>
+
+      {/* Schedule preview */}
+      <div className="border-t border-border pt-4">
+        <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2.5">
+          Infusion schedule (seconds)
+        </span>
+        <div className="flex flex-wrap gap-1.5">
+          {schedule.map((s, i) => (
+            <span
+              key={i}
+              className={`px-2.5 py-1 rounded-md text-[12px] font-medium border ${
+                i === 0 ? "bg-clay-soft border-clay/20 text-clay" : "bg-bg border-border text-secondary"
+              }`}
+            >
+              {s}s
+            </span>
+          ))}
+        </div>
       </div>
 
       <div>

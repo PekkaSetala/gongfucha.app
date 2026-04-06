@@ -18,6 +18,7 @@ interface AIResult {
   rinse: boolean;
   doubleRinse: boolean;
   schedule: number[];
+  categoryId: string;
 }
 
 interface AIAdvisorProps {

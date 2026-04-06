@@ -165,6 +165,58 @@ textarea:focus-visible {
   animation: view-in 250ms var(--ease-out) forwards;
 }
 
+/* ─── Ring completion pulse ─── */
+@keyframes ring-pulse {
+  0% {
+    stroke-width: 7;
+    opacity: 1;
+  }
+  40% {
+    stroke-width: 12;
+    opacity: 1;
+  }
+  100% {
+    stroke-width: 7;
+    opacity: 1;
+  }
+}
+
+@keyframes ring-glow-pulse {
+  0% {
+    opacity: 0.12;
+  }
+  40% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0.12;
+  }
+}
+
+.ring-complete {
+  animation: ring-pulse 400ms var(--ease-out) forwards;
+}
+
+.ring-glow-complete {
+  animation: ring-glow-pulse 400ms var(--ease-out) forwards;
+}
+
+/* ─── Phase exit ─── */
+@keyframes phase-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.phase-exit {
+  animation: phase-exit 200ms var(--ease-out) forwards;
+}
+
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *,

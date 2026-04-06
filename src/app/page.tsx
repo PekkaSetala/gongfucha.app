@@ -12,6 +12,7 @@ import type { AIResult } from "@/components/AIAdvisor";
 import { CustomMode } from "@/components/CustomMode";
 import { InlineViewHeader } from "@/components/InlineViewHeader";
 import type { BrewParams } from "@/components/BrewingTimer";
+import { getTeaColor } from "@/data/tea-categories";
 
 type View = "list" | "ai" | "custom";
 
@@ -70,9 +71,11 @@ export default function Home() {
   ) => {
     const recommendedLeaf =
       Math.round(result.ratioGPerMl * aiVesselMl * 10) / 10;
+    const teaId = result.categoryId || "custom";
     handleStartBrewing({
-      teaId: "ai-identified",
+      teaId,
       teaName: result.teaName,
+      teaColor: getTeaColor(teaId),
       tempC: result.tempC,
       vesselMl: aiVesselMl,
       recommendedLeaf,
@@ -97,56 +100,33 @@ export default function Home() {
 
   return (
     <main id="main-content" className="flex-1">
-      <div className="max-w-[800px] mx-auto min-h-screen">
+      <div className="max-w-[680px] mx-auto min-h-screen">
         <Header />
 
         {view === "list" ? (
-          <div className="flex gap-6 items-start">
-            {/* Tea list column */}
-            <div className="flex-1 min-w-0 md:max-w-[420px]">
-              <TeaList
-                teas={teas}
-                selectedId={selectedId}
-                onSelect={handleSelect}
-              />
+          <div className="max-w-[680px] mx-auto">
+            <TeaList
+              teas={teas}
+              selectedId={selectedId}
+              onSelect={handleSelect}
+            />
 
-              {/* Mobile: inline detail */}
-              {selectedTea && (
-                <div className="md:hidden mt-2">
-                  <TeaDetail
-                    tea={selectedTea}
-                    vesselMl={vesselMl}
-                    onVesselChange={handleVesselChange}
-                    onStartBrewing={handleStartBrewing}
-                    variant="inline"
-                  />
-                </div>
-              )}
-
-              <SecondaryPaths
-                onOpenAI={() => { setSelectedId(null); setView("ai"); }}
-                onOpenCustom={() => { setSelectedId(null); setView("custom"); }}
-              />
-            </div>
-
-            {/* Desktop: side panel */}
-            <div className="hidden md:block sticky top-6 w-[340px] shrink-0 pr-2">
-              {selectedTea ? (
+            {selectedTea && (
+              <div className="mt-2">
                 <TeaDetail
                   tea={selectedTea}
                   vesselMl={vesselMl}
                   onVesselChange={handleVesselChange}
                   onStartBrewing={handleStartBrewing}
-                  variant="panel"
+                  variant="inline"
                 />
-              ) : (
-                <div className="bg-surface border border-border rounded-[14px] p-7 flex flex-col items-center justify-center h-[300px] text-center">
-                  <p className="text-tertiary text-[13px]">
-                    Pick a tea to get started
-                  </p>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
+
+            <SecondaryPaths
+              onOpenAI={() => { setSelectedId(null); setView("ai"); }}
+              onOpenCustom={() => { setSelectedId(null); setView("custom"); }}
+            />
           </div>
         ) : (
           <div className="max-w-[680px] mx-auto">

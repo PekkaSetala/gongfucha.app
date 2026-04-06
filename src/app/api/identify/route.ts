@@ -15,7 +15,8 @@ You must respond ONLY with valid JSON in this exact format:
   "doubleRinse": <boolean, true only for shou pu-erh or heavily pile-fermented teas>,
   "steepCount": <number 5-12, recommended number of infusions>,
   "firstSteepSeconds": <number 5-15>,
-  "steepCurve": <number 1.2-1.5, multiplier applied to each subsequent steep>
+  "steepCurve": <number 1.2-1.5, multiplier applied to each subsequent steep>,
+  "categoryId": "<one of: green, white, oolong, puerh, black — the broad tea family>"
 }
 
 Guidelines:
@@ -113,6 +114,7 @@ export async function POST(request: Request) {
       rinse,
       doubleRinse,
       schedule,
+      categoryId: String(parsed.categoryId || ""),
     });
   } catch {
     return NextResponse.json(
