@@ -100,37 +100,58 @@ export default function Home() {
       <div className="max-w-[800px] mx-auto min-h-screen">
         <Header />
 
-        <div className="flex gap-6 items-start">
-          {/* Main column */}
-          <div className={`flex-1 min-w-0 ${view === "list" ? "md:max-w-[420px]" : "md:max-w-[560px]"}`}>
-            <div className={view !== "list" ? "hidden" : ""}>
-                <TeaList
-                  teas={teas}
-                  selectedId={selectedId}
-                  onSelect={handleSelect}
-                />
+        {view === "list" ? (
+          <div className="flex gap-6 items-start">
+            {/* Tea list column */}
+            <div className="flex-1 min-w-0 md:max-w-[420px]">
+              <TeaList
+                teas={teas}
+                selectedId={selectedId}
+                onSelect={handleSelect}
+              />
 
-                {/* Mobile: inline detail */}
-                {selectedTea && (
-                  <div className="md:hidden mt-2">
-                    <TeaDetail
-                      tea={selectedTea}
-                      vesselMl={vesselMl}
-                      onVesselChange={handleVesselChange}
-                      onStartBrewing={handleStartBrewing}
-                      variant="inline"
-                    />
-                  </div>
-                )}
+              {/* Mobile: inline detail */}
+              {selectedTea && (
+                <div className="md:hidden mt-2">
+                  <TeaDetail
+                    tea={selectedTea}
+                    vesselMl={vesselMl}
+                    onVesselChange={handleVesselChange}
+                    onStartBrewing={handleStartBrewing}
+                    variant="inline"
+                  />
+                </div>
+              )}
 
-                <SecondaryPaths
-                  onOpenAI={() => { setSelectedId(null); setView("ai"); }}
-                  onOpenCustom={() => { setSelectedId(null); setView("custom"); }}
-                />
+              <SecondaryPaths
+                onOpenAI={() => { setSelectedId(null); setView("ai"); }}
+                onOpenCustom={() => { setSelectedId(null); setView("custom"); }}
+              />
             </div>
 
+            {/* Desktop: side panel */}
+            <div className="hidden md:block sticky top-6 w-[340px] shrink-0 pr-2">
+              {selectedTea ? (
+                <TeaDetail
+                  tea={selectedTea}
+                  vesselMl={vesselMl}
+                  onVesselChange={handleVesselChange}
+                  onStartBrewing={handleStartBrewing}
+                  variant="panel"
+                />
+              ) : (
+                <div className="bg-surface border border-border rounded-[14px] p-7 flex flex-col items-center justify-center h-[300px] text-center">
+                  <p className="text-tertiary text-[13px]">
+                    Pick a tea to get started
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="max-w-[680px] mx-auto">
             {view === "ai" && (
-              <div className="px-5 view-enter">
+              <div className="px-5 md:px-0 view-enter">
                 <InlineViewHeader
                   title="Ask AI"
                   onBack={() => setView("list")}
@@ -144,7 +165,7 @@ export default function Home() {
             )}
 
             {view === "custom" && (
-              <div className="px-5 view-enter">
+              <div className="px-5 md:px-0 view-enter">
                 <InlineViewHeader
                   title="Custom Brew"
                   onBack={() => setView("list")}
@@ -153,34 +174,7 @@ export default function Home() {
               </div>
             )}
           </div>
-
-          {/* Desktop: side panel */}
-          {view === "list" && (
-          <div className="hidden md:block sticky top-6 w-[340px] shrink-0 pr-2">
-            {selectedTea ? (
-              <TeaDetail
-                tea={selectedTea}
-                vesselMl={vesselMl}
-                onVesselChange={handleVesselChange}
-                onStartBrewing={handleStartBrewing}
-                variant="panel"
-              />
-            ) : (
-              <div className="bg-surface border border-border rounded-[14px] p-7 flex flex-col items-center justify-center h-[300px] text-center">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-border-hover)" strokeWidth="1.2" strokeLinecap="round" className="mb-4" aria-hidden="true">
-                  <path d="M4 6h12a2 2 0 0 1 2 2v1a4 4 0 0 1-4 4H4V6z" />
-                  <path d="M16 9h2a2 2 0 0 1 0 4h-2" />
-                  <line x1="4" y1="13" x2="4" y2="16" />
-                  <path d="M6 16h8" />
-                </svg>
-                <p className="text-tertiary text-[13px]">
-                  Pick a tea to get started
-                </p>
-              </div>
-            )}
-          </div>
-          )}
-        </div>
+        )}
 
         <div className="h-16" />
       </div>

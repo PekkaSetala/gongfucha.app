@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useId } from "react";
+import { useRef, useEffect } from "react";
 
 interface TimerRingProps {
   progress: number;
@@ -16,8 +16,10 @@ export function TimerRing({
   color = "#8C563E",
 }: TimerRingProps) {
   const circleRef = useRef<SVGCircleElement>(null);
+  const glowRef = useRef<SVGCircleElement>(null);
   useEffect(() => {
     if (circleRef.current) circleRef.current.style.opacity = "1";
+    if (glowRef.current) glowRef.current.style.opacity = "0.12";
   }, []);
 
   const s = size ?? 240;
@@ -33,20 +35,9 @@ export function TimerRing({
       ? `${minutes}:${String(seconds).padStart(2, "0")}`
       : `${seconds}`;
 
-  const filterId = useId();
-
   return (
     <div className="relative flex items-center justify-center w-full h-full">
       <svg viewBox={`0 0 ${s} ${s}`} className="absolute inset-0 -rotate-90 w-full h-full">
-        <defs>
-          <filter id={filterId} x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
         {/* Track */}
         <circle
           cx={s / 2}
@@ -57,7 +48,26 @@ export function TimerRing({
           strokeWidth={strokeWidth}
           opacity="0.5"
         />
-        {/* Progress arc with glow */}
+        {/* Glow layer — thicker, semi-transparent, no filter */}
+        {progress > 0 && (
+          <circle
+            ref={glowRef}
+            cx={s / 2}
+            cy={s / 2}
+            r={radius}
+            fill="none"
+            stroke={color}
+            strokeWidth={strokeWidth + 8}
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            style={{
+              opacity: 0,
+              transition: "stroke-dashoffset 300ms var(--ease-out), opacity 600ms var(--ease-out)",
+            }}
+          />
+        )}
+        {/* Progress arc */}
         <circle
           ref={circleRef}
           cx={s / 2}
@@ -69,7 +79,6 @@ export function TimerRing({
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
-          filter={progress > 0 ? `url(#${filterId})` : undefined}
           style={{
             opacity: 0,
             transition: "stroke-dashoffset 300ms var(--ease-out), opacity 600ms var(--ease-out)",

@@ -1,7 +1,6 @@
 "use client";
 
 import type { TeaPreset } from "@/data/teas";
-import { isInSeason } from "@/lib/seasons";
 
 interface TeaListProps {
   teas: TeaPreset[];
@@ -14,8 +13,6 @@ export function TeaList({ teas, selectedId, onSelect }: TeaListProps) {
     <div className="flex flex-col gap-2 px-5" role="group" aria-label="Tea selection">
       {teas.map((tea, index) => {
         const selected = tea.id === selectedId;
-        const seasonal = isInSeason(tea);
-
         return (
           <button
             key={tea.id}
@@ -43,15 +40,8 @@ export function TeaList({ teas, selectedId, onSelect }: TeaListProps) {
               }}
             />
             <span className="flex-1 min-w-0">
-              <span className="flex items-center gap-2">
-                <span className="text-[15px] font-serif-cn font-normal text-primary">
-                  {tea.name}
-                </span>
-                {seasonal && (
-                  <span className="text-[11px] font-medium tracking-[0.5px] uppercase px-1.5 py-0.5 rounded bg-gold-soft text-gold">
-                    In season
-                  </span>
-                )}
+              <span className="text-[15px] font-serif-cn font-normal text-primary">
+                {tea.name}
               </span>
               <span className="block text-[12px] text-tertiary mt-0.5 truncate">
                 {tea.subtitle}
