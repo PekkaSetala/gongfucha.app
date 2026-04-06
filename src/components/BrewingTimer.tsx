@@ -196,7 +196,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
   return (
     <div
-      className="flex flex-col h-[100dvh] overflow-hidden paper-texture"
+      className="flex flex-col h-[100dvh] overflow-y-auto paper-texture"
       style={{
         "--tea-accent": accentColor,
       } as React.CSSProperties}
@@ -206,9 +206,11 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
         className={`fixed inset-0 pointer-events-none ${isBrewing && timer.isRunning ? "wash-breathe" : ""}`}
         style={{
           background: (() => {
-            const p = isBrewing ? timer.progress : 0;
-            const centerPct = Math.round(6 + p * 8);  // 6% → 14%
-            const midPct = Math.round(3 + p * 2);     // 3% → 5%
+            // Ease-out curve: rises quickly early, plateaus late
+            const raw = isBrewing ? timer.progress : 0;
+            const p = 1 - (1 - raw) * (1 - raw); // quadratic ease-out
+            const centerPct = Math.round(8 + p * 10);  // 8% → 18%
+            const midPct = Math.round(4 + p * 4);      // 4% → 8%
             return `radial-gradient(
               ellipse 90% 55% at 50% 30%,
               color-mix(in srgb, ${accentColor} ${centerPct}%, transparent),
@@ -216,7 +218,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
               transparent 100%
             )`;
           })(),
-          opacity: isBetween ? 0.55 : 0.5 + (isBrewing ? timer.progress * 0.5 : 0),
+          opacity: isBetween ? 0.55 : 0.65 + (isBrewing ? timer.progress * 0.35 : 0),
           transition: "opacity 600ms var(--ease-in-out)",
           zIndex: 0,
         }}
