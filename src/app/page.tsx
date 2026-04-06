@@ -126,9 +126,9 @@ export default function Home() {
   return (
     <div className="relative min-h-[100dvh]">
       {/* ─── Bridge overlay ─── */}
-      {(viewState === "enter-brewing" || viewState === "exit-brewing") && (
+      {viewState === "enter-brewing" && (
         <div
-          className={`fixed inset-0 pointer-events-none ${viewState === "exit-brewing" ? "bridge-overlay-slow" : "bridge-overlay"}`}
+          className="fixed inset-0 pointer-events-none bridge-overlay"
           style={{
             background: `radial-gradient(circle at 50% 40%, color-mix(in srgb, ${bridgeColor} 25%, transparent), transparent 70%)`,
             zIndex: 50,

@@ -49,6 +49,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   const [showSummary, setShowSummary] = useState(false);
   const [totalTime, setTotalTime] = useState(0);
   const [washFlash, setWashFlash] = useState(false);
+  const [confirmEnd, setConfirmEnd] = useState(false);
 
   const accentColor = params.teaColor || DEFAULT_COLOR;
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -474,26 +475,53 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* End session */}
-          <div className="pb-7 pt-3 flex justify-center">
-            <button
-              onClick={() => {
-                const finalTime =
-                  phase === "brewing" && timer.isRunning
-                    ? totalTime + (currentDuration - timer.secondsLeft)
-                    : totalTime;
-                setTotalTime(finalTime);
-                setShowSummary(true);
-              }}
-              className="text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl bg-surface hover-lift"
-              style={{
-                transition: "color 150ms var(--ease-out)",
-                color: `color-mix(in srgb, ${accentColor} 30%, var(--color-tertiary))`,
-                border: `1px solid color-mix(in srgb, ${accentColor} 12%, var(--color-border))`,
-              }}
-            >
-              End session
-            </button>
+          {/* End session — two-tap confirmation */}
+          <div className="pb-7 pt-3 flex justify-center gap-2">
+            {confirmEnd ? (
+              <>
+                <button
+                  onClick={() => {
+                    const finalTime =
+                      phase === "brewing" && timer.isRunning
+                        ? totalTime + (currentDuration - timer.secondsLeft)
+                        : totalTime;
+                    setTotalTime(finalTime);
+                    setShowSummary(true);
+                  }}
+                  className="text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl bg-surface hover-lift"
+                  style={{
+                    transition: "color 150ms var(--ease-out)",
+                    color: "var(--color-error)",
+                    border: `1px solid color-mix(in srgb, var(--color-error) 20%, var(--color-border))`,
+                  }}
+                >
+                  Yes, end session
+                </button>
+                <button
+                  onClick={() => setConfirmEnd(false)}
+                  className="text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl bg-surface hover-lift"
+                  style={{
+                    transition: "color 150ms var(--ease-out)",
+                    color: `color-mix(in srgb, ${accentColor} 30%, var(--color-tertiary))`,
+                    border: `1px solid color-mix(in srgb, ${accentColor} 12%, var(--color-border))`,
+                  }}
+                >
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setConfirmEnd(true)}
+                className="text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl bg-surface hover-lift"
+                style={{
+                  transition: "color 150ms var(--ease-out)",
+                  color: `color-mix(in srgb, ${accentColor} 30%, var(--color-tertiary))`,
+                  border: `1px solid color-mix(in srgb, ${accentColor} 12%, var(--color-border))`,
+                }}
+              >
+                End session
+              </button>
+            )}
           </div>
         </div>
       </div>
