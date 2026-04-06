@@ -65,13 +65,14 @@ tests/
 ## Key Patterns
 
 - **Accordion selection**: clicking a tea in `TeaList` expands detail inline below that row (CSS grid height animation). No side panel — single centered column for all views.
-- **Brewing flow**: `page.tsx` builds `BrewParams` → passes to `BrewingTimer` → timer manages phase state machine (rinse → brewing → between → next infusion → session summary). Schedule auto-extends via 1.35x factor.
-- **Tea-colored timer**: timer view threads the tea's accent color through title, phase labels, info cards, buttons via `color-mix()`. Each tea tints the whole screen subtly.
+- **Brewing flow**: `page.tsx` builds `BrewParams` → passes to `BrewingTimer` via a 4-state view machine (`list → enter-brewing → brewing → exit-brewing`). Both views mount simultaneously; opacity + pointer-events control visibility. Enter uses a tea color bridge overlay (radial gradient crossfade); exit is a plain crossfade. Timer manages phase state machine (rinse → brewing → between → next infusion → session summary). Schedule auto-extends via 1.35x factor.
+- **Tea-colored timer**: timer view threads the tea's accent color through title, phase labels, info cards, buttons via `color-mix()`. Color wash (radial gradient) deepens proportionally with steep progress (quadratic ease-out curve, 8%→18% tea color). Each tea tints the whole screen.
 - **Schedule adjustment**: when user changes leaf amount from recommended, `brewing.ts` scales all steep times proportionally (capped 0.5x–2.0x).
 - **AI identify**: `AIAdvisor` → POST `/api/identify` → OpenRouter API → matches response to closest `TeaPreset` by `categoryId`. Requires `OPENROUTER_API_KEY` env var.
 - **Design tokens**: defined as CSS custom properties in `globals.css` via Tailwind v4 `@theme inline`. Colors: `bg`, `surface`, `border`, `primary`, `secondary`, `tertiary`, `clay`, `gold`. Easing: `--ease-out`, `--ease-in-out`, `--ease-drawer`.
 - **Vessel persistence**: `localStorage` key `gongfucha-vessel-ml`, default 120ml.
-- **Animations**: `tea-stagger` (list items), `detail-enter` (cards), `view-enter` (AI/Custom crossfade), `phase-enter`/`phase-exit` (timer phases), `ring-complete`/`ring-glow-complete` (timer ring pulse). Respects `prefers-reduced-motion`.
+- **Animations**: `tea-stagger` (list items), `detail-enter` (cards), `view-enter` (AI/Custom crossfade), `phase-enter`/`phase-exit` (timer phases), `ring-complete`/`ring-glow-complete` (timer ring pulse), `wash-breathe` (8s color wash cycle), `wash-flash` (completion bloom), `digit-settle` (serif number tick), `wisp-rise` (steam wisps, between state), `ring-idle-breathe` (dashed ring, between state), `between-enter` (fade-only phase transition), `view-fade-out`/`view-fade-in`/`bridge-overlay` (tea color bridge enter), `view-fade-out-slow`/`view-fade-in-slow` (plain crossfade exit). Respects `prefers-reduced-motion`.
+- **End session**: two-tap confirmation — first tap reveals "Yes, end session" + "Cancel" to prevent accidental exits.
 - **Brew tips**: 120 contextual tips in `brew-tips.ts`, selected by `selectTip()` based on tea type and infusion number. Shown on between-infusion screen. Tea-specific tips weighted 3x over universal.
 - **Sound & haptic**: `useBrewSound` hook plays ceramic-tap.wav via AudioContext (iOS unlock on first tap). Haptic via `navigator.vibrate()` on timer complete.
 - **Ratio display**: shown as g/100ml (how the Western gongfu community thinks), not raw g/ml.
