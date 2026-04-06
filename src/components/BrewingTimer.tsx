@@ -299,7 +299,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
               <button
                 onClick={() => {
                   sound.unlock();
-                  timer.isRunning ? timer.pause() : timer.play();
+                  if (timer.isRunning) { timer.pause(); } else { timer.play(); }
                 }}
                 className={`mt-4 w-14 h-14 flex items-center justify-center rounded-full ${
                   timer.isRunning
