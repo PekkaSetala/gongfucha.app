@@ -41,7 +41,7 @@ src/
     AIAdvisor.tsx         # Text input → /api/identify → brew from AI result
     CustomMode.tsx        # Tea type selector, temp presets, vessel/leaf steppers, schedule preview, rinse toggle
     SessionSummary.tsx    # End-of-session stats screen (infusions, time, leaf, vessel)
-    Header.tsx            # App header with rotating daily tip
+    Header.tsx            # App header — 功夫茶 masthead, weather mood, "pick your tea" label
     StepperControl.tsx    # Reusable ±stepper for vessel, leaf, time, infusions
     SecondaryPaths.tsx    # Links to AI and Custom views
     InlineViewHeader.tsx  # Back-arrow + view title header for inline views
@@ -50,16 +50,22 @@ src/
     tips.ts               # 24 rotating daily gongfu tips for Western hobbyists
     tea-categories.ts     # Category ID → label/color map (green, white, oolong, puerh, black)
     brew-tips.ts          # 120 contextual brewing tips with tea type + infusion range metadata
+    greetings.ts          # 20 rotating headlines with time-band tags (morning/afternoon/evening/anytime)
   lib/
     brewing.ts            # Pure functions: leaf calc, schedule adjustment, extension
     brew-tips.ts          # Tip selection algorithm (filter, weight by tea type, no-repeat)
+    pick.ts               # seededPick + getSessionSeed — stable per-visit array selection
     seasons.ts            # Season detection, seasonal tea filtering
+    weather.ts            # Weather fetch (wttr.in), condition mapping, mood expressions
   hooks/
     useTimer.ts           # Countdown timer hook (play/pause/reset/progress)
     useBrewSound.ts       # AudioContext sound with iOS unlock + HTMLAudio fallback
 tests/
     brewing.test.ts       # Vitest tests for brewing.ts
     brew-tips.test.ts     # Tests for tip selection algorithm
+    greetings.test.ts     # Tests for headline time-band filtering
+    pick.test.ts          # Tests for seededPick determinism
+    weather-moods.test.ts # Tests for expanded weather mood selection
 ```
 
 ## Key Patterns
@@ -77,8 +83,9 @@ tests/
 - **Sound & haptic**: `useBrewSound` hook plays ceramic-tap.wav via AudioContext (iOS unlock on first tap). Haptic via `navigator.vibrate()` on timer complete.
 - **Ratio display**: shown as g/100ml (how the Western gongfu community thinks), not raw g/ml.
 - **Rinse hints**: per-tea `rinseHint` field on `TeaPreset` — shown during rinse phase instead of generic text.
-- **Daily tips**: `tips.ts` rotates by day-of-year. Replaces seasonal TCM hints in header. Aimed at Western hobbyists.
+- **Weather moods**: `weather.ts` fetches conditions from wttr.in, maps to ~27 mood expressions suggesting tea qualities (cooling/warming/light/heavy/roasted) not specific tea types. Seeded per visit via `seededPick` for stable selection within 30-min windows. Cached in localStorage (30min TTL). Falls back to seasonal hints on fetch failure.
+- **Daily tips**: `tips.ts` rotates by day-of-year. Aimed at Western hobbyists.
 
 ## Testing
 
-Tests use Vitest with path alias `@` → `./src`. Test files go in `tests/`. Tests cover `brewing.ts` pure functions and `brew-tips.ts` selection algorithm.
+Tests use Vitest with path alias `@` → `./src`. Test files go in `tests/`. Tests cover `brewing.ts` pure functions, `brew-tips.ts` selection algorithm, `pick.ts` seeded selection, `greetings.ts` time-band filtering, and `weather.ts` mood selection.

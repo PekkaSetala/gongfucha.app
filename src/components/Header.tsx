@@ -6,18 +6,28 @@ export function Header() {
   const mood = useWeatherMood();
 
   return (
-    <header className="px-5 pt-14 pb-6">
-      <span className="block text-[14px] font-serif-cn font-normal tracking-[3px] uppercase text-tertiary mb-7">
-        Gongfu Cha
-      </span>
-      <h1 className="text-[26px] font-light leading-tight mb-1.5">
-        What are we <strong className="font-medium">brewing?</strong>
+    <header className="px-5 pt-14">
+      {/* ─── Brand mark ─── */}
+      <h1 className="mb-1">
+        <span className="block text-[36px] font-serif-cn font-normal leading-tight text-primary/80">
+          功夫茶
+        </span>
+        <span className="block text-[13px] font-serif-cn tracking-[2.5px] uppercase text-tertiary mt-1">
+          Gongfu Cha
+        </span>
       </h1>
+
+      {/* ─── Weather mood ─── */}
       {mood && (
-        <p className="text-[13px] text-tertiary italic leading-relaxed view-enter">
+        <p className="text-[13px] text-tertiary italic leading-relaxed mt-4 view-enter">
           {mood}
         </p>
       )}
+
+      {/* ─── Section label ─── */}
+      <p className="text-[11px] text-tertiary/60 tracking-[1.5px] uppercase mt-8 mb-4">
+        pick your tea
+      </p>
     </header>
   );
 }

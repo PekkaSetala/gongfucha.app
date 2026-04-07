@@ -64,6 +64,8 @@ const CODE_MAP: Record<number, WeatherCondition> = {
   377: "snow",
 };
 
+import { seededPick } from "@/lib/pick";
+
 export async function fetchWeather(): Promise<WeatherData> {
   const res = await fetch("https://wttr.in/?format=j1");
   const json = await res.json();
@@ -73,38 +75,68 @@ export async function fetchWeather(): Promise<WeatherData> {
   return { condition, tempC: parseInt(current.temp_C, 10) };
 }
 
-const moods: Record<WeatherCondition, (season: Season) => string> = {
-  clear: (season) => {
-    switch (season) {
-      case "summer":
-        return "Sun's out \u2014 keep it cool and green";
-      case "winter":
-        return "Clear and cold \u2014 a day for aged pu-erh";
-      case "spring":
-        return "Bright sky \u2014 something floral to match";
-      case "autumn":
-        return "Clear autumn air \u2014 roasted oolong weather";
-    }
-  },
-  cloudy: () => "Clouds drifting \u2014 a session with no rush",
-  overcast: () => "Grey skies \u2014 let the kettle do the talking",
-  fog: () => "Fog rolling in \u2014 something dark and warming",
-  "rain-light": (season) => {
-    if (season === "spring" || season === "summer") {
-      return "Soft rain outside \u2014 a light oolong kind of day";
-    }
-    return "Rain on the window \u2014 time for something roasted";
-  },
-  "rain-heavy": () => "Heavy rain \u2014 steep it slow, nowhere to be",
-  storm: () => "Thunder outside \u2014 brew something you can feel",
-  snow: () => "Snow falling \u2014 dark tea, thick pours",
+type MoodEntry = {
+  text: string;
+  seasons?: Season[];
+};
+
+const moods: Record<WeatherCondition, MoodEntry[]> = {
+  clear: [
+    { text: "Warm out there \u2014 brew something cooling?", seasons: ["summer"] },
+    { text: "Clear and cold today \u2014 brew something warming?", seasons: ["winter"] },
+    { text: "Bright out \u2014 brew something light?", seasons: ["spring"] },
+    { text: "Crisp autumn air \u2014 brew something roasted?", seasons: ["autumn"] },
+    { text: "Blue sky out there, steep outside" },
+  ],
+  cloudy: [
+    { text: "Cloudy out \u2014 brew something light?" },
+    { text: "Grey and mild today, stay in" },
+    { text: "A bit overcast, no complaints" },
+  ],
+  overcast: [
+    { text: "Pretty grey out \u2014 brew something roasted?" },
+    { text: "Grey all day \u2014 brew something heavy?" },
+    { text: "Overcast today \u2014 brew something warming?" },
+  ],
+  fog: [
+    { text: "Foggy out there \u2014 brew something dark?" },
+    { text: "Misty today \u2014 brew something warming?" },
+    { text: "Can\u2019t see much out there, heavy roast?" },
+  ],
+  "rain-light": [
+    { text: "Raining a bit \u2014 brew something cooling?", seasons: ["spring", "summer"] },
+    { text: "Rain on the window \u2014 brew something roasted?", seasons: ["autumn", "winter"] },
+    { text: "Drizzle outside \u2014 brew something light?" },
+    { text: "Soft rain out there, brew something floral?" },
+  ],
+  "rain-heavy": [
+    { text: "Pouring out there \u2014 brew something heavy?" },
+    { text: "Not going anywhere \u2014 brew something dark?" },
+    { text: "Coming down hard \u2014 thick pours?" },
+  ],
+  storm: [
+    { text: "Thunder outside \u2014 brew something bold?" },
+    { text: "Stormy out there \u2014 brew something heavy?" },
+    { text: "Rough out there \u2014 deep roast?" },
+  ],
+  snow: [
+    { text: "Snowing out there \u2014 brew something warming?" },
+    { text: "Snow outside, brew something heavy?" },
+    { text: "Cold one today \u2014 brew something dark?" },
+  ],
 };
 
 export function getWeatherMood(
   condition: WeatherCondition,
   season: Season,
+  seed: number = 0,
 ): string {
-  return moods[condition](season);
+  const entries = moods[condition];
+  const candidates = entries.filter(
+    (e) => !e.seasons || e.seasons.includes(season)
+  );
+  const pool = candidates.length > 0 ? candidates : entries;
+  return seededPick(pool, seed).text;
 }
 
 const CACHE_KEY = "gongfucha-weather";
