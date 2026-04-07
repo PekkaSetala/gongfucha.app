@@ -69,7 +69,7 @@ export function SessionSummary({
 
           <button
             onClick={onDone}
-            className="w-full py-4 rounded-[14px] font-medium text-base shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
+            className="w-full py-4 rounded-[14px] font-medium text-base shadow-[0_1px_2px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.1)]"
             style={{
               backgroundColor: teaColor,
               color: "var(--color-surface)",

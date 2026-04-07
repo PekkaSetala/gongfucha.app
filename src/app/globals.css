@@ -303,6 +303,16 @@ textarea:focus-visible {
   animation: between-enter 350ms var(--ease-out) forwards;
 }
 
+/* ─── Schedule pill active breathe ─── */
+@keyframes pill-breathe {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+.pill-breathe {
+  animation: pill-breathe 3s ease-in-out infinite;
+}
+
 /* ─── View transition (tea color bridge) ─── */
 @keyframes view-fade-out {
   from { opacity: 1; filter: blur(0); }

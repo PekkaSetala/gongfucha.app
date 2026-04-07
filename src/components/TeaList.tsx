@@ -88,12 +88,12 @@ export function TeaList({
               aria-pressed={selected}
               aria-expanded={selected}
               className={`
-                tea-stagger hover-lift w-full
+                tea-stagger w-full
                 flex items-center gap-3.5 px-4 py-3.5 text-left
                 border
                 ${selected
                   ? "rounded-t-[14px] rounded-b-none border-b-0 border-clay/30 shadow-[0_-2px_12px_rgba(140,86,62,0.06)]"
-                  : "rounded-[14px] border-border bg-surface"
+                  : "rounded-[14px] border-border bg-surface hover-lift"
                 }
               `}
               style={{
@@ -155,6 +155,11 @@ export function TeaList({
           </div>
         );
       })}
+
+      {/* ─── Divider ─── */}
+      <p className="text-[11px] text-tertiary/40 tracking-[1.5px] uppercase text-center my-1">
+        or
+      </p>
 
       {/* Ask AI — accordion row */}
       <div>

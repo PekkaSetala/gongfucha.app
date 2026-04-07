@@ -144,7 +144,7 @@ export function CustomMode({ vesselMl, onStartBrewing }: CustomModeProps) {
 
       <button
         onClick={handleStart}
-        className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] mt-1 hover:bg-clay-hover shadow-[0_2px_8px_rgba(122,74,53,0.25)]"
+        className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] mt-1 hover:bg-clay-hover shadow-[0_1px_2px_rgba(0,0,0,0.12),0_4px_12px_rgba(122,74,53,0.18)]"
         style={{ transition: "background-color 150ms var(--ease-out), transform 160ms var(--ease-out), box-shadow 150ms var(--ease-out)" }}
       >
         Start Brewing

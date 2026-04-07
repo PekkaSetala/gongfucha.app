@@ -38,7 +38,7 @@ export function TeaDetail({
   };
 
   return (
-    <div className={variant === "panel" ? "detail-enter" : "px-5 mt-1 detail-enter"}>
+    <div className={variant === "panel" ? "detail-enter" : "px-5 pt-3 detail-enter"}>
       <div
         className={`bg-surface border border-border rounded-[14px] ${variant === "panel" ? "p-6" : "p-5"}`}
       >
@@ -132,7 +132,7 @@ export function TeaDetail({
         {/* Start Brewing */}
         <button
           onClick={() => onStartBrewing(params)}
-          className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] hover:bg-clay-hover shadow-[0_2px_8px_rgba(122,74,53,0.25)]"
+          className="w-full py-4 rounded-[14px] bg-clay text-surface font-medium text-[15px] hover:bg-clay-hover shadow-[0_1px_2px_rgba(0,0,0,0.12),0_4px_12px_rgba(122,74,53,0.18)]"
           style={{
             transition: "background-color 150ms var(--ease-out), transform 160ms var(--ease-out), box-shadow 150ms var(--ease-out)",
           }}

@@ -294,7 +294,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                 style={{
                   backgroundColor: accentColor,
                   color: "var(--color-surface)",
-                  boxShadow: `0 2px 8px color-mix(in srgb, ${accentColor} 25%, rgba(0,0,0,0.1))`,
+                  boxShadow: `0 1px 2px rgba(0,0,0,0.12), 0 4px 12px color-mix(in srgb, ${accentColor} 25%, rgba(0,0,0,0.1))`,
                   transition: "transform 160ms var(--ease-out)",
                 }}
               >
@@ -390,7 +390,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                 style={{
                   backgroundColor: accentColor,
                   color: "var(--color-surface)",
-                  boxShadow: `0 2px 8px color-mix(in srgb, ${accentColor} 25%, rgba(0,0,0,0.1))`,
+                  boxShadow: `0 1px 2px rgba(0,0,0,0.12), 0 4px 12px color-mix(in srgb, ${accentColor} 25%, rgba(0,0,0,0.1))`,
                   transition: "transform 160ms var(--ease-out)",
                 }}
               >
@@ -422,7 +422,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                       isDone
                         ? "bg-transparent border-border text-tertiary opacity-40 line-through decoration-1"
                         : isCurrent
-                          ? "font-semibold"
+                          ? `font-semibold${isBrewing && timer.isRunning ? " pill-breathe" : ""}`
                           : "bg-bg border-border text-secondary opacity-70"
                     }`}
                     style={
