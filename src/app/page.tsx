@@ -171,7 +171,16 @@ export default function Home() {
                 onAIBrew={handleAIBrew}
               />
             </div>
-            <div className="h-16" />
+            <footer className="px-5 pt-10 pb-14 text-center">
+              <a
+                href="https://pekkasetala.carrd.co/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] text-tertiary/40 tracking-[1.5px] lowercase hover:text-tertiary/60 transition-colors duration-200"
+              >
+                pekka setälä
+              </a>
+            </footer>
           </div>
         </main>
       </div>
