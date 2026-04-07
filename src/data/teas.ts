@@ -9,6 +9,10 @@ export interface TeaPreset {
   doubleRinse: boolean;
   rinseHint?: string;
   baselineSchedule: number[];
+  /** Max schedule multiplier when leaf amount deviates from ideal.
+   *  Delicate teas (green, sheng) tolerate less stretching.
+   *  Forgiving teas (shou, dark oolong) can handle more. */
+  maxAdjust: number;
   brewNote: string;
   seasons: ("spring" | "summer" | "autumn" | "winter")[];
 }
@@ -24,6 +28,7 @@ export const teas: TeaPreset[] = [
     rinse: false,
     doubleRinse: false,
     baselineSchedule: [8, 10, 12, 15, 20, 28, 38],
+    maxAdjust: 1.4,  // delicate — over-extraction turns bitter fast
     brewNote: "No rinse, lower temp. The first steep is the brightest.",
     seasons: ["spring", "summer"],
   },
@@ -37,6 +42,7 @@ export const teas: TeaPreset[] = [
     rinse: false,
     doubleRinse: false,
     baselineSchedule: [12, 15, 18, 22, 28, 36, 50, 70],
+    maxAdjust: 2.0,  // gentle extraction, tolerates longer steeps
     brewNote: "White tea rewards patience and a gentle, slow curve.",
     seasons: ["summer"],
   },
@@ -51,6 +57,7 @@ export const teas: TeaPreset[] = [
     doubleRinse: false,
     rinseHint: "Flash rinse — pour on, pour off. Just enough to wake the leaf.",
     baselineSchedule: [6, 8, 10, 12, 16, 22, 30, 45],
+    maxAdjust: 1.5,  // bitterness-prone, keep early steeps short
     brewNote: "Short, careful steeps keep the bitterness in check.",
     seasons: ["summer"],
   },
@@ -63,8 +70,9 @@ export const teas: TeaPreset[] = [
     tempC: 95,
     rinse: false,
     doubleRinse: false,
-    baselineSchedule: [10, 12, 14, 18, 24, 32, 45, 60],
-    brewNote: "No rinse — preserve the first flush of fragrance.",
+    baselineSchedule: [18, 12, 12, 15, 20, 28, 40, 55],
+    maxAdjust: 2.0,  // ball-rolled, slow to open — handles stretching well
+    brewNote: "No rinse — the first steep opens the ball. Fragrance peaks on the second.",
     seasons: ["spring", "autumn"],
   },
   {
@@ -77,8 +85,9 @@ export const teas: TeaPreset[] = [
     rinse: true,
     doubleRinse: false,
     rinseHint: "A proper rinse here — let the hot water sit a few seconds to open the roast.",
-    baselineSchedule: [8, 10, 12, 15, 20, 28, 38, 55],
-    brewNote: "Let the roast open gradually. Early steeps stay short.",
+    baselineSchedule: [10, 10, 12, 15, 20, 28, 38, 55],
+    maxAdjust: 2.5,  // roast buffers extraction, very forgiving
+    brewNote: "The rinse starts the opening. Give the roast a moment, then let it build.",
     seasons: ["autumn", "winter"],
   },
   {
@@ -91,6 +100,7 @@ export const teas: TeaPreset[] = [
     rinse: false,
     doubleRinse: false,
     baselineSchedule: [10, 12, 15, 18, 24, 32, 45, 62],
+    maxAdjust: 1.8,  // fully oxidized, extracts fast — moderate tolerance
     brewNote: "Start steady, then widen as the sweetness softens.",
     seasons: ["winter"],
   },
@@ -105,6 +115,7 @@ export const teas: TeaPreset[] = [
     doubleRinse: false,
     rinseHint: "Aged leaf benefits from a slow rinse — let it hydrate and open.",
     baselineSchedule: [10, 12, 15, 20, 28, 38, 55, 75],
+    maxAdjust: 2.5,  // aged and mellow, very forgiving
     brewNote: "Higher heat unlocks the jujube and wood notes.",
     seasons: ["autumn", "winter"],
   },
@@ -119,6 +130,7 @@ export const teas: TeaPreset[] = [
     doubleRinse: true,
     rinseHint: "Two rinses — the first clears pile taste, the second opens the leaf. Don't rush them.",
     baselineSchedule: [10, 12, 15, 18, 24, 32, 45, 60],
+    maxAdjust: 3.0,  // nearly indestructible, handles anything
     brewNote: "A double rinse clears pile notes. Let the middle steeps linger.",
     seasons: ["winter"],
   },

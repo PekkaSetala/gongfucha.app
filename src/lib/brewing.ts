@@ -30,23 +30,37 @@ export function formatRatio(leafG: number, vesselMl: number): string {
 /**
  * Adjust a baseline schedule based on deviation from ideal ratio.
  * Lower ratio (less leaf) → longer times. Higher ratio → shorter times.
+ *
+ * Uses a tapered curve: early steeps get more adjustment than later ones,
+ * because with less leaf, the first steeps under-extract most — later steeps
+ * converge as there's less left to give regardless of leaf mass.
+ *
  * Returns adjusted schedule in seconds, rounded to integers.
  */
 export function adjustSchedule(
   baselineSchedule: number[],
   idealRatio: number,
-  currentRatio: number
+  currentRatio: number,
+  maxAdjust: number = 3.0
 ): number[] {
   if (currentRatio <= 0 || idealRatio <= 0) return baselineSchedule;
 
   const deviation = idealRatio / currentRatio;
-  // Clamp the multiplier to avoid extreme values
-  const multiplier = Math.max(0.5, Math.min(2.0, deviation));
+  // Clamp using per-tea ceiling (delicate teas cap lower)
+  const multiplier = Math.max(0.5, Math.min(maxAdjust, deviation));
 
-  // If close to ideal (within 10%), don't adjust
-  if (Math.abs(multiplier - 1) < 0.1) return baselineSchedule;
+  // Dead zone: within 5% of ideal, don't adjust (one stepper click should respond)
+  if (Math.abs(multiplier - 1) < 0.05) return baselineSchedule;
 
-  return baselineSchedule.map((s) => Math.round(s * multiplier));
+  return baselineSchedule.map((s, i) => {
+    // Taper: early steeps (i=0) get full multiplier, later steeps converge toward 1.0
+    const progress = baselineSchedule.length > 1
+      ? i / (baselineSchedule.length - 1)
+      : 0;
+    // Blend: 100% of multiplier at steep 1, 40% of multiplier effect at last steep
+    const tapered = 1 + (multiplier - 1) * (1 - progress * 0.6);
+    return Math.round(s * tapered);
+  });
 }
 
 /**
@@ -58,7 +72,7 @@ export function isScheduleAdjusted(
 ): boolean {
   if (currentRatio <= 0 || idealRatio <= 0) return false;
   const deviation = idealRatio / currentRatio;
-  return Math.abs(deviation - 1) >= 0.1;
+  return Math.abs(deviation - 1) >= 0.05;
 }
 
 /**
@@ -98,7 +112,7 @@ export function buildBrewParams(
   const currentRatio = actualRatio(actualLeaf, vesselMl);
   const adjusted = isScheduleAdjusted(tea.ratioGPerMl, currentRatio);
   const schedule = adjusted
-    ? adjustSchedule(tea.baselineSchedule, tea.ratioGPerMl, currentRatio)
+    ? adjustSchedule(tea.baselineSchedule, tea.ratioGPerMl, currentRatio, tea.maxAdjust)
     : tea.baselineSchedule;
 
   return {

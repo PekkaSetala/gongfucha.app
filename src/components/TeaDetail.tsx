@@ -80,7 +80,7 @@ export function TeaDetail({
         {leafOverride !== null && (
           <button
             onClick={() => setLeafOverride(null)}
-            className="text-[12px] text-tertiary underline underline-offset-2 mb-3 hover:text-secondary"
+            className="text-[12px] text-tertiary underline underline-offset-2 mb-3 hover:text-secondary mx-auto block"
             style={{ transition: "color 150ms var(--ease-out)" }}
           >
             Reset to defaults

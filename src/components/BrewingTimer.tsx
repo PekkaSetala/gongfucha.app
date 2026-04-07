@@ -30,13 +30,12 @@ interface BrewingTimerProps {
   onEnd: () => void;
 }
 
-type Phase = "rinse" | "rinse2" | "brewing" | "between";
+type Phase = "pre-rinse" | "brewing" | "between";
 
-const RINSE_DURATION = 5;
 const DEFAULT_COLOR = "#8C563E";
 
 export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
-  const [phase, setPhase] = useState<Phase>(params.rinse ? "rinse" : "brewing");
+  const [phase, setPhase] = useState<Phase>(params.rinse ? "pre-rinse" : "brewing");
   const [infusionIndex, setInfusionIndex] = useState(0);
   const [schedule, setSchedule] = useState(params.schedule);
   const [nextAdjust, setNextAdjust] = useState(0);
@@ -72,15 +71,10 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
     }
   }, [phase]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const currentDuration =
-    phase === "rinse" || phase === "rinse2"
-      ? RINSE_DURATION
-      : schedule[infusionIndex] ?? schedule[schedule.length - 1];
+  const currentDuration = schedule[infusionIndex] ?? schedule[schedule.length - 1];
 
   const handleTimerComplete = useCallback(() => {
-    if (phase === "brewing") {
-      setTotalTime((prev) => prev + currentDuration);
-    }
+    setTotalTime((prev) => prev + currentDuration);
     if ("vibrate" in navigator) {
       navigator.vibrate(200);
     }
@@ -91,23 +85,17 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
     setTimeout(() => {
       setCompleted(false);
-      const nextPhase: Phase =
-        phase === "rinse" && params.doubleRinse
-          ? "rinse2"
-          : phase === "rinse" || phase === "rinse2"
-            ? "brewing"
-            : "between";
 
       setPrevPhase(phase);
       setTransitioning(true);
 
       setTimeout(() => {
-        setPhase(nextPhase);
+        setPhase("between");
         setTransitioning(false);
         setPrevPhase(null);
       }, 200);
     }, 400);
-  }, [phase, params.doubleRinse, sound, currentDuration]);
+  }, [phase, sound, currentDuration]);
 
   const timer = useTimer({
     durationSeconds: currentDuration,
@@ -128,7 +116,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
         e.code === "Space" &&
-        phase !== "between" &&
+        phase === "brewing" &&
         !(e.target instanceof HTMLInputElement || e.target instanceof HTMLButtonElement)
       ) {
         e.preventDefault();
@@ -172,14 +160,14 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   };
 
   const phaseLabel = () => {
-    if (phase === "rinse") return "Rinse";
-    if (phase === "rinse2") return "Rinse 2";
+    if (phase === "pre-rinse") return "Before you brew";
     if (phase === "between") return `Infusion ${infusionIndex + 1} complete`;
     return `Infusion ${infusionIndex + 1}`;
   };
 
   const isBetween = phase === "between" && !transitioning;
-  const isBrewing = phase !== "between";
+  const isPreRinse = phase === "pre-rinse";
+  const isBrewing = phase === "brewing";
 
   // Wash gradient deepens with steep progress (quadratic ease-out)
   const washGradient = useMemo(() => {
@@ -286,11 +274,33 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             {phaseLabel()}
           </p>
 
-          {/* Rinse hint */}
-          {(phase === "rinse" || phase === "rinse2") && (
-            <p className="text-[13px] font-serif-cn italic text-secondary mt-1 text-center max-w-[280px]">
-              {params.rinseHint || "Pour, wait, discard"}
-            </p>
+          {/* ─── Pre-rinse screen ─── */}
+          {isPreRinse && (
+            <div className="flex flex-col items-center mt-10 phase-enter">
+              <p className="text-[14px] font-serif-cn italic text-secondary text-center max-w-[280px] leading-relaxed">
+                {params.rinseHint || (params.doubleRinse ? "Rinse twice, then brew" : "Rinse once, then brew")}
+              </p>
+              {params.doubleRinse && (
+                <p className="text-[12px] text-tertiary mt-2 text-center">
+                  Two rinses for this tea
+                </p>
+              )}
+              <button
+                onClick={() => {
+                  sound.unlock();
+                  setPhase("brewing");
+                }}
+                className="w-full max-w-[320px] py-4 rounded-[14px] font-medium text-[15px] mt-8"
+                style={{
+                  backgroundColor: accentColor,
+                  color: "var(--color-surface)",
+                  boxShadow: `0 2px 8px color-mix(in srgb, ${accentColor} 25%, rgba(0,0,0,0.1))`,
+                  transition: "transform 160ms var(--ease-out)",
+                }}
+              >
+                Rinse done
+              </button>
+            </div>
           )}
 
           {/* ─── Timer area ─── */}

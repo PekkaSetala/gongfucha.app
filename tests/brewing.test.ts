@@ -33,8 +33,9 @@ describe("adjustSchedule", () => {
     expect(adjustSchedule(baseline, 0.07, 0.07)).toEqual(baseline);
   });
 
-  it("returns baseline when ratio is close (within 10%)", () => {
-    expect(adjustSchedule(baseline, 0.07, 0.065)).toEqual(baseline);
+  it("returns baseline when ratio is close (within 5%)", () => {
+    // 0.07 vs 0.068 = 2.9% deviation — within dead zone
+    expect(adjustSchedule(baseline, 0.07, 0.068)).toEqual(baseline);
   });
 
   it("lengthens times when less leaf is used", () => {
@@ -51,9 +52,9 @@ describe("adjustSchedule", () => {
   });
 
   it("clamps extreme deviations", () => {
-    // Very little leaf — multiplier capped at 2.0
+    // Very little leaf — multiplier capped at 3.0, first steep gets full effect
     const adjusted = adjustSchedule(baseline, 0.07, 0.01);
-    expect(adjusted[0]).toBe(20); // 10 * 2.0 (clamped)
+    expect(adjusted[0]).toBe(30); // 10 * 3.0 (clamped, full taper at first steep)
   });
 });
 
@@ -63,7 +64,8 @@ describe("isScheduleAdjusted", () => {
   });
 
   it("returns false when close", () => {
-    expect(isScheduleAdjusted(0.07, 0.065)).toBe(false);
+    // 0.07 vs 0.068 = 2.9% deviation — within 5% dead zone
+    expect(isScheduleAdjusted(0.07, 0.068)).toBe(false);
   });
 
   it("returns true when significantly different", () => {
