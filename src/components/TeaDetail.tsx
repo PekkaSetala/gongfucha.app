@@ -50,7 +50,7 @@ export function TeaDetail({
         )}
 
         {/* Vessel & Leaf controls */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="flex justify-around mb-4">
           <StepperControl
             label="Vessel"
             value={`${vesselMl}ml`}
@@ -88,7 +88,7 @@ export function TeaDetail({
         )}
 
         {/* Params row */}
-        <div className="flex gap-5 mb-4">
+        <div className="flex justify-around text-center mb-4">
           <div>
             <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary">Temp</span>
             <span className="text-[14px] font-medium">{params.tempC}°C</span>
@@ -106,16 +106,16 @@ export function TeaDetail({
         </div>
 
         {/* Brew note */}
-        <p className="text-[13px] font-serif-cn italic text-secondary leading-relaxed border-t border-border pt-4 mb-4">
+        <p className="text-[13px] font-serif-cn italic text-secondary leading-relaxed border-t border-border pt-4 mb-4 text-center">
           {params.brewNote}
         </p>
 
         {/* Schedule pills */}
         <div className={`border-t border-border pt-4 mb-5 ${variant === "inline" ? "mt-1" : ""}`}>
-            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2.5">
+            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2.5 text-center">
               Infusion schedule (seconds)
             </span>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1.5 justify-center">
               {params.schedule.map((s, i) => (
                 <span
                   key={i}

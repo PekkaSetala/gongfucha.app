@@ -178,20 +178,6 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
     return `Infusion ${infusionIndex + 1}`;
   };
 
-  if (showSummary) {
-    return (
-      <SessionSummary
-        teaName={params.teaName}
-        teaColor={accentColor}
-        infusionsCompleted={phase === "between" ? infusionIndex + 1 : Math.max(infusionIndex, 0)}
-        totalTimeSeconds={totalTime}
-        leafG={params.actualLeaf}
-        vesselMl={params.vesselMl}
-        onDone={onEnd}
-      />
-    );
-  }
-
   const isBetween = phase === "between" && !transitioning;
   const isBrewing = phase !== "between";
 
@@ -210,6 +196,20 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   }, [isBrewing, timer.progress, accentColor]);
 
   const endBtnClass = "text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl bg-surface hover-lift";
+
+  if (showSummary) {
+    return (
+      <SessionSummary
+        teaName={params.teaName}
+        teaColor={accentColor}
+        infusionsCompleted={phase === "between" ? infusionIndex + 1 : Math.max(infusionIndex, 0)}
+        totalTimeSeconds={totalTime}
+        leafG={params.actualLeaf}
+        vesselMl={params.vesselMl}
+        onDone={onEnd}
+      />
+    );
+  }
 
   return (
     <div
@@ -394,10 +394,10 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             className="w-full max-w-[320px] bg-surface/60 border border-border/50 rounded-[14px] px-5 py-3.5 mt-7"
           >
             {/* Schedule label + pills */}
-            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
+            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2 text-center">
               Schedule
             </span>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1.5 justify-center">
               {schedule.map((s, i) => {
                 const isCurrent = isBetween
                   ? i === infusionIndex + 1
@@ -433,7 +433,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
             {/* Param row */}
             <div
-              className="flex gap-5 mt-3 pt-2.5"
+              className="flex justify-around text-center mt-3 pt-2.5"
               style={{ borderTop: `1px solid color-mix(in srgb, ${accentColor} 6%, var(--color-border))` }}
             >
               <div>
@@ -453,7 +453,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             {/* Brew note (brewing) or tip (between) */}
             {phase !== "between" && params.brewNote && (
               <p
-                className="text-[13px] font-serif-cn italic leading-relaxed mt-2.5 pt-2.5"
+                className="text-[13px] font-serif-cn italic leading-relaxed mt-2.5 pt-2.5 text-center"
                 style={{
                   borderTop: `1px solid color-mix(in srgb, ${accentColor} 6%, var(--color-border))`,
                   color: `color-mix(in srgb, ${accentColor} 25%, var(--color-secondary))`,
@@ -464,7 +464,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             )}
             {isBetween && currentTip && (
               <p
-                className="text-[13px] font-serif-cn italic leading-relaxed mt-2.5 pt-2.5"
+                className="text-[13px] font-serif-cn italic leading-relaxed mt-2.5 pt-2.5 text-center"
                 style={{
                   borderTop: `1px solid color-mix(in srgb, ${accentColor} 6%, var(--color-border))`,
                   color: `color-mix(in srgb, ${accentColor} 25%, var(--color-secondary))`,

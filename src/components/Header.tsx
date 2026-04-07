@@ -9,10 +9,10 @@ export function Header() {
     <header className="px-5 pt-14">
       {/* ─── Brand mark ─── */}
       <h1 className="mb-1">
-        <span className="block text-[36px] font-serif-cn font-normal leading-tight text-primary/80">
+        <span className="block text-[42px] font-serif-cn font-normal leading-tight text-primary/80">
           功夫茶
         </span>
-        <span className="block text-[13px] font-serif-cn tracking-[2.5px] uppercase text-tertiary mt-1">
+        <span className="block text-[12px] font-serif-cn tracking-[3.5px] uppercase text-tertiary/50 mt-1.5">
           Gongfu Cha
         </span>
       </h1>

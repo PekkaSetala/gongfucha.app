@@ -31,7 +31,7 @@ export function StepperControl({
   suffix,
 }: StepperControlProps) {
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
         {label}
         {suffix}
