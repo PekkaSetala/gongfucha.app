@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { TimerRing } from "./TimerRing";
 import { useTimer } from "@/hooks/useTimer";
 import { nextExtendedTime, formatRatio } from "@/lib/brewing";
@@ -195,6 +195,22 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   const isBetween = phase === "between" && !transitioning;
   const isBrewing = phase !== "between";
 
+  // Wash gradient deepens with steep progress (quadratic ease-out)
+  const washGradient = useMemo(() => {
+    const raw = isBrewing ? timer.progress : 0;
+    const p = 1 - (1 - raw) * (1 - raw);
+    const centerPct = Math.round(8 + p * 10);  // 8% → 18%
+    const midPct = Math.round(4 + p * 4);      // 4% → 8%
+    return `radial-gradient(
+      ellipse 90% 55% at 50% 30%,
+      color-mix(in srgb, ${accentColor} ${centerPct}%, transparent),
+      color-mix(in srgb, ${accentColor} ${midPct}%, transparent) 55%,
+      transparent 100%
+    )`;
+  }, [isBrewing, timer.progress, accentColor]);
+
+  const endBtnClass = "text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl bg-surface hover-lift";
+
   return (
     <div
       className="flex flex-col h-[100dvh] overflow-y-auto paper-texture"
@@ -202,23 +218,10 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
         "--tea-accent": accentColor,
       } as React.CSSProperties}
     >
-      {/* ─── Color wash — intensity deepens with steep progress ─── */}
       <div
         className={`fixed inset-0 pointer-events-none ${isBrewing && timer.isRunning ? "wash-breathe" : ""}`}
         style={{
-          background: (() => {
-            // Ease-out curve: rises quickly early, plateaus late
-            const raw = isBrewing ? timer.progress : 0;
-            const p = 1 - (1 - raw) * (1 - raw); // quadratic ease-out
-            const centerPct = Math.round(8 + p * 10);  // 8% → 18%
-            const midPct = Math.round(4 + p * 4);      // 4% → 8%
-            return `radial-gradient(
-              ellipse 90% 55% at 50% 30%,
-              color-mix(in srgb, ${accentColor} ${centerPct}%, transparent),
-              color-mix(in srgb, ${accentColor} ${midPct}%, transparent) 55%,
-              transparent 100%
-            )`;
-          })(),
+          background: washGradient,
           opacity: isBetween ? 0.55 : 0.65 + (isBrewing ? timer.progress * 0.35 : 0),
           transition: "opacity 600ms var(--ease-in-out)",
           zIndex: 0,
@@ -488,7 +491,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                     setTotalTime(finalTime);
                     setShowSummary(true);
                   }}
-                  className="text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl bg-surface hover-lift"
+                  className={endBtnClass}
                   style={{
                     transition: "color 150ms var(--ease-out)",
                     color: "var(--color-error)",
@@ -499,7 +502,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                 </button>
                 <button
                   onClick={() => setConfirmEnd(false)}
-                  className="text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl bg-surface hover-lift"
+                  className={endBtnClass}
                   style={{
                     transition: "color 150ms var(--ease-out)",
                     color: `color-mix(in srgb, ${accentColor} 30%, var(--color-tertiary))`,
@@ -512,7 +515,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             ) : (
               <button
                 onClick={() => setConfirmEnd(true)}
-                className="text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl bg-surface hover-lift"
+                className={endBtnClass}
                 style={{
                   transition: "color 150ms var(--ease-out)",
                   color: `color-mix(in srgb, ${accentColor} 30%, var(--color-tertiary))`,
