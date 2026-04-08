@@ -31,11 +31,12 @@ export interface ScoredTeaResult {
  */
 export async function searchTeas(
   query: string,
-  topK: number = 3
+  topK: number = 3,
+  collection: string = COLLECTION
 ): Promise<ScoredTeaResult[]> {
   const client = new QdrantClient(QDRANT_URL);
   const queryVector = await embedText(query);
-  const results = await client.search(COLLECTION, queryVector, topK * 2);
+  const results = await client.search(collection, queryVector, topK * 2);
 
   const queryLower = query.toLowerCase();
 
