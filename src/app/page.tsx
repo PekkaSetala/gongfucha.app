@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { getTeas, getTeaById } from "@/data/teas";
+import { getTeaById, teaGroups, type TeaGroup } from "@/data/teas";
 import { Header } from "@/components/Header";
 import { TeaList } from "@/components/TeaList";
 import { BrewingTimer } from "@/components/BrewingTimer";
@@ -21,8 +21,8 @@ function getStoredVessel(): number {
 type ViewState = "list" | "enter-brewing" | "brewing" | "exit-brewing";
 
 export default function Home() {
-  const teas = getTeas();
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [expandedGroupId, setExpandedGroupId] = useState<string | null>(null);
+  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
   const [aiExpanded, setAiExpanded] = useState(false);
   const [customExpanded, setCustomExpanded] = useState(false);
   const [vesselMl, setVesselMl] = useState(DEFAULT_VESSEL);
@@ -55,21 +55,41 @@ export default function Home() {
     localStorage.setItem(VESSEL_KEY, String(ml));
   };
 
-  const handleSelect = (id: string) => {
-    setSelectedId(selectedId === id ? null : id);
+  const handleGroupToggle = (groupId: string) => {
+    if (expandedGroupId === groupId) {
+      setExpandedGroupId(null);
+      setSelectedVariantId(null);
+    } else {
+      setExpandedGroupId(groupId);
+      // Standalone teas auto-select immediately (no pill step)
+      const entry = teaGroups.find(
+        (g) => (typeof g === "string" ? g : g.id) === groupId
+      );
+      if (typeof entry === "string") {
+        setSelectedVariantId(entry);
+      } else {
+        setSelectedVariantId(null);
+      }
+    }
     setAiExpanded(false);
     setCustomExpanded(false);
   };
 
+  const handleVariantSelect = (variantId: string) => {
+    setSelectedVariantId(variantId);
+  };
+
   const handleToggleAI = () => {
     setAiExpanded(!aiExpanded);
-    setSelectedId(null);
+    setExpandedGroupId(null);
+    setSelectedVariantId(null);
     setCustomExpanded(false);
   };
 
   const handleToggleCustom = () => {
     setCustomExpanded(!customExpanded);
-    setSelectedId(null);
+    setExpandedGroupId(null);
+    setSelectedVariantId(null);
     setAiExpanded(false);
   };
 
@@ -121,7 +141,7 @@ export default function Home() {
   const bridgeColor = brewParams?.teaColor || "#8C563E";
   const showBrewing = viewState === "enter-brewing" || viewState === "brewing" || viewState === "exit-brewing";
 
-  const selectedTea = selectedId ? getTeaById(selectedId) ?? null : null;
+  const selectedTea = selectedVariantId ? getTeaById(selectedVariantId) ?? null : null;
 
   return (
     <div className="relative min-h-[100dvh]">
@@ -157,9 +177,10 @@ export default function Home() {
             <Header />
             <div className="max-w-[680px] mx-auto">
               <TeaList
-                teas={teas}
-                selectedId={selectedId}
-                onSelect={handleSelect}
+                expandedGroupId={expandedGroupId}
+                selectedVariantId={selectedVariantId}
+                onGroupToggle={handleGroupToggle}
+                onVariantSelect={handleVariantSelect}
                 selectedTea={selectedTea}
                 aiExpanded={aiExpanded}
                 onToggleAI={handleToggleAI}

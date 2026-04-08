@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import type { TeaPreset } from "@/data/teas";
+import { useRef, useEffect, useState, useCallback } from "react";
+import { teaGroups, getTeaById, type TeaGroup, type TeaPreset } from "@/data/teas";
 import type { BrewParams } from "./BrewingTimer";
 import { TeaDetail } from "./TeaDetail";
 import { AIAdvisor } from "./AIAdvisor";
@@ -9,9 +9,10 @@ import { CustomMode } from "./CustomMode";
 import type { AIResult } from "./AIAdvisor";
 
 interface TeaListProps {
-  teas: TeaPreset[];
-  selectedId: string | null;
-  onSelect: (id: string) => void;
+  expandedGroupId: string | null;
+  selectedVariantId: string | null;
+  onGroupToggle: (groupId: string) => void;
+  onVariantSelect: (variantId: string) => void;
   selectedTea: TeaPreset | null;
   aiExpanded: boolean;
   onToggleAI: () => void;
@@ -30,9 +31,10 @@ interface TeaListProps {
 }
 
 export function TeaList({
-  teas,
-  selectedId,
-  onSelect,
+  expandedGroupId,
+  selectedVariantId,
+  onGroupToggle,
+  onVariantSelect,
   selectedTea,
   aiExpanded,
   onToggleAI,
@@ -44,18 +46,50 @@ export function TeaList({
   onAIBrew,
 }: TeaListProps) {
   const detailRef = useRef<HTMLDivElement>(null);
+  const pillsRef = useRef<HTMLDivElement>(null);
   const aiRef = useRef<HTMLDivElement>(null);
   const customRef = useRef<HTMLDivElement>(null);
+  const [crossfadeState, setCrossfadeState] = useState<"idle" | "exit" | "enter">("idle");
+  const prevVariantRef = useRef<string | null>(null);
 
-  // Scroll the detail into view after it renders
+  // Scroll pills into view when group expands
   useEffect(() => {
-    if (selectedId && detailRef.current) {
+    if (expandedGroupId && !selectedVariantId && pillsRef.current) {
+      const frame = requestAnimationFrame(() => {
+        pillsRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+      return () => cancelAnimationFrame(frame);
+    }
+  }, [expandedGroupId, selectedVariantId]);
+
+  // Scroll detail into view when variant selected
+  useEffect(() => {
+    if (selectedVariantId && detailRef.current) {
       const frame = requestAnimationFrame(() => {
         detailRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
       return () => cancelAnimationFrame(frame);
     }
-  }, [selectedId]);
+  }, [selectedVariantId]);
+
+  // Crossfade when switching between variants
+  useEffect(() => {
+    const prev = prevVariantRef.current;
+    prevVariantRef.current = selectedVariantId;
+
+    // Only crossfade when switching from one variant to another (not initial selection)
+    if (prev && selectedVariantId && prev !== selectedVariantId) {
+      setCrossfadeState("exit");
+      const exitTimer = setTimeout(() => {
+        setCrossfadeState("enter");
+        const enterTimer = setTimeout(() => {
+          setCrossfadeState("idle");
+        }, 150);
+        return () => clearTimeout(enterTimer);
+      }, 100);
+      return () => clearTimeout(exitTimer);
+    }
+  }, [selectedVariantId]);
 
   // Scroll AI into view when expanded
   useEffect(() => {
@@ -77,21 +111,66 @@ export function TeaList({
     }
   }, [customExpanded]);
 
+  const getCrossfadeClass = useCallback(() => {
+    switch (crossfadeState) {
+      case "exit": return "variant-exit";
+      case "enter": return "variant-enter";
+      default: return "";
+    }
+  }, [crossfadeState]);
+
+  /** Resolve display values for a row — works for both standalone and group */
+  function getRowDisplay(entry: TeaGroup | string): {
+    id: string;
+    name: string;
+    subtitle: string;
+    color: string;
+    tempC: number;
+    isGroup: boolean;
+  } {
+    if (typeof entry === "string") {
+      const tea = getTeaById(entry)!;
+      return {
+        id: tea.id,
+        name: tea.name,
+        subtitle: tea.subtitle,
+        color: tea.color,
+        tempC: tea.tempC,
+        isGroup: false,
+      };
+    }
+    // For groups with a selected variant, show variant's values
+    const activeVariant = selectedVariantId && entry.variants.includes(selectedVariantId)
+      ? getTeaById(selectedVariantId)
+      : null;
+    return {
+      id: entry.id,
+      name: entry.name,
+      subtitle: activeVariant ? activeVariant.subtitle : entry.subtitle,
+      color: activeVariant ? activeVariant.color : entry.categoryColor,
+      tempC: activeVariant ? activeVariant.tempC : entry.displayTempC,
+      isGroup: true,
+    };
+  }
+
   return (
     <div className="flex flex-col gap-2 px-5" role="group" aria-label="Tea selection">
-      {teas.map((tea, index) => {
-        const selected = tea.id === selectedId;
+      {teaGroups.map((entry, index) => {
+        const display = getRowDisplay(entry);
+        const expanded = expandedGroupId === display.id;
+        const isGroup = display.isGroup;
+        const group = typeof entry !== "string" ? entry : null;
+
         return (
-          <div key={tea.id}>
+          <div key={display.id}>
             <button
-              onClick={() => onSelect(tea.id)}
-              aria-pressed={selected}
-              aria-expanded={selected}
+              onClick={() => onGroupToggle(display.id)}
+              aria-expanded={expanded}
               className={`
                 tea-stagger w-full
                 flex items-center gap-3.5 px-4 py-3.5 text-left
                 border
-                ${selected
+                ${expanded
                   ? "rounded-t-[14px] rounded-b-none border-b-0 border-clay/30 shadow-[0_-2px_12px_rgba(140,86,62,0.06)]"
                   : "rounded-[14px] border-border bg-surface hover-lift"
                 }
@@ -99,55 +178,107 @@ export function TeaList({
               style={{
                 animationDelay: `${index * 40}ms`,
                 transition: "border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out), background-color 200ms var(--ease-out), border-radius 200ms var(--ease-out)",
-                backgroundColor: selected ? `color-mix(in srgb, ${tea.color} 6%, var(--color-surface))` : undefined,
+                backgroundColor: expanded ? `color-mix(in srgb, ${display.color} 6%, var(--color-surface))` : undefined,
               }}
             >
               <span
                 className="w-5 h-5 rounded-full shrink-0"
                 style={{
-                  backgroundColor: tea.color,
-                  transition: "transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out)",
-                  transform: selected ? "scale(1.15)" : "scale(1)",
-                  boxShadow: selected ? `0 0 0 3px color-mix(in srgb, ${tea.color} 20%, transparent)` : "none",
+                  backgroundColor: display.color,
+                  transition: "transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out), background-color 160ms var(--ease-out)",
+                  transform: expanded ? "scale(1.15)" : "scale(1)",
+                  boxShadow: expanded ? `0 0 0 3px color-mix(in srgb, ${display.color} 20%, transparent)` : "none",
                 }}
               />
               <span className="flex-1 min-w-0">
                 <span className="text-[15px] font-serif-cn font-normal text-primary">
-                  {tea.name}
+                  {display.name}
                 </span>
-                <span className="block text-[12px] text-tertiary mt-0.5 truncate">
-                  {tea.subtitle}
+                <span
+                  className="block text-[12px] text-tertiary mt-0.5 truncate"
+                  style={{ transition: "opacity 160ms var(--ease-out)" }}
+                >
+                  {display.subtitle}
                 </span>
               </span>
-              <span className="text-[13px] font-medium text-secondary shrink-0">
-                {tea.tempC}°C
+              <span
+                className="text-[13px] font-medium text-secondary shrink-0"
+                style={{ transition: "opacity 160ms var(--ease-out)" }}
+              >
+                {display.tempC}°C
               </span>
             </button>
 
-            {/* Accordion detail — grid row animation for smooth height */}
+            {/* Accordion body */}
             <div
               className="grid transition-[grid-template-rows] duration-300"
               style={{
-                gridTemplateRows: selected ? "1fr" : "0fr",
+                gridTemplateRows: expanded ? "1fr" : "0fr",
                 transitionTimingFunction: "var(--ease-out)",
               }}
             >
               <div className="overflow-hidden">
-                {selected && selectedTea && (
+                {expanded && (
                   <div
-                    ref={detailRef}
                     className="border border-t-0 border-clay/30 rounded-b-[14px] pb-1"
                     style={{
-                      backgroundColor: `color-mix(in srgb, ${tea.color} 4%, var(--color-surface))`,
+                      backgroundColor: `color-mix(in srgb, ${display.color} 4%, var(--color-surface))`,
                     }}
                   >
-                    <TeaDetail
-                      tea={selectedTea}
-                      vesselMl={vesselMl}
-                      onVesselChange={onVesselChange}
-                      onStartBrewing={onStartBrewing}
-                      variant="inline"
-                    />
+                    {/* Variant pills for grouped teas */}
+                    {isGroup && group && (
+                      <div
+                        ref={pillsRef}
+                        className="flex justify-center gap-2 px-4 py-3"
+                        role="radiogroup"
+                        aria-label={`${display.name} variants`}
+                      >
+                        {group.variants.map((variantId, vi) => {
+                          const variant = getTeaById(variantId)!;
+                          const isSelected = selectedVariantId === variantId;
+                          return (
+                            <button
+                              key={variantId}
+                              role="radio"
+                              aria-checked={isSelected}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onVariantSelect(variantId);
+                              }}
+                              className="text-[13px] font-medium rounded-[20px] px-4 py-1.5"
+                              style={{
+                                border: `1px solid color-mix(in srgb, ${variant.color} ${isSelected ? "40%" : "25%"}, transparent)`,
+                                backgroundColor: isSelected
+                                  ? `color-mix(in srgb, ${variant.color} 12%, var(--color-surface))`
+                                  : "transparent",
+                                color: isSelected ? "var(--color-primary)" : "var(--color-secondary)",
+                                transition: "background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), color 160ms var(--ease-out)",
+                              }}
+                            >
+                              {group.variantLabels[vi]}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* TeaDetail — for standalone teas or after variant selection */}
+                    {selectedTea && (
+                      (!isGroup || selectedVariantId) && (
+                        <div
+                          ref={detailRef}
+                          className={getCrossfadeClass()}
+                        >
+                          <TeaDetail
+                            tea={selectedTea}
+                            vesselMl={vesselMl}
+                            onVesselChange={onVesselChange}
+                            onStartBrewing={onStartBrewing}
+                            variant="inline"
+                          />
+                        </div>
+                      )
+                    )}
                   </div>
                 )}
               </div>
