@@ -6,11 +6,12 @@ vi.mock("@/lib/rag/embed", () => ({
   embedText: vi.fn().mockResolvedValue(new Array(384).fill(0.1)),
 }));
 
-vi.mock("@/lib/rag/qdrant", () => ({
-  QdrantClient: vi.fn().mockImplementation(() => ({
-    search: vi.fn(),
-  })),
-}));
+vi.mock("@/lib/rag/qdrant", () => {
+  const MockClient = vi.fn().mockImplementation(function () {
+    return { search: vi.fn() };
+  });
+  return { QdrantClient: MockClient };
+});
 
 import { searchTeas, CONFIDENCE_THRESHOLD, NAME_BOOST } from "@/lib/rag/retrieve";
 import { QdrantClient } from "@/lib/rag/qdrant";
@@ -21,9 +22,9 @@ describe("searchTeas", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockSearch = vi.fn();
-    vi.mocked(QdrantClient).mockImplementation(
-      () => ({ search: mockSearch }) as unknown as InstanceType<typeof QdrantClient>
-    );
+    vi.mocked(QdrantClient).mockImplementation(function () {
+      return { search: mockSearch } as unknown as InstanceType<typeof QdrantClient>;
+    });
   });
 
   const fakeResults: QdrantSearchResult[] = [

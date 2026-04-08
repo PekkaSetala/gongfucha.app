@@ -33,8 +33,7 @@ export async function searchTeas(
   query: string,
   topK: number = 3
 ): Promise<ScoredTeaResult[]> {
-  // eslint-disable-next-line new-cap
-  const client = QdrantClient(QDRANT_URL) as InstanceType<typeof QdrantClient>;
+  const client = new QdrantClient(QDRANT_URL);
   const queryVector = await embedText(query);
   const results = await client.search(COLLECTION, queryVector, topK * 2);
 
