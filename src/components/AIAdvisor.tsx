@@ -19,6 +19,8 @@ interface AIResult {
   doubleRinse: boolean;
   schedule: number[];
   categoryId: string;
+  rinseHint?: string;
+  source?: "corpus" | "llm";
 }
 
 interface AIAdvisorProps {
@@ -150,6 +152,17 @@ export function AIAdvisor({
       {result && (
         <div className="bg-surface border border-border rounded-[14px] p-5 mt-2 detail-enter">
           <h3 className="text-lg font-medium mb-1">{result.teaName}</h3>
+          {result.source && (
+            <span
+              className={`inline-block text-[11px] font-medium uppercase tracking-[0.5px] px-2 py-0.5 rounded-md mb-2 ${
+                result.source === "corpus"
+                  ? "bg-gold/10 text-gold"
+                  : "bg-border/50 text-tertiary"
+              }`}
+            >
+              {result.source === "corpus" ? "From our library" : "AI estimate"}
+            </span>
+          )}
           <p className="text-[13px] font-serif-cn italic text-secondary leading-relaxed border-b border-border pb-3 mb-4">
             {result.summary}
           </p>

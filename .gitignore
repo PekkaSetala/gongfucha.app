@@ -42,6 +42,7 @@ files.zip
 # tool artifacts
 /.superpowers/
 /test-results/
+/.worktrees/
 
 # typescript
 *.tsbuildinfo
