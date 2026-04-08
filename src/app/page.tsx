@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { getTeaById, teaGroups, type TeaGroup } from "@/data/teas";
+import { getTeaById, teaGroups } from "@/data/teas";
 import { Header } from "@/components/Header";
 import { TeaList } from "@/components/TeaList";
 import { BrewingTimer } from "@/components/BrewingTimer";
