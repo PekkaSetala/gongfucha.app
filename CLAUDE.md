@@ -31,12 +31,12 @@ npx tsx scripts/rag-eval.ts           # Evaluate RAG retrieval quality
 ```
 src/
   app/
-    page.tsx              # Root — all view switching, vessel state, brew param assembly
+    page.tsx              # Root — group/variant selection, vessel state, view switching, brew param assembly
     layout.tsx            # Fonts (DM Sans, Noto Serif SC), metadata, viewport
     api/identify/route.ts # POST endpoint — RAG retrieval first, OpenRouter LLM fallback
     globals.css           # Tailwind v4 @theme tokens, animations, easing vars
   components/
-    TeaList.tsx           # Accordion tea list — detail expands inline below selected tea
+    TeaList.tsx           # Grouped tea list — 5 rows (3 with variant pills, 2 standalone), accordion detail
     TeaDetail.tsx         # Tea info + leaf/vessel config + "start brewing" + reset defaults
     BrewingTimer.tsx      # Full-screen timer — phases: rinse → rinse2 → brewing → between, session summary
     TimerRing.tsx         # SVG circular progress with completion pulse
@@ -48,9 +48,9 @@ src/
     SecondaryPaths.tsx    # Links to AI and Custom views
     InlineViewHeader.tsx  # Back-arrow + view title header for inline views
   data/
-    teas.ts               # 8 tea presets (TeaPreset type) with ratios, temps, schedules, rinseHints
+    teas.ts               # 8 tea presets (TeaPreset) + teaGroups display structure (5 groups: 3 with variants, 2 standalone)
     tips.ts               # 24 rotating daily gongfu tips for Western hobbyists
-    tea-categories.ts     # Category ID → label/color map (green, white, oolong, puerh, black)
+    tea-categories.ts     # Category ID → label/color map (green, white, oolong, puerh, black) with harmonized palette
     brew-tips.ts          # 120 contextual brewing tips with tea type + infusion range metadata
     greetings.ts          # 20 rotating headlines with time-band tags (morning/afternoon/evening/anytime)
   lib/
@@ -76,42 +76,50 @@ tests/
     greetings.test.ts     # Tests for headline time-band filtering
     pick.test.ts          # Tests for seededPick determinism
     weather-moods.test.ts # Tests for expanded weather mood selection
+    tea-groups.test.ts    # Tests for teaGroups structure and variant references
     rag-integration.test.ts # Tests for RAG retrieval pipeline (Qdrant, embedding, search)
 ```
 
+## Design Decisions
+
+These are constraints that prevent wrong code. They reflect deliberate choices, not defaults.
+
+- **Mobile-first, wet-handed use.** No bottom sheets, modals, or overlays — everything is inline in a single centered column. Touch targets must be large.
+- **No auto-start timer.** User pours water before timing. Timer starts on manual tap only.
+- **Ratio display is g/100ml** — how the Western gongfu community thinks, not raw g/ml.
+- **5 tea groups, 8 presets.** The list shows 5 rows: Green and Black are standalone; White (Fresh/Aged), Oolong (Light/Dark), and Pu-erh (Sheng/Shou) are grouped with inline variant pills. Don't add new presets or groups. The RAG corpus (84 entries) handles breadth; presets are curated starting points.
+- **Weather moods suggest qualities only** (cooling, warming, light, roasted) — never name specific teas.
+- **No AI slop.** Design must feel handmade. No gradients-on-gradients, no generic card layouts. Restraint and authenticity.
+- **All surfaces use `bg-surface`.** Never differentiate sections with `bg-warm` or alternate backgrounds.
+- **Color dots, not bars.** Tea category dots are personal and handmade — don't replace with color bars or corporate patterns.
+- **Color harmony arc.** Dot colors follow a deliberate progression: sage green (#7A9E6B) → dried leaf (#B5A890) → amber (#A8884A) → earth (#7B6B4D) → copper-red (#945046). Black tea is 红茶 (red tea) — the copper-red reflects liquor color. Don't change individual colors without considering the full arc.
+- **No frameworks for RAG.** Built from primitives (no LangChain/LlamaIndex) — this is a portfolio project demonstrating understanding.
+- **Local embeddings** (all-MiniLM-L6-v2) chosen over OpenAI API — no cost, no external dependency for embeddings.
+- **Service workers: production only.** Never register in dev mode — breaks HMR.
+
 ## Key Patterns
 
-- **Accordion selection**: clicking a tea in `TeaList` expands detail inline below that row (CSS grid height animation). No side panel — single centered column for all views.
-- **Brewing flow**: `page.tsx` builds `BrewParams` → passes to `BrewingTimer` via a 4-state view machine (`list → enter-brewing → brewing → exit-brewing`). Both views mount simultaneously; opacity + pointer-events control visibility. Enter uses a tea color bridge overlay (radial gradient crossfade); exit is a plain crossfade. Timer manages phase state machine (rinse → brewing → between → next infusion → session summary). Schedule auto-extends via 1.35x factor.
-- **Tea-colored timer**: timer view threads the tea's accent color through title, phase labels, info cards, buttons via `color-mix()`. Color wash (radial gradient) deepens proportionally with steep progress (quadratic ease-out curve, 8%→18% tea color). Each tea tints the whole screen.
-- **Schedule adjustment**: when user changes leaf amount from recommended, `brewing.ts` scales all steep times proportionally (capped 0.5x–2.0x).
-- **AI identify**: `AIAdvisor` → POST `/api/identify` → RAG retrieval (Qdrant vector search with name/alias boosting) first; falls back to OpenRouter LLM if below confidence threshold. Shows "matched from library" badge for RAG hits. Requires `QDRANT_URL` + `QDRANT_API_KEY` for RAG, `OPENROUTER_API_KEY` for LLM fallback.
-- **Design tokens**: defined as CSS custom properties in `globals.css` via Tailwind v4 `@theme inline`. Colors: `bg`, `surface`, `border`, `primary`, `secondary`, `tertiary`, `clay`, `gold`. Easing: `--ease-out`, `--ease-in-out`, `--ease-drawer`.
-- **Vessel persistence**: `localStorage` key `gongfucha-vessel-ml`, default 120ml.
-- **Animations**: `tea-stagger` (list items), `detail-enter` (cards), `view-enter` (AI/Custom crossfade), `phase-enter`/`phase-exit` (timer phases), `ring-complete`/`ring-glow-complete` (timer ring pulse), `wash-breathe` (8s color wash cycle), `wash-flash` (completion bloom), `digit-settle` (serif number tick), `wisp-rise` (steam wisps, between state), `ring-idle-breathe` (dashed ring, between state), `between-enter` (fade-only phase transition), `view-fade-out`/`view-fade-in`/`bridge-overlay` (tea color bridge enter), `view-fade-out-slow`/`view-fade-in-slow` (plain crossfade exit). Respects `prefers-reduced-motion`.
-- **End session**: two-tap confirmation — first tap reveals "Yes, end session" + "Cancel" to prevent accidental exits.
-- **Brew tips**: 120 contextual tips in `brew-tips.ts`, selected by `selectTip()` based on tea type and infusion number. Shown on between-infusion screen. Tea-specific tips weighted 3x over universal.
-- **Sound & haptic**: `useBrewSound` hook plays ceramic-tap.wav via AudioContext (iOS unlock on first tap). Haptic via `navigator.vibrate()` on timer complete.
-- **Ratio display**: shown as g/100ml (how the Western gongfu community thinks), not raw g/ml.
-- **Rinse hints**: per-tea `rinseHint` field on `TeaPreset` — shown during rinse phase instead of generic text.
-- **Weather moods**: `weather.ts` fetches conditions from wttr.in, maps to ~27 mood expressions suggesting tea qualities (cooling/warming/light/heavy/roasted) not specific tea types. Seeded per visit via `seededPick` for stable selection within 30-min windows. Cached in localStorage (30min TTL). Falls back to seasonal hints on fetch failure.
-- **Daily tips**: `tips.ts` rotates by day-of-year. Aimed at Western hobbyists.
+- **View state machine**: `page.tsx` manages `list | ai | custom` views via React state. Brewing uses a 4-state machine (`list → enter-brewing → brewing → exit-brewing`) with opacity/pointer-events crossfade. Enter transition uses tea-color bridge overlay.
+- **Tea group selection**: `page.tsx` uses `expandedGroupId` + `selectedVariantId` (not a single selectedId). Standalone teas auto-set `selectedVariantId` on expand. Grouped teas show variant pills first, then TeaDetail after pill selection. Variant switching uses a crossfade with blur bridge (100ms exit, 150ms enter).
+- **Tea-colored timer**: accent color threads through the entire timer view via `color-mix()`. Color wash deepens with steep progress (quadratic ease-out, 8%→18%).
+- **Schedule adjustment**: changing leaf amount from recommended scales all steep times proportionally (capped 0.5x–2.0x) in `brewing.ts`.
+- **AI identify**: RAG retrieval first (Qdrant), LLM fallback below confidence threshold. Env vars: `QDRANT_URL`, `QDRANT_API_KEY`, `OPENROUTER_API_KEY`.
+- **Design tokens**: CSS custom properties in `globals.css` via Tailwind v4 `@theme inline`.
+- **Animations**: defined in `globals.css`, all respect `prefers-reduced-motion`. Easing: `--ease-out` for enters, `--ease-in-out` for on-screen movement. UI animations stay under 300ms. Press feedback is `scale(0.97)` at 160ms globally.
+- **Seeded randomness**: `seededPick` ensures stable per-visit selection (weather moods, greetings) within 30-min windows.
+- **End session**: two-tap confirmation to prevent accidental exits.
 
 ## Testing
 
-Tests use Vitest with path alias `@` → `./src`. Test files go in `tests/`. Tests cover `brewing.ts` pure functions, `brew-tips.ts` selection algorithm, `pick.ts` seeded selection, `greetings.ts` time-band filtering, `weather.ts` mood selection, and RAG retrieval pipeline integration.
+Vitest with path alias `@` → `./src`. Test files in `tests/`. Run `npx vitest run`.
 
 ## RAG Pipeline
 
-Full spec: `docs/rag-spec.md`. Retrieval-augmented tea identification using local embeddings and Qdrant vector search.
+Full spec: `docs/rag-spec.md`. 84 tea entries in `src/data/corpus/entries/*.json`.
 
-- **Corpus**: `src/data/corpus/entries/*.json` — 84 tea entries (oolong 35, green 21, dark 11, white 7, red 6, yellow 4), schema in `src/data/corpus/schema.ts`
-- **Embedding**: local all-MiniLM-L6-v2 via `@huggingface/transformers` — no external API needed for embeddings
-- **Embedding text**: concatenates `name + aliases + flavor_profile + tips + aroma_notes + taste_notes`
-- **Vector DB**: Qdrant (Docker on Hetzner VPS), thin HTTP client in `qdrant.ts`
-- **Retrieval**: hybrid search — name/alias exact match boosted above cosine similarity, confidence threshold gates results
-- **API integration**: `/api/identify` tries RAG first, falls back to OpenRouter LLM below confidence threshold
-- **Indexing**: `npm run rag:index` embeds all corpus entries and upserts to Qdrant
-- **Evaluation**: `scripts/rag-eval.ts` tests retrieval quality across query variations
-- **Hardening**: query length capped at 200 chars, Qdrant search timeout at 5s
-- **No frameworks**: built from primitives, no LangChain/LlamaIndex
+- **Flow**: query → name/alias boost + cosine similarity → confidence threshold → result or LLM fallback
+- **Indexing**: `npm run rag:index` embeds corpus and upserts to Qdrant
+- **Evaluation**: `scripts/rag-eval.ts` tests retrieval quality
+- **Hardening**: query length capped 200 chars, Qdrant timeout 5s
+- **Deploy**: Docker Compose (Qdrant + app + nginx) on Hetzner VPS — not yet deployed
+- **Next**: deploy Qdrant on Hetzner, run `npm run rag:index` against live instance, end-to-end test AI advisor with real retrieval

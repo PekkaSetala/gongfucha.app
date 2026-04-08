@@ -43,6 +43,11 @@ files.zip
 /.superpowers/
 /test-results/
 /.worktrees/
+/.playwright-mcp/
+
+# smoke test screenshots
+smoke-test-*.png
+final-screenshot.png
 
 # typescript
 *.tsbuildinfo
