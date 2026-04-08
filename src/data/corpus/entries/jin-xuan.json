@@ -1,0 +1,36 @@
+{
+  "id": "jin-xuan",
+  "name": "Jin Xuan Oolong",
+  "aliases": ["金萱烏龍", "Milk Oolong", "Nai Xiang", "TRES #12", "Golden Lily", "Jīn Xuān"],
+  "category": "oolong",
+  "region": "Grown across Taiwan — Ali Shan, Nantou, Mingjian",
+  "terroir": "Adaptable cultivar; best examples from moderate-to-high elevation (600–1200m)",
+  "cultivar": "Jin Xuan (TRES #12)",
+  "processing": ["withered", "semi-oxidized", "ball-rolled"],
+  "oxidation": "light",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Naturally creamy and smooth with a distinctive milky sweetness that comes from the cultivar itself, not added flavoring. Higher levels of natural lactones produce a buttery, custard-like character with gentle floral undertones. Minimal astringency makes it exceptionally approachable. Beware cheap artificially flavored versions — genuine Jin Xuan is subtler.",
+  "body": "medium",
+  "aroma_notes": ["milk", "butter", "custard", "soft floral"],
+  "taste_notes": ["cream", "buttery sweetness", "vanilla", "light floral"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [30, 20, 20, 25, 30, 35, 40, 50],
+    "max_infusions": 8,
+    "rinse": false,
+    "tips": "Standard ball-rolled oolong parameters. The creamy character fades if over-steeped — keep it tight and enjoy the milk notes across many rounds."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://pathofcha.com/products/ali-shan-milk-oolong-tea",
+    "https://meileaf.com/tea/alishan-cream/",
+    "https://eco-cha.com/products/jin-xuan-oolong-tea",
+    "https://tecompanytea.com/blogs/tea-atelier/what-is-milk-oolong-tea",
+    "https://en.wikipedia.org/wiki/Jin_Xuan_tea",
+    "https://jteainternational.com/oolong-tea-times-blog/golden-lily-jin-xuan-tea-cultivar-deep-dive/"
+  ],
+  "updated": "2026-04-08"
+}

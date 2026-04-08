@@ -1,0 +1,33 @@
+{
+  "id": "en-shi-yu-lu",
+  "name": "En Shi Yu Lu",
+  "aliases": ["恩施玉露", "Ēnshī Yùlù", "Enshi Yulu", "Jade Dew"],
+  "category": "green",
+  "region": "Enshi, Hubei, China",
+  "terroir": "Selenium-rich soil in the Wuling Mountains, ~800-1200m, subtropical monsoon climate with heavy fog",
+  "cultivar": "Local Enshi cultivar",
+  "processing": ["steamed", "needle-rolled"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "China's most famous steamed green tea and one of very few surviving examples of the Tang-dynasty steaming method. The steaming preserves more chlorophyll and amino acids than pan-firing, producing a vivid emerald liquor with a mellow, full-bodied umami character. The flavor is smoother and more marine-vegetal than pan-fired greens — closer in spirit to Japanese gyokuro, though with its own distinct sweetness and mineral depth from Enshi's selenium-rich terroir.",
+  "body": "medium",
+  "aroma_notes": ["marine", "fresh vegetal", "sweet grass"],
+  "taste_notes": ["umami", "mellow", "sweet", "mineral"],
+  "brewing": {
+    "temp_c": 80,
+    "ratio_g_per_100ml": 3.5,
+    "schedule_s": [20, 20, 30, 45, 60],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "As a steamed green, it's more temperature-sensitive than pan-fired teas. Start at 80°C; going lower (even 70°C) brings out more umami at the cost of body."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://easternleaves.com/products/enshi-yulu-steamed-chinese-green-tea",
+    "https://onerivertea.com/products/enshi-yulu",
+    "https://tea.fandom.com/wiki/En_Shi_Yu_Lu_Tea",
+    "https://www.teavivre.com/en-shi-yu-lu-green-tea.html"
+  ],
+  "updated": "2026-04-08"
+}

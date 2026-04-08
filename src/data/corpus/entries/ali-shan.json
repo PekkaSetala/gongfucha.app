@@ -1,0 +1,37 @@
+{
+  "id": "ali-shan",
+  "name": "Ali Shan Oolong",
+  "aliases": ["阿里山烏龍", "Alishan Oolong", "Ali Mountain Oolong", "Āli Shān"],
+  "category": "oolong",
+  "subcategory": "Gao Shan",
+  "region": "Ali Shan, Chiayi County, Taiwan",
+  "terroir": "High elevation (~1000–1600m), misty subtropical mountains, cool temperatures concentrate sugars and essential oils",
+  "cultivar": "Qing Xin",
+  "processing": ["withered", "semi-oxidized", "ball-rolled"],
+  "oxidation": "light",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Smooth and buttery with pronounced floral sweetness. Orchid and honey notes carry through each steep, backed by a creamy body and a lingering sweet aftertaste. Less ethereal than higher-elevation gao shan but more accessible and consistently rewarding.",
+  "body": "medium",
+  "aroma_notes": ["orchid", "honey", "butter"],
+  "taste_notes": ["floral sweetness", "buttery cream", "spring grass", "huigan"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [30, 20, 20, 25, 30, 35, 40, 50],
+    "max_infusions": 8,
+    "rinse": false,
+    "tips": "Ball-rolled leaves need a longer first steep to begin opening. Drop time on steeps 2–3 once the leaf is unfurled, then gradually extend."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://beautifultaiwantea.com/blogs/beautifultaiwantea/brewing-high-mountain-oolong-from-taiwan",
+    "https://beautifultaiwantea.com/products/alishan-high-mountain-oolong-tea-taiwan",
+    "https://pathofcha.com/products/ali-shan-milk-oolong-tea",
+    "https://meileaf.com/resources/pdf/mei-leaf-tea-brewing-guide.pdf",
+    "https://teadb.org/taiwanese-oolong-compendium/",
+    "https://www.teacurious.com/tea-profile-alishan-high-mountain-oolong"
+  ],
+  "updated": "2026-04-08"
+}

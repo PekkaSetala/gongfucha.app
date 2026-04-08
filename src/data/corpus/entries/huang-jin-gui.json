@@ -1,0 +1,33 @@
+{
+  "id": "huang-jin-gui",
+  "name": "Huang Jin Gui",
+  "aliases": ["黄金桂", "Yellow Golden Osmanthus", "Golden Osmanthus Oolong", "Huang Dan cultivar"],
+  "category": "oolong",
+  "region": "Anxi, Fujian",
+  "terroir": "Anxi highland gardens, red clay laterite soil",
+  "cultivar": "Huang Dan (early-sprouting cultivar)",
+  "processing": ["withered", "semi-oxidized", "ball-rolled"],
+  "oxidation": "light",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Intensely fruity and juicy with a luscious honey backbone. The Huang Dan cultivar produces a distinctly golden-yellow liquor with strong osmanthus fragrance — more perfumed and fruit-forward than Tie Guan Yin. Lacks the slight sour-bitterness of TGY, instead offering smooth sweetness with a nutty aftertaste. At its best, a cooling quality and deep minerality emerge behind the dessert-like richness.",
+  "body": "light",
+  "aroma_notes": ["osmanthus", "tropical fruit", "honey"],
+  "taste_notes": ["juicy fruit", "honey", "nutty", "smooth sweetness"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [15, 10, 10, 12, 15, 20, 25, 30, 40],
+    "max_infusions": 9,
+    "rinse": false,
+    "tips": "Lightly oxidized with no roast — treat like a green-style oolong. Lower temperature preserves the volatile osmanthus aromatics. The first steep needs a bit longer to unroll the tightly balled leaves."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://verdanttea.com/huang-jin-gui-golden-osmanthus-anxi-oolong-se-zhong",
+    "https://yunnansourcing.com/products/premium-anxi-huang-jin-gui-oolong-tea-of-fujian",
+    "https://verdanttea.com/buyers-guide-to-tieguanyin-and-anxi-oolong"
+  ],
+  "updated": "2026-04-08"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "qi-men-hong",
+  "name": "Qi Men Hong",
+  "aliases": ["祁门红茶", "Qimen Hong Cha", "Keemun", "Keemun Black Tea", "祁红"],
+  "category": "red",
+  "subcategory": "anhui-red",
+  "region": "Qimen County, Anhui, China",
+  "terroir": "Low mountains (300-700m), frequent fog and rain, loamy red soil",
+  "cultivar": "Qimen Zhu Ye (祁门槠叶种)",
+  "processing": ["withered", "rolled", "fully oxidized", "dried", "sorted"],
+  "oxidation": "full",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Called the 'Champagne of Black Teas' for good reason. Opens with a distinct orchid fragrance, then layers of cocoa, stone fruit, and a wine-like smoothness unfold across infusions. Mao Feng grades have a lighter, more floral character; Hao Ya grades are richer with tobacco-like depth.",
+  "body": "medium",
+  "aroma_notes": ["orchid", "cocoa", "stone fruit"],
+  "taste_notes": ["cocoa", "wine", "orchid", "honey", "tobacco"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [10, 10, 15, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 9,
+    "rinse": false,
+    "tips": "Keemun responds well to slightly cooler water (85-90°C) — too hot and the cocoa notes turn bitter. Higher grades (Hao Ya) benefit from a porcelain gaiwan to preserve the delicate orchid aroma."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://meileaf.com/tea/superior-keemun/",
+    "https://yunnansourcing.com/pages/brewing-guide-for-green-black-oolong-and-pu-erh-teas",
+    "https://white2tea.com/blogs/blog/how-to-brew-gongfu-style-an-expert-guide-to-making-tea",
+    "https://en.wikipedia.org/wiki/Keemun",
+    "https://senchateabar.com/blogs/blog/keemun"
+  ],
+  "updated": "2026-04-08"
+}

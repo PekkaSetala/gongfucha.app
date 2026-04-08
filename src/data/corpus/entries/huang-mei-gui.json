@@ -1,0 +1,36 @@
+{
+  "id": "huang-mei-gui",
+  "name": "Huang Mei Gui",
+  "aliases": ["黄玫瑰", "Huáng Méi Guī", "Yellow Rose"],
+  "category": "oolong",
+  "subcategory": "Yan Cha",
+  "region": "Wuyishan, Fujian, China",
+  "terroir": "Wuyi scenic area; rocky, gravelly soil contributing chalky mineral texture",
+  "cultivar": "Huang Mei Gui (cross of Huang Jin Gui and Huang Dan; developed 2002)",
+  "processing": ["withered", "oxidized over 24 hours with hand-turning", "roasted 4 times with rest periods"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "1-3 years" },
+  "flavor_profile": "Intensely floral among yancha — the cultivar's Huang Jin Gui parentage delivers lilac and saffron aromatics, while the Wuyi terroir grounds it with chalky minerality. The body is smooth and thick with no astringency to speak of. Tropical fruit notes (mango, lychee) bolster the florals, and a sweet huigan creeps in on the finish that persists for minutes.",
+  "body": "medium",
+  "aroma_notes": ["lilac", "saffron", "tropical fruit", "rose"],
+  "taste_notes": ["floral", "lychee", "mineral", "huigan", "smooth"],
+  "brewing": {
+    "temp_c": 98,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [10, 10, 12, 15, 20, 25, 30, 40],
+    "max_infusions": 8,
+    "rinse": true,
+    "rinse_hint": "Quick rinse lets the floral aromatics open immediately on the first real steep.",
+    "tips": "Slightly off-boiling (98°C) preserves the delicate florals that are this tea's strength. The floral character holds remarkably well across many steeps thanks to the multiple-roast processing."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/products/huang-mei-gui-wu-yi-rock-oolong-tea",
+    "https://verdanttea.com/huang-mei-gui-wuyi-oolong",
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://www.teasenz.com/huang-mei-gui"
+  ],
+  "updated": "2026-04-08"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "da-hong-pao",
+  "name": "Da Hong Pao",
+  "aliases": ["大红袍", "Dà Hóng Páo", "Big Red Robe", "DHP"],
+  "category": "oolong",
+  "subcategory": "Yan Cha",
+  "region": "Wuyishan, Fujian, China",
+  "terroir": "Zhengyan; original six mother bushes on Jiulong Ke cliff (museum pieces, no longer harvested). Commercial DHP is a blend — typically Rou Gui and Shui Xian — or made from Qidan/Beidou clones",
+  "cultivar": "Qidan (closest genetic clone of the mother trees); commodity DHP is often a blend",
+  "processing": ["withered", "oxidized", "twisted", "charcoal roasted over months", "multiple firings"],
+  "oxidation": "medium",
+  "roast": "heavy",
+  "aging": { "viable": true, "sweet_spot": "2-10 years" },
+  "flavor_profile": "The most famous Chinese oolong. Deep mineral backbone — the hallmark 'yan yun' (rock rhyme) — layered with dark chocolate, roasted almonds, and baked stone fruit. A well-made Qidan DHP has a cooling aftertaste and incense-like aromatics that linger long after the cup is empty. Blends vary widely in character depending on component cultivars and roast level.",
+  "body": "full",
+  "aroma_notes": ["roasted nuts", "cocoa", "incense", "caramel"],
+  "taste_notes": ["dark chocolate", "mineral", "stone fruit", "allspice", "huigan"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [10, 10, 12, 15, 20, 25, 30, 40],
+    "max_infusions": 8,
+    "rinse": true,
+    "rinse_hint": "One quick rinse opens the heavy charcoal roast and primes the leaves. Don't discard it — often the best sip.",
+    "tips": "Full boiling water, no exceptions. Quality DHP evolves across 8+ steeps — early steeps show roast and chocolate, middle steeps reveal fruit and florals, late steeps are all mineral sweetness."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://verdanttea.com/wuyi-mountain-big-red-robe",
+    "https://sevencups.com/shop/da-hong-pao-big-red-robe/",
+    "https://yunnansourcing.com/products/da-hong-pao-big-red-robe-wu-yi-shan-oolong-tea",
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://teadb.org/da-hong-pao/",
+    "https://white2tea.com/blogs/blog/exploring-the-spectrum-of-oolong-from-floral-to-roasted-perfection"
+  ],
+  "updated": "2026-04-08"
+}

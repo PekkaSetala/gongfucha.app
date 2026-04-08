@@ -1,0 +1,34 @@
+{
+  "id": "anhua-hei-cha",
+  "name": "Anhua Hei Cha",
+  "aliases": ["安化黑茶", "Anhua Dark Tea", "Hei Zhuan", "黑砖茶"],
+  "category": "dark",
+  "subcategory": "hunan-dark",
+  "region": "Anhua, Hunan, China",
+  "terroir": "Mountainous (200-1000m), fog-heavy, mineral-rich slate and sandstone soil",
+  "processing": ["kill-green", "rolled", "pile-fermented", "dried", "compressed into bricks"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "5-15 years" },
+  "flavor_profile": "Earthy and smooth with a clean, woody character. Fresh Anhua hei cha carries a mild astringency that transforms into lingering sweetness across infusions. Aged examples develop dried plum and camphor notes. Sturdy and economical — retains full flavor after 8+ brews.",
+  "body": "full",
+  "aroma_notes": ["earth", "wood", "dried plum"],
+  "taste_notes": ["earth", "wood", "sweet", "camphor", "dried plum"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [15, 20, 25, 30, 40, 50, 60, 80, 120],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse 10 seconds to wake compressed leaves and wash off storage dust.",
+    "tips": "Use boiling water and teaware with good heat retention — Yixing clay or ceramic. Can also be boiled for a thick, concentrated brew."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/pages/understanding-anhua-tian-jian-dark-tea",
+    "https://yunnansourcing.com/collections/hei-cha",
+    "https://white2tea.com/products/2021-anhua-tianjian",
+    "https://meileaf.com/article/basic-brewing-guide/"
+  ],
+  "updated": "2026-04-08"
+}

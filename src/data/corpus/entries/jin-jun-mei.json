@@ -1,0 +1,37 @@
+{
+  "id": "jin-jun-mei",
+  "name": "Jin Jun Mei",
+  "aliases": ["金骏眉", "Golden Beautiful Eyebrow", "Golden Steed Eyebrow", "Jinjunmei"],
+  "category": "red",
+  "subcategory": "wuyi-red",
+  "region": "Tongmu Guan, Wuyi Mountains, Fujian, China",
+  "terroir": "High altitude (1200-1800m), misty bamboo forest, mineral-rich soil",
+  "cultivar": "Xiao Cai Cha (小菜茶) / Qi Zhong",
+  "processing": ["hand-picked single buds", "withered", "rolled", "fully oxidized", "dried"],
+  "oxidation": "full",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "A luxurious single-bud tea with honey sweetness layered over rose and lychee florals. The mouthfeel is silky and the body surprisingly delicate for a red tea. Later infusions reveal warm malt and cocoa undertones with a lingering sweet finish.",
+  "body": "light",
+  "aroma_notes": ["honey", "rose", "lychee", "dried fruit"],
+  "taste_notes": ["honey", "malt", "lychee", "chocolate", "sweet potato"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [10, 10, 10, 15, 15, 20, 25, 30, 40],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Quick 3-second rinse — just enough to wet the buds.",
+    "tips": "This tea is delicate — keep water below 90°C. Higher temperature brings out more chocolate character but sacrifices florals. Use less leaf if you want to emphasize sweetness."
+  },
+  "price_range": "premium",
+  "beginner_friendly": false,
+  "sources": [
+    "https://yunnansourcing.com/products/imperial-grade-jin-jun-mei-from-tong-mu-guan-village",
+    "https://meileaf.com/tea/gleaming-brow/",
+    "https://white2tea.com/products/daily-jinjunmei",
+    "https://verdanttea.com/jin-jun-mei",
+    "https://www.teavivre.com/wuyi-floral-jin-jun-mei-black-tea.html"
+  ],
+  "updated": "2026-04-08"
+}

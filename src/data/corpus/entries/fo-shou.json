@@ -1,0 +1,34 @@
+{
+  "id": "fo-shou",
+  "name": "Fo Shou",
+  "aliases": ["佛手", "Buddha's Hand", "Buddha's Hand Oolong", "Fo Shou Yancha"],
+  "category": "oolong",
+  "region": "Wuyishan, Fujian",
+  "terroir": "Wuyi rock mineral soil, sheltered valleys",
+  "cultivar": "Fo Shou (uniquely large leaves)",
+  "processing": ["withered", "semi-oxidized", "twisted", "slow hand-fired over low heat"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "1-5 years" },
+  "flavor_profile": "Named after the Buddha's Hand citrus, Fo Shou is a thick, fruit-forward yancha with low astringency. The cup opens with gardenia and citron honey, layered with cinnamon and sandalwood spice from slow hand-firing. Creamy, cooling minerality underneath with muscat grape and spearmint. The uniquely large leaves unfold beautifully across many infusions.",
+  "body": "full",
+  "aroma_notes": ["gardenia", "citron", "incense", "sandalwood"],
+  "taste_notes": ["citrus honey", "cinnamon", "muscat grape", "spearmint", "mineral"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [10, 8, 8, 10, 15, 20, 25, 30, 45],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Brief rinse — the large Fo Shou leaves open readily.",
+    "tips": "Fo Shou is forgiving and low in astringency, making it a good entry point for Wuyi yancha. The citrus-incense character is most vivid in steeps 2-4."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/products/buddhas-hand-fo-shou-wu-yi-rock-oolong-tea",
+    "https://verdanttea.com/fo-shou-wuyi-oolong",
+    "https://verdanttea.com/reserve-fo-shou-buddhas-hand-wuyi-oolong"
+  ],
+  "updated": "2026-04-08"
+}

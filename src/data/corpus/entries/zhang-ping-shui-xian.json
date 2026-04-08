@@ -1,0 +1,35 @@
+{
+  "id": "zhang-ping-shui-xian",
+  "name": "Zhang Ping Shui Xian",
+  "aliases": ["漳平水仙", "Zhangping Narcissus", "Zhangping Shuixian", "Narcissus Cake Oolong"],
+  "category": "oolong",
+  "subcategory": "Shui Xian",
+  "region": "Zhangping, Fujian",
+  "terroir": "Southern Fujian highlands, subtropical mountain climate",
+  "cultivar": "Shui Xian (Narcissus)",
+  "processing": ["withered", "semi-oxidized", "rolled", "compressed into square cakes", "lightly roasted"],
+  "oxidation": "medium",
+  "roast": "light",
+  "aging": { "viable": true, "sweet_spot": "3-10 years" },
+  "flavor_profile": "China's only traditionally pressed oolong — hand-compressed into small square cakes using century-old methods recognized as UNESCO intangible cultural heritage. The liquor is delicate and floral with gardenia and magnolia aromatics, layers of honeyed stone fruit, warm sugarcane, and a hint of roasted sweetness. Soft, smooth body with a clean floral finish.",
+  "body": "medium",
+  "aroma_notes": ["gardenia", "magnolia", "wild orchid"],
+  "taste_notes": ["stone fruit", "sugarcane", "honey", "light roast sweetness"],
+  "brewing": {
+    "temp_c": 95,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [20, 15, 15, 18, 20, 25, 30, 40, 50],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Essential rinse — the compressed cake needs a good soak to begin opening. Give it 10 seconds.",
+    "tips": "The first steep runs longer because the compressed cake takes time to unfurl. By steep two the leaves are fully open and extraction speeds up. One cake is typically about 10g — use half for a 100ml gaiwan."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://www.curioustea.com/tea/oolong-tea/zhang-ping-shui-xian/",
+    "https://www.morimatea.com/products/narcissus-tea-cakes",
+    "https://clubmagichour.com/products/zhangping-shuixian-oolong"
+  ],
+  "updated": "2026-04-08"
+}

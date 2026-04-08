@@ -1,0 +1,36 @@
+{
+  "id": "ying-de-hong",
+  "name": "Ying De Hong",
+  "aliases": ["英德红茶", "Ying Hong", "Yingde Red Tea", "Ying Hong #9", "Yinghong No. 9"],
+  "category": "red",
+  "subcategory": "guangdong-red",
+  "region": "Ying De, Guangdong, China",
+  "terroir": "Subtropical, hilly terrain (100-400m), rich red soil",
+  "cultivar": "Yingde No. 9 (Yunnan large-leaf hybrid, certified 1986)",
+  "processing": ["withered", "rolled", "fully oxidized", "dried"],
+  "oxidation": "full",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "A creamy, velvety red tea with pronounced honey-floral aromatics and a maple-syrup sweetness. The large-leaf Yunnan parentage gives it a malty backbone, while Guangdong terroir adds longan fruit notes and a clean, lingering finish with zero astringency.",
+  "body": "full",
+  "aroma_notes": ["honey", "longan", "maple"],
+  "taste_notes": ["malt", "honey", "longan", "cream", "maple syrup"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [10, 10, 15, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 9,
+    "rinse": false,
+    "tips": "The tight, heavy leaves need a moment to open — first steep can run slightly longer. Maintains flavor well across many infusions."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://thechineseteashop.com/products/ying-de-hong-9-black-tea",
+    "https://www.teasenz.com/yingde-black-tea",
+    "https://www.teahong.com/product/ying-hong-nine/",
+    "https://www.teavivre.com/ying-de-hong-cha-yinghong-9-black-tea.html",
+    "https://www.teatrekker.com/product/ying-de-9/"
+  ],
+  "updated": "2026-04-08"
+}

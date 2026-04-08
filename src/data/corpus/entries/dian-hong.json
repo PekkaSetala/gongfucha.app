@@ -1,0 +1,37 @@
+{
+  "id": "dian-hong",
+  "name": "Dian Hong",
+  "aliases": ["滇红茶", "Dianhong", "Yunnan Red Tea", "Yunnan Gold", "Yunnan Black Tea"],
+  "category": "red",
+  "subcategory": "yunnan-red",
+  "region": "Feng Qing, Lincang, Yunnan, China",
+  "terroir": "High altitude (1200-2000m), subtropical climate, red laterite soil",
+  "cultivar": "Feng Qing Da Ye Zhong (Camellia sinensis var. assamica)",
+  "processing": ["withered", "rolled", "fully oxidized", "dried"],
+  "oxidation": "full",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Rich and malty with a natural sweetness that sets it apart from other Chinese reds. Golden-tipped grades lean honeyed and smooth, while larger-leaf versions bring more cocoa depth and a peppery finish. The assamica base gives it a full body unusual for Chinese black tea.",
+  "body": "full",
+  "aroma_notes": ["malt", "honey", "cocoa"],
+  "taste_notes": ["malt", "sweet potato", "pepper", "honey", "chocolate"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [10, 10, 15, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 9,
+    "rinse": false,
+    "rinse_hint": "Optional quick rinse to open the large leaves.",
+    "tips": "Avoid boiling water — assamica leaves turn bitter above 95°C. Golden-tip grades are more delicate; start with shorter steeps."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://www.bitterleafteas.com/blog/an-introduction-to-dian-hong",
+    "https://yunnansourcing.com/products/traditional-process-dian-hong-black-tea-of-feng-qing",
+    "https://yunnansourcing.com/pages/brewing-guide-for-green-black-oolong-and-pu-erh-teas",
+    "https://meileaf.com/article/basic-brewing-guide/",
+    "https://en.wikipedia.org/wiki/Dianhong"
+  ],
+  "updated": "2026-04-08"
+}

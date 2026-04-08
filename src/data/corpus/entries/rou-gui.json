@@ -1,0 +1,38 @@
+{
+  "id": "rou-gui",
+  "name": "Rou Gui",
+  "aliases": ["肉桂", "Ròu Guì", "Cassia", "Cinnamon", "Wuyi Cinnamon"],
+  "category": "oolong",
+  "subcategory": "Yan Cha",
+  "region": "Wuyishan, Fujian, China",
+  "terroir": "Zhengyan examples from Ma Tou Yan (Horse Head Rock) and Niu Lan Keng (Ox Pen Pit) are the most prized. Ma Tou Yan delivers a sharp, pungent cinnamon; Niu Lan Keng emphasizes heavy mineral range and roast integration",
+  "cultivar": "Rou Gui (Qing Dynasty origin; now the most widely planted cultivar in Wuyi alongside Shui Xian)",
+  "processing": ["withered", "oxidized", "twisted", "charcoal roasted"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "1-5 years" },
+  "flavor_profile": "The signature cinnamon-bark spice is unmistakable — a warm, pungent kick that persists through 7+ steeps. Behind the spice sits a full, sweet body with hints of stone fruit and chocolate. Zhengyan examples have pronounced minerality and the classic Wuyi 'rock bone, flower fragrance' balance. More assertive and direct than Shui Xian, which is why the two are often blended for Da Hong Pao.",
+  "body": "full",
+  "aroma_notes": ["cinnamon bark", "charcoal", "stone fruit", "chocolate"],
+  "taste_notes": ["cinnamon spice", "mineral", "sweet", "chocolate", "pungent"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [8, 8, 10, 15, 20, 25, 30, 40, 55],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Quick rinse to wake the roast. The cinnamon aroma should hit you immediately.",
+    "tips": "Full boiling water, always. Rou Gui's spice character rewards fast early steeps — over-extraction turns the pungency into harshness. The cinnamon note is a litmus test: if it fades early, the tea lacks depth."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/products/wu-yi-shan-classic-rou-gui-rock-oolong-tea",
+    "https://yunnansourcing.com/products/ma-tou-yan-rou-gui-zheng-yan-wu-yi-rock-oolong-tea",
+    "https://verdanttea.com/rou-gui-light-roast-reserve-oolong",
+    "https://sevencups.com/shop/premium-rou-gui-rock-wulong-tea/",
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://white2tea.com/blogs/blog/exploring-the-spectrum-of-oolong-from-floral-to-roasted-perfection"
+  ],
+  "updated": "2026-04-08"
+}

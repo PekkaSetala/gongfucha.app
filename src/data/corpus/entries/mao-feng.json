@@ -1,0 +1,32 @@
+{
+  "id": "mao-feng",
+  "name": "Mao Feng",
+  "aliases": ["毛峰", "Máofēng", "Fur Peak"],
+  "category": "green",
+  "subcategory": "Mao Feng",
+  "region": "Anhui, China (generic style also produced in Yunnan, Sichuan, Zhejiang)",
+  "terroir": "Varies by production region — best examples from high-altitude misty mountains",
+  "processing": ["pan-fired", "hand-shaped"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "Mao Feng is a broad style of Chinese green tea characterized by one bud and one or two leaves with silvery fuzz ('fur') and a peak-like shape. The general profile is smooth and mellow with gentle floral notes, soft grassiness, and a clean finish. Nuttiness and lingering sweetness are common. Huangshan Mao Feng from Anhui is the most famous origin, but Yunnan and Mengding versions offer their own regional character.",
+  "body": "light",
+  "aroma_notes": ["floral", "fresh grass", "nutty"],
+  "taste_notes": ["smooth", "sweet", "mellow", "green bean"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 4,
+    "schedule_s": [15, 15, 20, 30, 45, 60],
+    "max_infusions": 6,
+    "rinse": false,
+    "tips": "A general style — parameters suit most Mao Feng origins. Adjust temperature down to 80°C for very tender spring pickings."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://simplelooseleaf.com/blogs/news/mao-feng-green-tea",
+    "https://www.curioustea.com/tea/green-tea/huang-shan-mao-feng/",
+    "https://yunnansourcing.com/products/certified-organic-yunnan-mao-feng-green-tea"
+  ],
+  "updated": "2026-04-08"
+}

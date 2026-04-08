@@ -1,0 +1,37 @@
+{
+  "id": "bai-hao-yin-zhen",
+  "name": "Silver Needle",
+  "aliases": ["白毫银针", "Bái Háo Yín Zhēn", "Bai Hao Yin Zhen", "White Hair Silver Needle"],
+  "category": "white",
+  "subcategory": "bud-only",
+  "region": "Fuding, Fujian, China",
+  "terroir": "Coastal hills, subtropical maritime climate, 600-800m elevation",
+  "cultivar": "Fuding Dabai, Fuding Dahao",
+  "processing": ["withered", "sun-dried", "gentle baking"],
+  "oxidation": "none",
+  "aging": { "viable": true, "sweet_spot": "3-7 years" },
+  "flavor_profile": "Delicate and refined with a silky mouthfeel. The liquor offers honeydew melon, cucumber, and hay-like sweetness up front, evolving into floral notes of linden and wet rose across infusions. A gentle creaminess develops mid-palate with lingering pear and white melon.",
+  "body": "light",
+  "aroma_notes": ["honey", "hay", "linden flower", "cucumber"],
+  "taste_notes": ["honeydew", "white melon", "cream", "pear"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [20, 15, 15, 20, 25, 30, 40, 50, 60],
+    "max_infusions": 9,
+    "rinse": false,
+    "rinse_hint": "Silver Needle buds are delicate — skip the rinse to preserve the sweet first infusion.",
+    "tips": "Use slightly cooler water (80-85°C) for a sweeter, more delicate cup. Higher temps (90°C) bring out fruitier, fuller body. The dense buds need a longer first steep to begin opening."
+  },
+  "price_range": "premium",
+  "beginner_friendly": true,
+  "sources": [
+    "https://meileaf.com/tea/silver-needle/",
+    "https://sevencups.com/shop/bai-hao-yin-zhen-silver-needle/",
+    "https://yunnansourcing.com/products/fuding-bai-hao-yin-zhen-silver-needles-white-tea",
+    "https://verdanttea.com/wild-special-grade-wuyangcun-bai-hao-yun-zhen-silver-needle-white-tea",
+    "https://www.teacurious.com/guide-silver-needle",
+    "https://www.teavivre.com/silver-needle-white-tea.html"
+  ],
+  "updated": "2026-04-08"
+}

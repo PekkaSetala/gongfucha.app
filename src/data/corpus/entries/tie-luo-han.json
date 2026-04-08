@@ -1,0 +1,38 @@
+{
+  "id": "tie-luo-han",
+  "name": "Tie Luo Han",
+  "aliases": ["铁罗汉", "Tiě Luó Hàn", "Iron Arhat", "Iron Monk"],
+  "category": "oolong",
+  "subcategory": "Yan Cha",
+  "region": "Wuyishan, Fujian, China",
+  "terroir": "Zhengyan; considered the oldest of the Four Famous Wuyi cultivars (Si Da Ming Cong). Original bushes in Hui Yuan Yan (Wisdom Garden Rock)",
+  "cultivar": "Tie Luo Han (ancient cultivar; large, thick leaves that withstand heavy roasting)",
+  "processing": ["withered", "oxidized", "twisted", "charcoal roasted up to 4 times over 3+ months with rest periods between firings"],
+  "oxidation": "medium",
+  "roast": "heavy",
+  "aging": { "viable": true, "sweet_spot": "2-10 years" },
+  "flavor_profile": "The oldest and most powerful of the Si Da Ming Cong. Exceptionally thick and smooth in the mouth with a resinous, woody depth. Toasted bread and caramelized sugar on the nose give way to sweet prune and pear in the cup, with clove-like spice and a striking gravel minerality underneath. The aftertaste is long and sweet with rocky undertones — the kind of tea that demands attention and rewards slow drinking.",
+  "body": "full",
+  "aroma_notes": ["toasted bread", "caramel", "resin", "charcoal"],
+  "taste_notes": ["prune", "pear", "clove", "mineral", "resinous", "huigan"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [8, 8, 10, 15, 20, 25, 30, 40, 55],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse firmly with boiling water — the heavy multi-fire roast needs a strong wake-up.",
+    "tips": "Full boiling water. The multi-roast processing means this tea is built for longevity — don't rush the session. Early steeps show roast power; the real character (fruit, spice, mineral depth) emerges from steep 3 onward."
+  },
+  "price_range": "premium",
+  "beginner_friendly": false,
+  "sources": [
+    "https://yunnansourcing.com/products/traditional-tie-luo-han-iron-arhat-wu-yi-shan-rock-oolong-tea",
+    "https://verdanttea.com/2018-tie-luohan",
+    "https://meileaf.com/tea/iron-monk/",
+    "https://sevencups.com/shop/tie-luo-han-iron-monk/",
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://www.nannuoshan.org/products/tieluohan"
+  ],
+  "updated": "2026-04-08"
+}

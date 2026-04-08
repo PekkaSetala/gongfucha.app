@@ -1,0 +1,36 @@
+{
+  "id": "shan-lin-xi",
+  "name": "Shan Lin Xi Oolong",
+  "aliases": ["杉林溪烏龍", "Pine Forest Stream Oolong", "Shanlinxi", "Shān Lín Xī"],
+  "category": "oolong",
+  "subcategory": "Gao Shan",
+  "region": "Shan Lin Xi, Nantou County, Taiwan",
+  "terroir": "High elevation (~1600m), tea trees grow interspersed with cedar and cypress forest, cool misty climate",
+  "cultivar": "Qing Xin",
+  "processing": ["withered", "semi-oxidized", "ball-rolled"],
+  "oxidation": "light",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Clean, crisp, and distinctly cool-toned — a signature 'cold aroma' from the surrounding cedar forest. White-flower florals with a backbone of alpine freshness, hints of vanilla, and a bright mineral finish. Less creamy than Ali Shan or Li Shan, more structured and refreshing.",
+  "body": "medium",
+  "aroma_notes": ["cedar", "white flowers", "vanilla"],
+  "taste_notes": ["crisp alpine", "mineral", "ground cherry", "wheat grass"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [30, 20, 20, 25, 30, 35, 40, 50],
+    "max_infusions": 8,
+    "rinse": false,
+    "tips": "Standard gao shan parameters. The cedar-forest character comes through best at 85–90°C — going hotter can flatten the distinctive cool aroma."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://beautifultaiwantea.com/products/shanlinxi-special-reserve-tea-taiwan",
+    "https://beautifultaiwantea.com/blogs/beautifultaiwantea/brewing-high-mountain-oolong-from-taiwan",
+    "https://eco-cha.com/products/shan-lin-xi-high-mountain-oolong-tea",
+    "https://meileaf.com/resources/pdf/mei-leaf-tea-brewing-guide.pdf",
+    "https://www.sperotea.com/shan-lin-xi-high-mountain-oolong-tea-knowledge/?lang=en"
+  ],
+  "updated": "2026-04-08"
+}

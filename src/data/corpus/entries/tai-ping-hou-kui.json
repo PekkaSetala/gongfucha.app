@@ -1,0 +1,33 @@
+{
+  "id": "tai-ping-hou-kui",
+  "name": "Tai Ping Hou Kui",
+  "aliases": ["太平猴魁", "Tàipíng Hóukuí", "Monkey King", "Monkey Chief"],
+  "category": "green",
+  "region": "Taiping (now Huangshan City), Anhui, China",
+  "terroir": "Huangshan region, ~350-700m, misty mountain valleys around Houkeng village",
+  "cultivar": "Shi Da Cha (柿大茶) — large-leaf cultivar unique to this tea",
+  "processing": ["pan-fired", "hand-pressed flat", "baked"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "One of China's most visually dramatic teas — the leaves are enormous flat blades, often 10-15cm long, with a distinctive cross-hatch pattern from pressing. Despite the imposing size, the cup is surprisingly soft and clean with a fresh bamboo aroma, light orchid-like floral notes, and a smooth mineral finish. Less concentrated than smaller-leaf greens but elegant and refreshing. The large leaves won't fit in a standard gaiwan — a tall glass is the traditional vessel.",
+  "body": "light",
+  "aroma_notes": ["bamboo", "orchid", "fresh green"],
+  "taste_notes": ["clean", "soft", "mineral", "sweet"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 3,
+    "schedule_s": [30, 25, 30, 40, 55],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "The massive leaves don't fit in most gaiwans — use a tall glass or large gaiwan. Pour water down the side to avoid breaking the leaves. The first steep needs extra time for the big leaves to open."
+  },
+  "price_range": "premium",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/products/tai-ping-hou-kui-green-tea-from-anhui",
+    "https://sevencups.com/shop/tai-ping-hou-kui/",
+    "https://pathofcha.com/products/money-king-tai-ping-hou-kui-handmade-green-tea",
+    "https://meileaf.com/article/brewing-hou-kui-green-tea-grandpa-style/"
+  ],
+  "updated": "2026-04-08"
+}

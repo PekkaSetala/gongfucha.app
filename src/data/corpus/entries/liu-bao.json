@@ -1,0 +1,35 @@
+{
+  "id": "liu-bao",
+  "name": "Liu Bao",
+  "aliases": ["六堡", "Six Forts", "Liu Bao Cha", "六堡茶"],
+  "category": "dark",
+  "subcategory": "guangxi-dark",
+  "region": "Wuzhou, Guangxi, China",
+  "terroir": "Humid subtropical, abundant rainfall, dense forests, mineral-rich soil",
+  "processing": ["kill-green", "rolled", "pile-fermented (wo dui)", "double-steamed", "basket-aged (cang wei)"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "10-50 years" },
+  "flavor_profile": "Predates shou pu-erh by centuries and shares the pile-fermentation technique but develops a distinctly different character with age. The prized 'betel nut aroma' — a complex, warming, slightly sweet and spicy scent — emerges from decades of slow warehouse aging. Young Liu Bao is smooth and woody; aged examples become silky with medicinal depth and a clean mineral finish.",
+  "body": "full",
+  "aroma_notes": ["betel nut", "aged wood", "medicinal"],
+  "taste_notes": ["betel nut", "wood", "mineral", "sweet", "medicinal"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [10, 15, 20, 25, 30, 40, 50, 60, 80, 120],
+    "max_infusions": 10,
+    "rinse": true,
+    "rinse_hint": "Rinse twice — first quick, second 10 seconds. Aged Liu Bao benefits from thorough rinsing.",
+    "tips": "Use Yixing clay or thick ceramic for heat retention. Vintage Liu Bao (20+ years) is best brewed with a dedicated pot that builds up flavor over time."
+  },
+  "price_range": "mid",
+  "beginner_friendly": false,
+  "sources": [
+    "https://meileaf.com/tea/liu-bao-70/",
+    "https://meileaf.com/tea/liu-bao-2019/",
+    "https://meileaf.com/tea/liu-bao-1988/",
+    "https://orientaleaf.com/blogs/tea-101/liu-bao-tea-ultimate-guide",
+    "https://chineseteaalliance.com/blogs/tea-magazine/liu-bao-tea-101-hidden-treasure-waiting-to-be-discovered"
+  ],
+  "updated": "2026-04-08"
+}

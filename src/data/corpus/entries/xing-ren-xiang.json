@@ -1,0 +1,35 @@
+{
+  "id": "xing-ren-xiang",
+  "name": "Xing Ren Xiang",
+  "aliases": ["杏仁香", "Almond Aroma", "Almond Aroma Dan Cong", "Xing Ren Xiang Dan Cong"],
+  "category": "oolong",
+  "subcategory": "Dan Cong",
+  "region": "Phoenix Mountains (Fenghuang Shan), Chaozhou, Guangdong",
+  "terroir": "Wu Dong Shan, single-bush harvest from old trees",
+  "cultivar": "Xing Ren Xiang",
+  "processing": ["withered", "semi-oxidized", "rolled", "charcoal-roasted over lychee wood"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "1-3 years" },
+  "flavor_profile": "A savory, nut-forward Dan Cong that smells of roasted almonds during firing. The cup balances marzipan and amaretto sweetness with crisp bitterness that resolves into honey and cream. Traditional charcoal roast over lychee root adds cooling pine notes underneath.",
+  "body": "medium",
+  "aroma_notes": ["roasted almond", "marzipan", "white flowers"],
+  "taste_notes": ["almond", "honey", "cream", "cooling pine"],
+  "brewing": {
+    "temp_c": 95,
+    "ratio_g_per_100ml": 7,
+    "schedule_s": [10, 10, 12, 15, 20, 25, 30, 40, 50, 60],
+    "max_infusions": 10,
+    "rinse": true,
+    "rinse_hint": "Quick rinse to wake up the charcoal-roasted leaves.",
+    "tips": "The almond character emerges most clearly in the first few steeps. Keep those fast — let the nutty sweetness speak before deeper roast notes take over."
+  },
+  "price_range": "mid",
+  "beginner_friendly": false,
+  "sources": [
+    "https://yunnansourcing.com/products/ping-keng-tou-almond-aroma-dan-cong-oolong-tea",
+    "https://verdanttea.com/xing-ren-xiang-dancong-almond-fragrance",
+    "https://sevencups.com/shop/xing-ren-xiang-almond-blossom-dan-cong-wulong/"
+  ],
+  "updated": "2026-04-08"
+}

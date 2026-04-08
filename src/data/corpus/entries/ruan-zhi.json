@@ -1,0 +1,35 @@
+{
+  "id": "ruan-zhi",
+  "name": "Ruan Zhi Oolong",
+  "aliases": ["軟枝烏龍", "Soft Stem Oolong", "TRES #17", "Ruǎn Zhī"],
+  "category": "oolong",
+  "region": "Various regions, Taiwan",
+  "terroir": "Adaptable cultivar grown at various elevations across Taiwan; also cultivated in Thailand and mainland China",
+  "cultivar": "Ruan Zhi (TRES #17)",
+  "processing": ["withered", "semi-oxidized", "ball-rolled"],
+  "oxidation": "light",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Dense and oily mouthfeel with bright, creamy-caramel sweetness up front and fruity undertones beneath. More viscous than Qing Xin-based oolongs, with a pleasant light piquancy in the finish. A versatile cultivar — processing style (roast level, oxidation) dramatically shifts the character.",
+  "body": "medium",
+  "aroma_notes": ["caramel", "cream", "stone fruit"],
+  "taste_notes": ["creamy sweetness", "tropical fruit", "oily texture", "light piquancy"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [25, 15, 15, 20, 25, 30, 35, 45],
+    "max_infusions": 8,
+    "rinse": false,
+    "tips": "Brewing parameters depend heavily on roast level. Unroasted: 85–90°C. Roasted versions can take 95°C. The oily body rewards slightly longer steeps than typical gao shan."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://verdanttea.com/spring-anxi-ruan-zhi-soft-stem-17-oolong",
+    "https://verdanttea.com/traditional-anxi-ruan-zhi",
+    "https://en.wikipedia.org/wiki/Ruan_zhi",
+    "https://teadb.org/taiwanese-tea-cultivars/",
+    "https://tea-side.com/ruan-zhi-oolong-tea-organic/"
+  ],
+  "updated": "2026-04-08"
+}

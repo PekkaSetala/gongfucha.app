@@ -1,0 +1,37 @@
+{
+  "id": "huoshan-huang-ya",
+  "name": "Huoshan Yellow Bud",
+  "aliases": ["霍山黄芽", "Huò Shān Huáng Yá", "Huoshan Huang Ya", "Huo Shan Huang Ya"],
+  "category": "yellow",
+  "subcategory": "small-leaf bud",
+  "region": "Huoshan County, Anhui, China",
+  "terroir": "Dabie Mountains, 600-800m elevation, misty and humid",
+  "cultivar": "Huoshan local cultivars",
+  "processing": ["pan-fired", "men-huang (smothered yellowing)", "dried"],
+  "oxidation": "light",
+  "roast": "light",
+  "aging": { "viable": false },
+  "flavor_profile": "Incredibly sweet and refreshing at lower temperatures, with a clean vegetal character that lacks the grassiness of green tea. At warmer temperatures the cup becomes bolder with complex floral tones. The men-huang processing adds a subtle toasty sweetness and removes the sharp, astringent edge found in similar green teas.",
+  "body": "light",
+  "aroma_notes": ["chestnut", "orchid", "fresh grass", "toasted grain"],
+  "taste_notes": ["sweet pea", "chestnut", "floral", "clean vegetal"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 4,
+    "schedule_s": [20, 25, 30, 40, 60],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "Lower water temperature (80°C) yields a sweeter, more refreshing cup. Higher temps (85-90°C) bring out bolder floral complexity. A glass gaiwan lets you watch the buds dance."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://sevencups.com/shop/huoshan-huang-ya-yellow-tea/",
+    "https://www.athirstfortea.com/pages/huoshan-huang-ya-preparation",
+    "https://pathofcha.com/products/huo-shan-huang-ya-yellow-tea",
+    "https://www.curioustea.com/tea/yellow-tea/huo-shan-huang-ya/",
+    "https://dominiontea.com/huo-shan-huang-ya/",
+    "https://www.teavivre.com/huo-shan-huang-ya-yellow-tea.html"
+  ],
+  "updated": "2026-04-08"
+}

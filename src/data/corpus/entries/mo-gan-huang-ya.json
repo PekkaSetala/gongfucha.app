@@ -1,0 +1,37 @@
+{
+  "id": "mo-gan-huang-ya",
+  "name": "Mo Gan Yellow Sprout",
+  "aliases": ["莫干黄芽", "Mò Gān Huáng Yá", "Mo Gan Huang Ya", "Mogan Yellow Buds"],
+  "category": "yellow",
+  "subcategory": "bud",
+  "region": "Mo Gan Mountain, Deqing County, Zhejiang, China",
+  "terroir": "550-700m elevation near Hangzhou, humid subtropical, bamboo forests",
+  "cultivar": "Local Zhejiang cultivar, developed in the late 1970s by Zhuang Wanfang and Professor Zhang Tangheng",
+  "processing": ["de-enzymed", "shaped", "men-huang (cloth-wrapped, charcoal-rotated, ~10 hours)", "dried"],
+  "oxidation": "light",
+  "roast": "light",
+  "aging": { "viable": false },
+  "flavor_profile": "Light and refreshing with a smooth, clean character. The slow charcoal men-huang process gives it a gentle sweetness with chestnut undertones, entirely free of the grassiness found in green teas from the same region. The body is light but not thin, with a pleasant lingering sweetness. A modern creation (1970s) that earned provincial recognition by 1982.",
+  "body": "light",
+  "aroma_notes": ["chestnut", "bamboo", "fresh grass", "sweet grain"],
+  "taste_notes": ["chestnut", "sweet grain", "clean vegetal", "honey"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 4,
+    "schedule_s": [20, 25, 30, 40, 55, 70],
+    "max_infusions": 6,
+    "rinse": false,
+    "tips": "Use 80-85°C water. A glass gaiwan or tall glass showcases the buds floating and dancing — yellow teas are traditionally enjoyed visually as well. Increase steep times gradually as the small buds exhaust relatively quickly."
+  },
+  "price_range": "premium",
+  "beginner_friendly": true,
+  "sources": [
+    "https://sevencups.com/shop/mo-gan-huang-ya-mo-gan-yellow-buds/",
+    "https://the-chinese-tea-company.com/products/mo-gan-mountain-yellow-tea-2025",
+    "https://sipscollection.com/products/2023-mogan-huangya",
+    "https://sipjojo.com/products/mo-gan-huang-ya",
+    "https://teadelight.net/yellow-tea-types/",
+    "https://dragonteahouse.biz/supreme-mo-gan-huang-ya-mogan-yellow-buds-chinese-yellow-tea/"
+  ],
+  "updated": "2026-04-08"
+}

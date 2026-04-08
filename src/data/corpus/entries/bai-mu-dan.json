@@ -1,0 +1,36 @@
+{
+  "id": "bai-mu-dan",
+  "name": "White Peony",
+  "aliases": ["白牡丹", "Bái Mǔ Dān", "Bai Mu Dan"],
+  "category": "white",
+  "subcategory": "bud-and-leaf",
+  "region": "Fuding, Fujian, China",
+  "terroir": "Coastal hills, subtropical climate, 400-800m elevation",
+  "cultivar": "Fuding Dabai, Fuding Dahao",
+  "processing": ["withered", "sun-dried"],
+  "oxidation": "none",
+  "aging": { "viable": true, "sweet_spot": "3-8 years" },
+  "flavor_profile": "Fuller and more assertive than Silver Needle, with a noticeable fruity sweetness — apricot, melon, and orange blossom come through clearly. The body is medium, slightly creamy, with a pleasant vegetal backbone. Aged versions shift toward dried fruit, honey, and gentle woodiness.",
+  "body": "medium",
+  "aroma_notes": ["orchid", "orange blossom", "fresh melon", "hay"],
+  "taste_notes": ["apricot", "cream", "melon", "vanilla"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [10, 10, 15, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 9,
+    "rinse": false,
+    "tips": "Leaves unfurl quickly — keep early steeps short (5-10s) to avoid bitterness. The mix of buds and leaves extracts faster than pure Silver Needle."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://meileaf.com/tea/white-peony/",
+    "https://sevencups.com/shop/bai-mu-dan-white-peony/",
+    "https://yunnansourcing.com/products/fuding-white-peony-bai-mu-dan-white-tea",
+    "https://verdanttea.com/bai-mudan-white-tea",
+    "https://orientaleaf.com/blogs/tea-101/white-peony-tea-guide",
+    "https://senchateabar.com/blogs/blog/white-peony-tea"
+  ],
+  "updated": "2026-04-08"
+}

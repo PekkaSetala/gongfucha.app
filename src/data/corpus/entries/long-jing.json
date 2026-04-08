@@ -1,0 +1,34 @@
+{
+  "id": "long-jing",
+  "name": "Long Jing",
+  "aliases": ["龙井", "Lóngjǐng", "Dragon Well", "Dragonwell", "Xi Hu Long Jing"],
+  "category": "green",
+  "region": "Hangzhou, Zhejiang, China",
+  "terroir": "West Lake (Xi Hu) area, ~200-500m, subtropical with abundant rainfall. The most prized sub-origins are Shi Feng (Lion Peak), Mei Jia Wu, and Long Wu.",
+  "cultivar": "Longjing #43 (most common), Qunti (heirloom)",
+  "processing": ["pan-fired", "hand-pressed flat in wok"],
+  "oxidation": "none",
+  "roast": "light",
+  "flavor_profile": "China's most famous green tea and a benchmark for the flat-pressed style. The flat, jade-green leaves brew a clear yellow-green liquor with a toasted chestnut aroma. The taste is clean and smooth with a sweet, nutty core, gentle vegetal notes, and a long huigan (returning sweetness). Higher-grade spring harvests show more complexity and sweetness; lower grades lean nuttier and more roasty. A masterclass in restrained elegance.",
+  "body": "medium",
+  "aroma_notes": ["chestnut", "toasted grain", "orchid"],
+  "taste_notes": ["nutty", "sweet", "smooth", "huigan"],
+  "brewing": {
+    "temp_c": 80,
+    "ratio_g_per_100ml": 4,
+    "schedule_s": [25, 20, 20, 30, 45],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "The first steep can be slightly longer to let flat-pressed leaves open. Do not rinse — the first infusion carries the most aromatic compounds. Glass gaiwan or tall glass both work well."
+  },
+  "price_range": "premium",
+  "beginner_friendly": true,
+  "sources": [
+    "https://verdanttea.com/how-to-brew-shi-feng-dragonwell-green-tea",
+    "https://yunnansourcing.com/products/imperial-dragon-well-tea-from-hangzhou-long-jing-tea",
+    "https://pathofcha.com/products/long-jing-dragon-well-green-tea",
+    "https://sevencups.com/shop/da-fo-long-jing-big-buddha-dragon-well/",
+    "https://verdanttea.com/a-buyers-guide-to-dragonwell-how-to-choose-longjing-green-tea-harvest-location-varietal"
+  ],
+  "updated": "2026-04-08"
+}

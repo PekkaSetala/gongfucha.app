@@ -1,0 +1,37 @@
+{
+  "id": "bai-ji-guan",
+  "name": "Bai Ji Guan",
+  "aliases": ["白鸡冠", "Bái Jī Guān", "White Cockscomb", "White Rooster Crest"],
+  "category": "oolong",
+  "subcategory": "Yan Cha",
+  "region": "Wuyishan, Fujian, China",
+  "terroir": "Zhengyan; original bushes from Bat Cave (Bianfu Dong) deep in the Wuyi scenic area",
+  "cultivar": "Bai Ji Guan (albino cultivar — young leaves flush yellowish-white, low chlorophyll)",
+  "processing": ["withered", "semi-oxidized", "twisted", "light roast"],
+  "oxidation": "light",
+  "roast": "light",
+  "aging": { "viable": true, "sweet_spot": "1-3 years" },
+  "flavor_profile": "The lightest and most unusual of the Four Famous Wuyi cultivars. Delicate pear and peach fruit up front, with elderflower and a subtle medicinal herbal quality. Underneath sits the characteristic Wuyi minerality, but it reads gentler and more transparent than its heavily roasted siblings.",
+  "body": "light",
+  "aroma_notes": ["elderflower", "pear", "peach", "fresh herbs"],
+  "taste_notes": ["stone fruit", "mineral", "medicinal", "huigan"],
+  "brewing": {
+    "temp_c": 95,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [10, 10, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 8,
+    "rinse": true,
+    "rinse_hint": "Quick flash rinse — this lighter yancha opens fast.",
+    "tips": "Lower temperature than most yancha (95°C not boiling) to preserve the delicate floral and fruity top notes. Lighter oxidation means it's less forgiving of oversteeping."
+  },
+  "price_range": "premium",
+  "beginner_friendly": false,
+  "sources": [
+    "https://yunnansourcing.com/products/wu-yi-shan-bai-ji-guan-rock-oolong-tea",
+    "https://sevencups.com/shop/white-rooster-crest-rock-wulong/",
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://www.meimeitea.com/blogs/latest-news/bai-ji-guan-one-of-the-four-famous-wuyi-rock-oolongs-and-why-youve",
+    "https://en.wikipedia.org/wiki/Bai_Jiguan_tea"
+  ],
+  "updated": "2026-04-08"
+}

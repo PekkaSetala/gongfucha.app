@@ -1,0 +1,36 @@
+{
+  "id": "ba-xian",
+  "name": "Ba Xian",
+  "aliases": ["八仙", "Eight Immortals", "Ba Xian Dan Cong"],
+  "category": "oolong",
+  "subcategory": "Dan Cong",
+  "region": "Phoenix Mountains (Fenghuang Shan), Chaozhou, Guangdong",
+  "terroir": "High elevation Wu Dong Shan, mineral-rich volcanic soil",
+  "cultivar": "Ba Xian",
+  "processing": ["withered", "semi-oxidized", "rolled", "roasted"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "2-5 years" },
+  "flavor_profile": "A deeply floral Dan Cong with an orchid-magnolia character that avoids being perfumy. Opens with peach blossom and raw honey, develops into woodsy chestnut notes by the third infusion. Pronounced returning sweetness with kumquat and apricot undertones.",
+  "body": "medium",
+  "aroma_notes": ["orchid", "magnolia", "peach blossom", "honey"],
+  "taste_notes": ["chestnut", "kumquat", "apricot", "raw honey"],
+  "brewing": {
+    "temp_c": 95,
+    "ratio_g_per_100ml": 7,
+    "schedule_s": [10, 10, 12, 15, 20, 25, 30, 40, 50, 60],
+    "max_infusions": 10,
+    "rinse": true,
+    "rinse_hint": "Quick 5-second rinse to open the tightly rolled leaves.",
+    "tips": "Fill the gaiwan about two-thirds full with leaf. Dan Cong is sensitive to oversteeping — keep early infusions fast to avoid bitterness."
+  },
+  "price_range": "mid",
+  "beginner_friendly": false,
+  "sources": [
+    "https://verdanttea.com/ba-xian-eight-immortals-dancong-oolong",
+    "https://www.teahong.com/product/dancong-oolong-eight-immortals-wudong/",
+    "https://www.teatrekker.com/product/fenghuang-dan-cong-ba-xian-2017/",
+    "https://yunnansourcing.com/pages/brewing-guide-for-green-black-oolong-and-pu-erh-teas"
+  ],
+  "updated": "2026-04-08"
+}

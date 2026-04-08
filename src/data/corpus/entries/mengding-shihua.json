@@ -1,0 +1,32 @@
+{
+  "id": "mengding-shihua",
+  "name": "Mengding Shihua",
+  "aliases": ["蒙顶石花", "Méngdǐng Shíhuā", "Meng Ding Shi Hua", "Stone Flower"],
+  "category": "green",
+  "region": "Mengding Mountain, Ya'an, Sichuan, China",
+  "terroir": "Mengding Mountain summit (~1000-1400m), perpetual cloud cover, subtropical monsoon",
+  "cultivar": "Local Mengding cultivar",
+  "processing": ["pan-fired", "flat-pressed in wok"],
+  "oxidation": "none",
+  "roast": "light",
+  "flavor_profile": "A flat-pressed Sichuan green tea from the same mountain as Ganlu but processed differently — the leaves are pressed against the wok, rubbing away the downy hairs and creating a flatter, more compact shape. The resulting cup is sharper and more grain-forward than Ganlu, with a warm toasty character, accents of roasted grain, and less floral lift. A tea that rewards careful gaiwan brewing to reveal its nuanced character.",
+  "body": "medium",
+  "aroma_notes": ["roasted grain", "warm", "subtle floral"],
+  "taste_notes": ["grain", "sharp", "warm", "mineral"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 3.5,
+    "schedule_s": [20, 20, 30, 40, 55],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "Slightly more robust than Ganlu — handles 85°C well. The flat-pressed leaves need a few seconds longer to open in the first steep."
+  },
+  "price_range": "mid",
+  "beginner_friendly": false,
+  "sources": [
+    "https://www.teaguardian.com/quality-varieties/tea-varieties/mingshan-shihua-green-tea/",
+    "https://www.chinateawholesale.com/product-page/meng-ding-shi-hua-tea-meng-ding-mountain-green-tea-sichuan-green-tea",
+    "https://www.teaformeplease.com/green-teas-of-sichuan/"
+  ],
+  "updated": "2026-04-08"
+}

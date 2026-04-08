@@ -1,0 +1,38 @@
+{
+  "id": "dong-ding",
+  "name": "Dong Ding Oolong",
+  "aliases": ["凍頂烏龍", "Frozen Summit Oolong", "Tung Ting", "Dòng Dǐng"],
+  "category": "oolong",
+  "subcategory": "Gao Shan",
+  "region": "Lugu Township, Nantou County, Taiwan",
+  "terroir": "Moderate elevation (~600–800m), Dong Ding Mountain, birthplace of Taiwanese oolong culture",
+  "cultivar": "Qing Xin",
+  "processing": ["withered", "semi-oxidized", "ball-rolled", "roasted"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "3–10 years" },
+  "flavor_profile": "Toasty and nutty with a creamy sweetness that unfolds across many steeps. The roast brings out warm baked-goods notes — oatmeal cookies, toasted almonds — while the underlying leaf retains a subtle floral backdrop. Long, satisfying finish with mild smokiness.",
+  "body": "full",
+  "aroma_notes": ["toasted grain", "caramel", "subtle flowers"],
+  "taste_notes": ["roasted nuts", "brown sugar", "cream", "mild smoke"],
+  "brewing": {
+    "temp_c": 95,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [25, 15, 15, 20, 25, 30, 35, 45, 60],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "A quick rinse opens the tight ball-rolled leaves and tempers the roast. Discard — this steep can taste ashy.",
+    "tips": "Higher temperature than unroasted gao shan — the roast can handle it. Push later steeps longer; the leaf has deep reserves."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://beautifultaiwantea.com/products/dong-ding-oolong-tea",
+    "https://beautifultaiwantea.com/products/heavy-roast-dong-ding-oolong",
+    "https://pathofcha.com/products/dong-ding-oolong-tea",
+    "https://meileaf.com/tea/frozen-summit-oolong/",
+    "https://teadb.org/dong-ding/",
+    "https://eco-cha.com/products/dong-ding-oolong-tea"
+  ],
+  "updated": "2026-04-08"
+}

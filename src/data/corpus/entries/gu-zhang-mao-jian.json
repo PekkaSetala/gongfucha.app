@@ -1,0 +1,33 @@
+{
+  "id": "gu-zhang-mao-jian",
+  "name": "Gu Zhang Mao Jian",
+  "aliases": ["古丈毛尖", "Guzhang Maojian"],
+  "category": "green",
+  "subcategory": "Mao Jian",
+  "region": "Guzhang County, Xiangxi, Hunan, China",
+  "terroir": "Mountainous Xiangxi Autonomous Prefecture, misty subtropical climate, acidic red soil",
+  "cultivar": "Local Hunan small-leaf cultivar",
+  "processing": ["pan-fired", "hand-rolled"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "One of Hunan's most delicate greens with thin, downy leaves that infuse quickly. The cup is light and slightly sweet with faint fruity and rose-like notes. Thin leaves mean it extracts fast — over-steeping easily tips the balance toward astringency.",
+  "body": "light",
+  "aroma_notes": ["rose", "fruity", "fresh grass"],
+  "taste_notes": ["sweet", "light vegetal", "delicate"],
+  "brewing": {
+    "temp_c": 80,
+    "ratio_g_per_100ml": 3,
+    "schedule_s": [15, 15, 25, 35, 50],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "Thin leaves infuse rapidly. Keep steeps short to avoid astringency. Glass or porcelain gaiwan recommended."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://svtea.com/products/copy-of-gu-zhang-mao-jian-organic-green-tea",
+    "https://teajourneyman.wordpress.com/2013/10/07/gu-zhang-mao-jian-green-tea-from-hunan-xiangfeng-tea-industry-co-ltd/",
+    "https://lapsangstore.com/products/gt09"
+  ],
+  "updated": "2026-04-08"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "qing-zhuan",
+  "name": "Qing Zhuan",
+  "aliases": ["青砖茶", "Green Brick Tea", "Qing Zhuan Cha"],
+  "category": "dark",
+  "subcategory": "hubei-dark",
+  "region": "Chibi (Puqi), Hubei, China",
+  "terroir": "Low hills, humid subtropical, historically a Tea Road staple",
+  "processing": ["kill-green", "rolled", "pile-fermented", "compressed into large bricks"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "5-20 years" },
+  "flavor_profile": "A historically significant brick tea that fueled the Tea Horse Road and Mongolian tea trade for centuries. The brew is thick, mellow, and smooth with a clean earthiness. Less complex than Anhua or Liu Bao dark teas, but remarkably durable — maintains flavor through many infusions. Aged examples develop a pleasant dried grain and wood sweetness.",
+  "body": "full",
+  "aroma_notes": ["earth", "grain", "wood"],
+  "taste_notes": ["earth", "mellow", "grain", "wood", "sweet"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [15, 20, 25, 30, 40, 50, 60, 80, 120],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse 5-10 seconds — brick tea needs awakening. First rinse also removes surface dust.",
+    "tips": "Use a tea pick or knife to break pieces from the tightly compressed brick — avoid crushing the leaves. Can be boiled in large quantities, Mongolian or Tibetan style, with milk and salt."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/products/2021-bai-sha-xi-9101-qing-zhuan-hunan-brick-tea",
+    "https://www.chinateawholesale.com/post/qingzhuan-tea",
+    "https://www.teawithneldon.com/post/the-mystery-of-chinese-dark-teas-an-in-depth-provincial-tour-of-heicha"
+  ],
+  "updated": "2026-04-08"
+}

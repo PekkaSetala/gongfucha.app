@@ -1,0 +1,36 @@
+{
+  "id": "gong-mei",
+  "name": "Tribute Eyebrow",
+  "aliases": ["贡眉", "Gòng Méi", "Gong Mei"],
+  "category": "white",
+  "subcategory": "leaf",
+  "region": "Fuding, Fujian, China",
+  "terroir": "Coastal hills, subtropical climate, 300-600m elevation",
+  "cultivar": "Xiao Bai (Small White) seed-grown bushes",
+  "processing": ["withered", "sun-dried"],
+  "oxidation": "light",
+  "aging": { "viable": true, "sweet_spot": "5-10 years" },
+  "flavor_profile": "A robust, full-bodied white tea with noticeable sweetness. The syrupy brew carries nectar and cinnamon notes, with more depth and darker character than higher-grade whites. Seed-grown bushes give it added complexity and a rounder, thicker texture in the cup.",
+  "body": "full",
+  "aroma_notes": ["nectar", "cinnamon", "dried flowers", "honey"],
+  "taste_notes": ["nectar", "cinnamon", "brown sugar", "dried fruit"],
+  "brewing": {
+    "temp_c": 95,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [10, 10, 15, 20, 25, 30, 40, 50, 60],
+    "max_infusions": 9,
+    "rinse": false,
+    "tips": "Can handle boiling water, especially aged versions. The larger leaves extract quickly so keep early steeps short. Aged Gong Mei benefits from a brief rinse to wake the leaves."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://www.banateacompany.com/pages/Organic-Gongmei-Tribute-Eyebrow-White-Tea.html",
+    "https://www.goodtea.eu/a/shoumei-shou-mei-vs-gongmei-gong-mei",
+    "https://riversandlakestea.net/2021-feral-gong-mei-white-tea-2/",
+    "https://us.nannuoshan.org/products/gong-mei-2007",
+    "https://birdpicktea.com/products/gongmei-white",
+    "https://inpursuitoftea.com/blogs/the-ipot-journal/white-tea-silver-needle-white-peony-shou-mei"
+  ],
+  "updated": "2026-04-08"
+}

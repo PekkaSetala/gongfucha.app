@@ -1,0 +1,32 @@
+{
+  "id": "zhu-ye-qing",
+  "name": "Zhu Ye Qing",
+  "aliases": ["竹叶青", "Zhúyè Qīng", "Bamboo Leaf Green"],
+  "category": "green",
+  "region": "Emei Mountain, Sichuan, China",
+  "terroir": "Emei Mountain (~800-1500m), subtropical with heavy rainfall and persistent mist, Buddhist temple tea gardens",
+  "cultivar": "Local Sichuan cultivar with flat, needle-like buds",
+  "processing": ["pan-fired", "flat-pressed"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "A visually striking Sichuan green tea made entirely from single buds that stand upright in the glass — some floating at the surface, others sinking — creating an elegant 'bamboo forest' effect. The best batches deliver vibrant green fruit notes (apple, mango) with a youthful, verdant zing. Most commercial production emphasizes a clean, fresh, grassy taste. The flat buds are tender and delicate, brewing a light, sweet cup with a crisp finish.",
+  "body": "light",
+  "aroma_notes": ["green apple", "fresh grass", "bamboo"],
+  "taste_notes": ["crisp", "sweet", "verdant", "clean"],
+  "brewing": {
+    "temp_c": 80,
+    "ratio_g_per_100ml": 3.5,
+    "schedule_s": [25, 25, 35, 45, 60],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "Best brewed in a tall clear glass to show off the vertical leaf dance. Start with a slightly longer steep to open the flat buds, then transition to grandpa-style for the final infusions."
+  },
+  "price_range": "premium",
+  "beginner_friendly": true,
+  "sources": [
+    "https://meileaf.com/tea/bamboo-sabre/",
+    "https://yunnansourcing.com/products/yunnan-zhu-ye-qing-green-tea",
+    "https://pathofcha.com/blogs/all-about-tea/the-green-tea-of-china-part-2"
+  ],
+  "updated": "2026-04-08"
+}

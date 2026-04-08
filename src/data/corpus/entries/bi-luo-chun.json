@@ -1,0 +1,34 @@
+{
+  "id": "bi-luo-chun",
+  "name": "Bi Luo Chun",
+  "aliases": ["碧螺春", "Bìluóchūn", "Pi Lo Chun", "Green Snail Spring"],
+  "category": "green",
+  "region": "Dongting Mountains, Suzhou, Jiangsu, China",
+  "terroir": "Shores of Lake Tai, ~200-400m elevation, interplanted with fruit trees (peach, plum, apricot) that impart floral-fruity character",
+  "cultivar": "Dongting small-leaf cultivar",
+  "processing": ["pan-fired", "hand-rolled into tight spirals"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "One of China's most famous green teas, prized for its tiny spiral-rolled leaves covered in white down. The interplanting with fruit trees gives authentic Dongting Bi Luo Chun a distinctive fruity sweetness absent from versions grown elsewhere. The liquor is bright and clean with floral top notes, stone fruit mid-palate, and a fresh finish. Remarkably aromatic for a green tea. One kilogram requires 14,000-15,000 hand-picked shoots.",
+  "body": "light",
+  "aroma_notes": ["stone fruit", "floral", "fresh vegetal"],
+  "taste_notes": ["fruity", "sweet", "clean", "floral"],
+  "brewing": {
+    "temp_c": 80,
+    "ratio_g_per_100ml": 4,
+    "schedule_s": [15, 15, 20, 30, 40, 55],
+    "max_infusions": 6,
+    "rinse": false,
+    "tips": "The tiny rolled leaves extract quickly — keep early steeps short. Water above 85°C turns the brew bitter. Add leaves to water (not water to leaves) to avoid scorching."
+  },
+  "price_range": "premium",
+  "beginner_friendly": true,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Biluochun",
+    "https://sevencups.com/shop/bi-luo-chun/",
+    "https://yunnansourcing.com/products/imperial-grade-pure-bud-bi-luo-chun-green-tea",
+    "https://pathofcha.com/products/bi-luo-chun-green-tea",
+    "https://www.curioustea.com/tea/green-tea/dong-ting-bi-luo-chun/"
+  ],
+  "updated": "2026-04-08"
+}

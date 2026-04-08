@@ -1,0 +1,37 @@
+{
+  "id": "ya-bao",
+  "name": "Wild Bud",
+  "aliases": ["芽苞", "Yá Bāo", "Ya Bao", "Wild Tea Buds"],
+  "category": "white",
+  "subcategory": "wild-bud",
+  "region": "Dehong / Lincang, Yunnan, China",
+  "terroir": "Tropical to subtropical, 1200-1800m elevation, wild forest environment",
+  "cultivar": "Camellia crassicolumna (wild species, possibly ancestral to modern tea)",
+  "processing": ["sun-dried"],
+  "oxidation": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Barely recognizable as tea — more like a wild herbal infusion. The flavor is bright, sweet, and resinous with strong pine needle character, dried apricot, and a savory-floral finish. Never becomes bitter even with extended steeping, making it extremely forgiving to brew.",
+  "body": "light",
+  "aroma_notes": ["pine resin", "dried apricot", "wildflower", "hops"],
+  "taste_notes": ["pine needle", "apricot", "marzipan", "ginger"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [20, 15, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 8,
+    "rinse": false,
+    "rinse_hint": "No rinse needed — the buds are pristine wild growth and benefit from retaining every steep.",
+    "tips": "Very forgiving — almost impossible to overbrew. Higher water temps (90-95°C) bring out the resinous pine character. Lower temps (80°C) emphasize the sweet apricot side."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://www.yunnancraft.com/en/ya-bao/",
+    "https://tching.com/2017/05/review-ya-bao-wild-tea-white-puer-buds/",
+    "https://verdanttea.com/what-is-yabao-part-two-wild-type-qianjiazhai-form-vs-species",
+    "https://meileaf.com/tea/elder-white/",
+    "https://pathofcha.com/products/wild-tree-buds-yabao-gushu-raw-pu-erh-tea",
+    "https://www.curioustea.com/tea/white-tea/ya-bao-silver-buds/"
+  ],
+  "updated": "2026-04-08"
+}

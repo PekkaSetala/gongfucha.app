@@ -1,0 +1,32 @@
+{
+  "id": "mao-jian",
+  "name": "Mao Jian",
+  "aliases": ["毛尖", "Maojian", "Hairy Tip"],
+  "category": "green",
+  "subcategory": "Mao Jian",
+  "region": "Henan, China (generic style produced across multiple provinces)",
+  "terroir": "Varies by production region",
+  "processing": ["pan-fired", "hand-rolled"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "Mao Jian is a broad category of Chinese green teas characterized by small, tightly rolled leaves covered in fine downy hairs. The general style yields a clean, vegetal cup with moderate sweetness and a hint of chestnut. Flavor intensity and complexity vary significantly by origin — Xin Yang (Henan) and Du Yun (Guizhou) are the most celebrated examples.",
+  "body": "light",
+  "aroma_notes": ["chestnut", "vegetal", "fresh"],
+  "taste_notes": ["sweet", "grassy", "clean"],
+  "brewing": {
+    "temp_c": 80,
+    "ratio_g_per_100ml": 3,
+    "schedule_s": [20, 20, 30, 40, 50],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "A general style — adjust parameters based on the specific origin. Finer buds need cooler water and shorter steeps."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Xinyang_Maojian_tea",
+    "https://kuanyinteas.com/products/mao-jian",
+    "https://inpursuitoftea.com/products/mao-jian-green-tea"
+  ],
+  "updated": "2026-04-08"
+}

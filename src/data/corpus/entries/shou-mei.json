@@ -1,0 +1,37 @@
+{
+  "id": "shou-mei",
+  "name": "Longevity Eyebrow",
+  "aliases": ["寿眉", "Shòu Méi", "Shou Mei"],
+  "category": "white",
+  "subcategory": "leaf",
+  "region": "Fuding, Fujian, China",
+  "terroir": "Coastal hills, subtropical climate, 300-600m elevation",
+  "cultivar": "Fuding Dahao (Big Hair)",
+  "processing": ["withered", "sun-dried"],
+  "oxidation": "light",
+  "aging": { "viable": true, "sweet_spot": "5-15 years" },
+  "flavor_profile": "The most rustic of the Fujian whites. Fresh versions are mellow and gently sweet with lingering floral notes. With age, it transforms dramatically — developing jujube, brown sugar, dried plum, and medicinal-herbal depth. The Chinese saying goes: one year tea, three years medicine, seven years treasure.",
+  "body": "full",
+  "aroma_notes": ["jujube", "dried flowers", "hay", "brown sugar"],
+  "taste_notes": ["brown sugar", "jujube", "dried plum", "wet stone"],
+  "brewing": {
+    "temp_c": 95,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [10, 10, 15, 15, 20, 25, 30, 40, 50, 60],
+    "max_infusions": 10,
+    "rinse": true,
+    "rinse_hint": "A quick rinse opens the large, sometimes compressed leaves and helps the first steep extract evenly.",
+    "tips": "Aged Shou Mei can take full boiling water — it deepens the jujube and medicinal character. Fresh Shou Mei benefits from slightly cooler water (90-95°C)."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://sevencups.com/shop/shou-mei-organic-white-tea/",
+    "https://orientaleaf.com/blogs/tea-101/shou-mei-white-tea-guide",
+    "https://easternleaves.com/products/shou-mei-aged-white-tea-fujian",
+    "https://www.teavivre.com/fuding-shou-mei-cake-2009.html",
+    "https://www.goodtea.eu/a/shoumei-shou-mei-vs-gongmei-gong-mei",
+    "https://redblossomtea.com/products/shou-mei"
+  ],
+  "updated": "2026-04-08"
+}

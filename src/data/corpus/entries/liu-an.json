@@ -1,0 +1,34 @@
+{
+  "id": "liu-an",
+  "name": "Liu An",
+  "aliases": ["六安", "Liu An Hei Cha", "Lu An Dark Tea", "Basket Tea", "六安篮茶"],
+  "category": "dark",
+  "subcategory": "anhui-dark",
+  "region": "Lu'an, Anhui, China",
+  "terroir": "Mountainous Anhui, traditional bamboo basket storage environment",
+  "processing": ["kill-green", "rolled", "pile-fermented", "dried", "packed in bamboo baskets", "aged"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "10-30 years" },
+  "flavor_profile": "A rare basket-aged dark tea often consumed with pieces of the bamboo basket itself. Young Liu An is intense and full-bodied with pronounced earthiness. With age, it develops remarkable depth and complexity — dried herb, aged wood, and a clean medicinal quality emerge. The bamboo basket imparts subtle woody-sweet notes over decades of storage.",
+  "body": "full",
+  "aroma_notes": ["aged wood", "herb", "bamboo"],
+  "taste_notes": ["earth", "aged wood", "medicinal", "sweet", "bamboo"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [15, 20, 25, 30, 40, 50, 60, 80, 120],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse 10 seconds to remove dust from decades of basket storage.",
+    "tips": "Traditionally brewed including small pieces of the bamboo basket lining. Aged examples (20+ years) are particularly prized. Use boiling water — this tea can handle maximum heat."
+  },
+  "price_range": "premium",
+  "beginner_friendly": false,
+  "sources": [
+    "https://white2tea.com/products/2021-liuan-gongjian",
+    "https://white2tea.com/products/2019-liuan-tegong",
+    "https://teadb.org/category/liuan-heicha/",
+    "https://yunnansourcing.com/pages/understanding-anhua-tian-jian-dark-tea"
+  ],
+  "updated": "2026-04-08"
+}

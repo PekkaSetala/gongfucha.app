@@ -1,0 +1,34 @@
+{
+  "id": "gui-fei",
+  "name": "Gui Fei",
+  "aliases": ["貴妃", "Noble Concubine", "Gui Fei Oolong", "Gui Fei Mei Ren"],
+  "category": "oolong",
+  "subcategory": "bug-bitten",
+  "region": "Nantou, Taiwan",
+  "terroir": "Mid to high elevation mountains of central Taiwan, Dong Ding area",
+  "cultivar": "Qing Xin",
+  "processing": ["leafhopper-bitten", "heavily withered", "extended oxidation", "ball-rolled", "lightly roasted"],
+  "oxidation": "heavy",
+  "roast": "light",
+  "aging": { "viable": false },
+  "flavor_profile": "Invented by accident in 1999 when Nantou earthquakes delayed the harvest and leafhoppers bit the summer leaves. Named after Yang Guifei, one of ancient China's four great beauties. Ball-rolled and lightly roasted, producing a rounder, more resinous profile than Oriental Beauty — dried apricots, forest honey, and muscatel wrapped in a smooth, sweet body. The bug-bitten terpene character is present even in unbitten neighboring plants through volatile signaling.",
+  "body": "medium",
+  "aroma_notes": ["honey", "muscatel", "dried apricot", "resin"],
+  "taste_notes": ["forest honey", "dried apricot", "muscatel", "roasted sweetness"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [15, 12, 12, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 9,
+    "rinse": false,
+    "tips": "Slightly higher temperature than Oriental Beauty (90C vs 85C) because the light roast and ball-rolling give Gui Fei more structure. Still no rinse — you do not want to waste the first infusion's honeyed terpenes. The balled leaves need the first steep to open."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://meileaf.com/tea/honey-duchess/",
+    "https://teadb.org/gui-fei-mei-ren/",
+    "https://teadb.org/tea-from-vietnams-gui-fei/"
+  ],
+  "updated": "2026-04-08"
+}

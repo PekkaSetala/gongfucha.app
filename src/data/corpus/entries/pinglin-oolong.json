@@ -1,0 +1,28 @@
+{
+  "id": "pinglin-ball-rolled-oolong",
+  "name": "Pinglin Oolong",
+  "aliases": ["坪林烏龍", "Binlin Oolong"],
+  "category": "oolong",
+  "subcategory": "ball-rolled",
+  "region": "Pinglin, New Taipei City, Taiwan",
+  "terroir": "Low elevation (~400m), subtropical, heavy rainfall",
+  "processing": ["withered", "semi-oxidized", "ball-rolled"],
+  "oxidation": "medium",
+  "roast": "none",
+  "flavor_profile": "Creamy and full-bodied with umami depth. Fresh character that quenches thirst — a pronounced huigan (returning sweetness) that lingers. Less floral than high-mountain Taiwanese oolongs, more savory and substantial.",
+  "body": "full",
+  "aroma_notes": ["cream", "fresh vegetal"],
+  "taste_notes": ["umami", "cream", "huigan"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [20, 13, 13, 16, 16, 19, 21, 24, 27],
+    "max_infusions": 9,
+    "rinse": false,
+    "tips": "Longer first steep lets the tight ball-rolled leaves open. Second and third steeps drop shorter — the leaf is now fully unfurled and extracts faster."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [],
+  "updated": "2026-04-08"
+}

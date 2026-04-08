@@ -1,0 +1,34 @@
+{
+  "id": "tian-jian",
+  "name": "Tian Jian",
+  "aliases": ["天尖茶", "Heaven Tip Tea", "Heavenly Tips", "Tian Jian Cha"],
+  "category": "dark",
+  "subcategory": "hunan-dark",
+  "region": "Anhua, Hunan, China",
+  "terroir": "Mountainous Hunan (200-1000m), fog-heavy, mineral-rich soil",
+  "processing": ["kill-green", "rolled", "pile-fermented", "dried", "loose-leaf (traditionally stored in bamboo baskets)"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "5-20 years" },
+  "flavor_profile": "The highest grade of Anhua's three tip teas, made from tender buds and young leaves. More refined than its siblings (Gong Jian, Jin Jian) with a pine smoke aroma from bamboo basket drying, balanced by a clean sweetness. Astringency in young examples transforms into a pronounced returning sweetness (huigan) across infusions. Remarkably durable — full flavor after 8+ brews.",
+  "body": "medium",
+  "aroma_notes": ["pine smoke", "bamboo", "sweet wood"],
+  "taste_notes": ["sweet", "pine smoke", "huigan", "wood", "dried fruit"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [15, 20, 25, 30, 40, 50, 60, 80, 120],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse 10 seconds — especially important for older Tian Jian stored in bamboo baskets.",
+    "tips": "Keep early steeps short to manage any initial astringency. The sweetness builds progressively — later infusions are often the best. Can be brewed or boiled."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/pages/understanding-anhua-tian-jian-dark-tea",
+    "https://yunnansourcing.com/collections/hunan-tian-jian-tea",
+    "https://white2tea.com/products/2021-anhua-tianjian",
+    "https://white2tea.com/products/2022-tian-jian-mini"
+  ],
+  "updated": "2026-04-08"
+}

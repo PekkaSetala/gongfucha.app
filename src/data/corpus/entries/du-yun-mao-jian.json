@@ -1,0 +1,34 @@
+{
+  "id": "du-yun-mao-jian",
+  "name": "Du Yun Mao Jian",
+  "aliases": ["都匀毛尖", "Duyun Maojian", "Fishhook Tea"],
+  "category": "green",
+  "subcategory": "Mao Jian",
+  "region": "Duyun, Guizhou, China",
+  "terroir": "High-altitude karst mountains (~1000m), subtropical humid climate, mineral-rich soil",
+  "cultivar": "Local small-leaf Guizhou cultivar",
+  "processing": ["pan-fired", "hand-rolled"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "A fine-boned green tea with a clean, sweet opening and a lingering chestnut-like finish. The liquor is bright and clear with a fresh vegetal quality and gentle astringency that resolves into sweetness. Less umami-forward than its Henan cousin Xin Yang Mao Jian, leaning more toward clean sweetness and floral lift.",
+  "body": "light",
+  "aroma_notes": ["chestnut", "fresh grass", "floral"],
+  "taste_notes": ["sweet", "vegetal", "clean finish"],
+  "brewing": {
+    "temp_c": 80,
+    "ratio_g_per_100ml": 3,
+    "schedule_s": [20, 20, 30, 40, 50],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "Use glass or porcelain. Lower temperature preserves the delicate sweetness — water above 85°C can turn the brew grassy and bitter."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://www.teasenz.com/du-yun-mao-jian-green-tea",
+    "https://www.sazentea.com/en/products/p1158-du-yun-mao-jian.html",
+    "https://www.imperialtea.com/products/duyun-mao-jian-green-tea",
+    "https://camellia-sinensis.com/en/du-yun-mao-jian/2328"
+  ],
+  "updated": "2026-04-08"
+}

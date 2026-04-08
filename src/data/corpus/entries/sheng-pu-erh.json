@@ -1,0 +1,36 @@
+{
+  "id": "sheng-pu-erh",
+  "name": "Sheng Pu-erh",
+  "aliases": ["普洱生茶", "Raw Pu-erh", "Raw Puer", "Sheng Cha", "生普"],
+  "category": "dark",
+  "subcategory": "pu-erh",
+  "region": "Yunnan, China (Xishuangbanna, Lincang, Pu'er, Baoshan)",
+  "terroir": "Ancient tea mountains (1200-2000m), tropical to subtropical, laterite soil",
+  "cultivar": "Yunnan large-leaf (Camellia sinensis var. assamica), often ancient tree (gushu)",
+  "processing": ["withered", "kill-green (sha qing)", "rolled", "sun-dried (shai qing)", "compressed into cakes/bricks/tuos"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "10-30+ years" },
+  "flavor_profile": "The most age-worthy tea in the world. Young sheng is vibrant and assertive — bitter, astringent, and vegetal with floral and fruity top notes that vary by mountain origin. With proper storage and time, it transforms into something entirely different: the bitterness fades into deep sweetness, the vegetal notes give way to dried fruit, camphor, and forest floor. The body thickens and a powerful huigan develops.",
+  "body": "medium",
+  "aroma_notes": ["floral", "vegetal", "camphor", "dried fruit"],
+  "taste_notes": ["bitter", "astringent", "floral", "camphor", "dried fruit", "huigan"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [8, 8, 10, 10, 15, 20, 25, 30, 40, 50, 60, 80],
+    "max_infusions": 12,
+    "rinse": true,
+    "rinse_hint": "One quick rinse to open compressed leaves. Don't over-rinse young sheng — the first real steep is often the most exciting.",
+    "tips": "Young sheng: use 85-90°C to tame bitterness. Aged sheng (15+ years): use 95-100°C to extract the deeper flavors. Lower temperature = sweeter; higher = more complex but potentially more bitter. Sweeter notes emerge after the 5th or 6th infusion."
+  },
+  "price_range": "mid",
+  "beginner_friendly": false,
+  "sources": [
+    "https://white2tea.com/blogs/blog/how-to-brew-puer-tea",
+    "https://white2tea.com/blogs/information/best-water-temperature-brew-puerh-tea",
+    "https://crimsonlotustea.com/pages/how-to-brew-puerh-tea",
+    "https://teadb.org/puerh-for-beginners/",
+    "https://yunnansourcing.com/pages/brewing-guide-for-green-black-oolong-and-pu-erh-teas"
+  ],
+  "updated": "2026-04-08"
+}

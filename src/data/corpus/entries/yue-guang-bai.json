@@ -1,0 +1,36 @@
+{
+  "id": "yue-guang-bai",
+  "name": "Moonlight White",
+  "aliases": ["月光白", "Yuè Guāng Bái", "Yue Guang Bai", "White Moonlight"],
+  "category": "white",
+  "subcategory": "bud-and-leaf",
+  "region": "Jinggu, Yunnan, China",
+  "terroir": "High altitude (1400-1800m), subtropical plateau climate, ancient tea tree forests",
+  "cultivar": "Jinggu Dabaicha (large-leaf Yunnan varietal)",
+  "processing": ["indoor-withered", "sun-dried"],
+  "oxidation": "light",
+  "aging": { "viable": true, "sweet_spot": "2-5 years" },
+  "flavor_profile": "Distinctly Yunnan — richer and more complex than Fujian whites. The thick, fuzzy buds yield a creamy, almost custard-like texture with maple sap sweetness and hay. Fruity notes (mango, stone fruit) emerge across steeps. The large-leaf Yunnan material gives it more body than typical white tea.",
+  "body": "medium",
+  "aroma_notes": ["maple sap", "hay", "dried flowers", "malt"],
+  "taste_notes": ["custard", "mango", "stone fruit", "cream"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [15, 10, 10, 15, 20, 25, 30, 40, 50, 60],
+    "max_infusions": 10,
+    "rinse": false,
+    "tips": "The large Yunnan leaves unfurl quickly. Start with a moderate first steep to let the buds open, then drop to short flash steeps. Can handle slightly higher temps than Fujian white teas."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://meileaf.com/tea/moonlight-white/",
+    "https://sevencups.com/shop/yue-guang-bai-white-moonlight-yunnan-white-tea/",
+    "https://www.teaformeplease.com/meet-the-tea-yue-guang-bai-moonlight-white/",
+    "https://pathofcha.com/blogs/all-about-tea/a-unique-and-delicious-yunnan-tea-yue-guang-bai-white-tea",
+    "https://easternleaves.com/products/2024-yue-guang-bai-white-tea",
+    "https://orientaleaf.com/blogs/tea-101/yunnan-moonlight-white-tea"
+  ],
+  "updated": "2026-04-08"
+}

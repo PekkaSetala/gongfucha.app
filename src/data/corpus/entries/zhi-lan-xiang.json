@@ -1,0 +1,35 @@
+{
+  "id": "zhi-lan-xiang",
+  "name": "Zhi Lan Xiang",
+  "aliases": ["芝兰香", "Iris Orchid Aroma", "Zhi Lan Orchid Dan Cong", "Zhi Lan Xiang Dan Cong"],
+  "category": "oolong",
+  "subcategory": "Dan Cong",
+  "region": "Feng Xi, Wu Dong Mountains, Chaozhou, Guangdong",
+  "terroir": "Wu Dong mountain slopes, mineral-rich soil",
+  "cultivar": "Zhi Lan Xiang",
+  "processing": ["withered", "semi-oxidized", "rolled", "roasted"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "2-5 years" },
+  "flavor_profile": "Thick, pungent, and expansive in the mouth with a lubricating mouthfeel that coats the throat. The aroma is intensely orchid-like — the Zhi Lan orchid is known for its sweet, heavy perfume. Very low astringency for a Dan Cong; the long, soothing aftertaste is the star here.",
+  "body": "full",
+  "aroma_notes": ["Zhi Lan orchid", "cannabis flower", "sweet pungent floral"],
+  "taste_notes": ["thick sweetness", "orchid", "lubricating mouthfeel", "long aftertaste"],
+  "brewing": {
+    "temp_c": 95,
+    "ratio_g_per_100ml": 7,
+    "schedule_s": [10, 10, 12, 15, 20, 25, 30, 40, 50, 60],
+    "max_infusions": 10,
+    "rinse": true,
+    "rinse_hint": "Quick 5-second rinse — Zhi Lan Xiang unfurls readily.",
+    "tips": "The pungent orchid aroma is strongest from the wet leaf and lid — nose the gaiwan lid between steeps. The thick mouthfeel develops most in steeps 3-5."
+  },
+  "price_range": "mid",
+  "beginner_friendly": false,
+  "sources": [
+    "https://yunnansourcing.com/products/zhi-lan-xiang-dan-cong-oolong-tea",
+    "https://yunnansourcing.com/products/high-mountain-zhi-lan-xiang-dan-cong-oolong-tea",
+    "https://yunnansourcing.com/pages/brewing-guide-for-green-black-oolong-and-pu-erh-teas"
+  ],
+  "updated": "2026-04-08"
+}

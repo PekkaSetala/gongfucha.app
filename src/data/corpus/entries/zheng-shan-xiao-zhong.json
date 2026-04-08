@@ -1,0 +1,37 @@
+{
+  "id": "zheng-shan-xiao-zhong",
+  "name": "Zheng Shan Xiao Zhong",
+  "aliases": ["正山小种", "Lapsang Souchong", "Bohea", "Small Leaf from Zhengshan"],
+  "category": "red",
+  "subcategory": "wuyi-red",
+  "region": "Tongmu Guan, Wuyi Mountains, Fujian, China",
+  "terroir": "High altitude (1000-1500m), bamboo and pine forest, mineral-rich acidic soil",
+  "cultivar": "Xiao Cai Cha (小菜茶) / Wuyi Cai Cha",
+  "processing": ["withered", "rolled", "fully oxidized", "dried over pine fire (traditional)", "dried without smoke (modern)"],
+  "oxidation": "full",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "The original black tea, with two distinct styles. Traditional smoked versions carry bold pine smoke and dried longan. Modern unsmoked versions are sweet and clean with longan, caramel, and cocoa notes. Both share a smooth, full mouthfeel and a honey-like finish that deepens across infusions.",
+  "body": "full",
+  "aroma_notes": ["longan", "pine smoke", "caramel"],
+  "taste_notes": ["longan", "honey", "cocoa", "pine", "caramel"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [10, 10, 15, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "A quick rinse helps open the tightly rolled leaves and reduces any initial smokiness.",
+    "tips": "Smoked versions benefit from a slightly longer first rinse (5-8s) to mellow the smoke. Unsmoked versions are more delicate — treat them like Jin Jun Mei."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/products/zheng-shan-xiao-zhong-of-wu-yi-fujian-black-tea",
+    "https://meileaf.com/tea/souchong-liquor/",
+    "https://meileaf.com/tea/wuyi-lapsang/",
+    "https://orientaleaf.com/products/zheng-shan-xiao-zhong-lapsang-souchong",
+    "https://en.wikipedia.org/wiki/Lapsang_souchong"
+  ],
+  "updated": "2026-04-08"
+}

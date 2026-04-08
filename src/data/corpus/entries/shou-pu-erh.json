@@ -1,0 +1,36 @@
+{
+  "id": "shou-pu-erh",
+  "name": "Shou Pu-erh",
+  "aliases": ["普洱熟茶", "Ripe Pu-erh", "Ripe Puer", "Shu Pu-erh", "Cooked Pu-erh", "熟普"],
+  "category": "dark",
+  "subcategory": "pu-erh",
+  "region": "Yunnan, China (primarily Menghai, Kunming)",
+  "terroir": "Same source material as sheng, but pile-fermentation is the defining step",
+  "cultivar": "Yunnan large-leaf (Camellia sinensis var. assamica)",
+  "processing": ["withered", "kill-green", "rolled", "sun-dried", "pile-fermented (wo dui, 45-60 days)", "compressed into cakes/bricks/tuos"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "3-15 years" },
+  "flavor_profile": "Accelerated fermentation produces a tea that mimics decades of natural aging in weeks. The brew is dark, thick, and smooth with earthy, loamy flavors — forest floor, mushroom, and wet bark. Good shou avoids the 'fishy' pile taste of cheap production and instead offers clean sweetness, dried date, and a velvety mouthfeel. Extremely forgiving to brew.",
+  "body": "full",
+  "aroma_notes": ["earth", "mushroom", "dried date"],
+  "taste_notes": ["earth", "mushroom", "sweet", "dried date", "wet bark"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [8, 8, 10, 10, 15, 20, 25, 30, 40, 50, 60],
+    "max_infusions": 11,
+    "rinse": true,
+    "rinse_hint": "Rinse twice — first quick flush, then 15 seconds. This cleans pile-fermentation dust and wakes the compressed leaves.",
+    "tips": "Use boiling water without hesitation — shou is nearly impossible to overbrew. Double rinse is standard practice. Extremely resilient to oversteeping, making it ideal for beginners."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://white2tea.com/blogs/blog/ripe-puer-tea-a-beginners-guide-to-appreciating-shou",
+    "https://white2tea.com/blogs/blog/complete-beginners-guide-to-shu-puer-tea",
+    "https://crimsonlotustea.com/pages/how-to-brew-puerh-tea",
+    "https://teadb.org/puerh-for-beginners/",
+    "https://yunnansourcing.com/pages/brewing-guide-for-green-black-oolong-and-pu-erh-teas"
+  ],
+  "updated": "2026-04-08"
+}

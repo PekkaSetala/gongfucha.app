@@ -1,0 +1,33 @@
+{
+  "id": "hua-zhuan",
+  "name": "Hua Zhuan",
+  "aliases": ["花砖茶", "Flower Brick Tea", "Hua Zhuan Cha"],
+  "category": "dark",
+  "subcategory": "hunan-dark",
+  "region": "Anhua, Hunan, China",
+  "terroir": "Mountainous Hunan, same terroir as other Anhua san zhuan (three bricks)",
+  "processing": ["kill-green", "rolled", "pile-fermented", "compressed into bricks with floral pattern"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "5-15 years" },
+  "flavor_profile": "One of Anhua's 'three bricks' alongside Fu Zhuan and Hei Zhuan. The brew is orange-amber with a clean, mellow sweetness and hints of smoked pinewood. Compared to Fu Zhuan, Hua Zhuan lacks golden flowers but offers a slightly smokier, more straightforward dark tea character. Aged examples smooth out into a soft, sweet woodiness.",
+  "body": "medium",
+  "aroma_notes": ["smoked pine", "wood", "earth"],
+  "taste_notes": ["smooth", "sweet", "smoked pine", "wood", "earth"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 7,
+    "schedule_s": [15, 20, 25, 30, 40, 50, 60, 80, 120],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse 10 seconds — compressed brick needs a wake-up and dust removal.",
+    "tips": "Break brick with a tea knife or pick. Use maximum heat and ceramic or clay teaware. Can also be boiled Mongolian-style with milk."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://www.teasenz.com/hunan-anhua-dark-tea-sampler",
+    "https://yunnansourcing.com/products/2015-bai-sha-xi-jin-fu-rui-fu-zhuan-brick-tea-of-hunan",
+    "https://www.teawithneldon.com/post/the-mystery-of-chinese-dark-teas-an-in-depth-provincial-tour-of-heicha"
+  ],
+  "updated": "2026-04-08"
+}

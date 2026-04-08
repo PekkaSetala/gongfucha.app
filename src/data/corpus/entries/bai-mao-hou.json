@@ -1,0 +1,33 @@
+{
+  "id": "bai-mao-hou",
+  "name": "Bai Mao Hou",
+  "aliases": ["白毛猴", "Báimáo Hóu", "White Monkey"],
+  "category": "green",
+  "region": "Taimu Mountains, Fujian, China",
+  "terroir": "Subtropical Fujian highlands, humid, rich biodiversity",
+  "cultivar": "Local Fujian cultivar typically used for white tea production",
+  "processing": ["pan-fired", "hand-rolled"],
+  "oxidation": "light",
+  "roast": "none",
+  "flavor_profile": "A distinctive Fujian green tea made from a cultivar normally reserved for white teas, giving it a unique bridge character. The first infusion is floral-sweet, the second develops nutty depth, and the third lightens into a refreshing finish. The dried leaves resemble a monkey's paw — hence the name. Lighter and softer-bodied than most Chinese greens, with a sweetness and soft texture reminiscent of white tea.",
+  "body": "light",
+  "aroma_notes": ["floral", "honey", "woody"],
+  "taste_notes": ["sweet", "floral", "nutty", "soft"],
+  "brewing": {
+    "temp_c": 78,
+    "ratio_g_per_100ml": 3,
+    "schedule_s": [30, 30, 40, 50, 60],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "Treat gently like a white tea — lower temperature preserves the honey-sweet floral character. Glass or porcelain only."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://www.curioustea.com/tea/green-tea/bai-mao-hou-white-monkey/",
+    "https://en.wikipedia.org/wiki/Baimao_Hou",
+    "https://greentea.st/profile/white-monkey-tea/",
+    "https://teasoul.store/en/approfondimenti-te-verde-bai-mao-hou/"
+  ],
+  "updated": "2026-04-08"
+}

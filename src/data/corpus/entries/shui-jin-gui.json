@@ -1,0 +1,35 @@
+{
+  "id": "shui-jin-gui",
+  "name": "Shui Jin Gui",
+  "aliases": ["水金龜", "Golden Water Turtle", "Shui Jin Gui Yancha"],
+  "category": "oolong",
+  "region": "Wuyishan, Fujian",
+  "terroir": "Wuyi zhengyan (true rock) mineral soil, grown since Ming Dynasty",
+  "cultivar": "Shui Jin Gui",
+  "processing": ["withered", "semi-oxidized", "twisted", "charcoal-roasted"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "2-5 years" },
+  "flavor_profile": "One of Wuyi's four famous bushes (Si Da Ming Cong), prized since the Ming Dynasty. Less oxidized and greener than its famous cousins, with stronger fruit character. The cup is complex — sweet potato, caramel, grass, and spice layered together. Natural citrus and fruit flavors are Shui Jin Gui's signature. Charcoal roast adds dark chocolate aroma with a sweet floral finish that never turns bitter.",
+  "body": "medium",
+  "aroma_notes": ["dark chocolate", "citrus", "floral"],
+  "taste_notes": ["sweet potato", "caramel", "citrus fruit", "spice", "yan yun mineral"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [10, 8, 8, 10, 15, 20, 25, 30, 45],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Quick rinse at boiling — classic yancha treatment.",
+    "tips": "The greener oxidation of Shui Jin Gui means the fruit character shines early. The yan yun (rock rhyme) mineral aftertaste builds in the second half of the session. True zhengyan Shui Jin Gui is rare — supply is limited."
+  },
+  "price_range": "premium",
+  "beginner_friendly": false,
+  "sources": [
+    "https://yunnansourcing.com/products/shui-jin-gui-golden-water-turtle-wu-yi-rock-oolong-tea-1",
+    "https://meileaf.com/tea/golden-turtle/",
+    "https://sevencups.com/shop/shui-jin-gui-golden-water-turtle-rock-wulong-tea/",
+    "https://verdanttea.com/shui-jin-gui-light-roast-reserve-oolong"
+  ],
+  "updated": "2026-04-08"
+}

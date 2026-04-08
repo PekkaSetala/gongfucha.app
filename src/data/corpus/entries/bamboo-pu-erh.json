@@ -1,0 +1,35 @@
+{
+  "id": "bamboo-pu-erh",
+  "name": "Bamboo Pu-erh",
+  "aliases": ["竹筒普洱茶", "Zhu Tong Cha", "Bamboo Tube Tea", "Dai Bamboo Tea"],
+  "category": "dark",
+  "subcategory": "pu-erh",
+  "region": "Xishuangbanna, Yunnan, China",
+  "terroir": "Tropical lowlands, Dai ethnic region, bamboo forests",
+  "cultivar": "Yunnan large-leaf (Camellia sinensis var. assamica)",
+  "processing": ["sun-dried mao cha", "steamed", "stuffed into fresh bamboo tubes", "roasted over fire pit"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "3-10 years" },
+  "flavor_profile": "A unique Dai minority specialty where sun-dried pu-erh absorbs sweet, grassy aromatics from fresh bamboo during roasting. The result is a clean, lightly sweet brew with distinct bamboo fragrance layered over the earthy pu-erh base. Lighter and more aromatic than standard sheng, with a refreshing finish.",
+  "body": "medium",
+  "aroma_notes": ["bamboo", "grass", "sweet wood"],
+  "taste_notes": ["bamboo", "sweet", "earth", "grass", "light smoke"],
+  "brewing": {
+    "temp_c": 95,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [15, 15, 20, 20, 25, 30, 40, 50],
+    "max_infusions": 8,
+    "rinse": true,
+    "rinse_hint": "One quick rinse to open the compressed leaves and release bamboo aromatics.",
+    "tips": "Use slightly less leaf than standard pu-erh — the bamboo flavors concentrate. Each tube holds ~50g, so break off pieces as needed."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/products/meng-song-bamboo-roasted-raw-pu-erh-tea",
+    "https://yunnansourcing.com/products/2001-aromatic-bamboo-raw-pu-erh-tea-of-menghai",
+    "https://crimsonlotustea.com/pages/how-to-brew-puerh-tea",
+    "https://yunnansourcing.com/pages/brewing-guide-for-green-black-oolong-and-pu-erh-teas"
+  ],
+  "updated": "2026-04-08"
+}

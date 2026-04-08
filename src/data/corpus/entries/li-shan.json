@@ -1,0 +1,36 @@
+{
+  "id": "li-shan",
+  "name": "Li Shan Oolong",
+  "aliases": ["梨山烏龍", "Pear Mountain Oolong", "Lishan Oolong", "Lí Shān"],
+  "category": "oolong",
+  "subcategory": "Gao Shan",
+  "region": "Li Shan, Taichung/Nantou, Taiwan",
+  "terroir": "Very high elevation (~1800–2500m), cold mountain air, persistent mist, slow leaf growth concentrates aromatics",
+  "cultivar": "Qing Xin",
+  "processing": ["withered", "semi-oxidized", "ball-rolled"],
+  "oxidation": "light",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Thick, sweet, and complex — orchid florals layered with creamy milkiness and dried-peach fruitiness. Higher body than most gao shan despite the light oxidation. Substantial huigan that builds across steeps, with melon and snap-pea vegetal notes in later infusions.",
+  "body": "medium",
+  "aroma_notes": ["orchid", "dried peach", "cream"],
+  "taste_notes": ["milky sweetness", "melon", "floral", "snap pea", "huigan"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [30, 20, 20, 25, 30, 35, 40, 50],
+    "max_infusions": 8,
+    "rinse": false,
+    "tips": "Treat like other unroasted gao shan — 90°C, patient first steep for the ball-rolled leaf to open. Quality Li Shan rewards lighter ratios that let the florals speak."
+  },
+  "price_range": "premium",
+  "beginner_friendly": true,
+  "sources": [
+    "https://beautifultaiwantea.com/products/lishan-premium-high-mountain-oolong",
+    "https://beautifultaiwantea.com/blogs/beautifultaiwantea/brewing-high-mountain-oolong-from-taiwan",
+    "https://pathofcha.com/products/li-shan-oolong-tea-taiwan",
+    "https://meileaf.com/tea/pear-cloud/",
+    "https://eco-cha.com/products/li-shan-high-mountain-oolong-tea"
+  ],
+  "updated": "2026-04-08"
+}

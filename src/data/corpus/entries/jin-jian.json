@@ -1,0 +1,33 @@
+{
+  "id": "jin-jian",
+  "name": "Jin Jian",
+  "aliases": ["金尖茶", "Golden Tip Tea", "Jin Jian Cha"],
+  "category": "dark",
+  "subcategory": "hunan-dark",
+  "region": "Anhua, Hunan, China",
+  "terroir": "Mountainous Hunan, same growing region as Tian Jian and other Anhua tip teas",
+  "processing": ["kill-green", "rolled", "pile-fermented", "dried", "loose-leaf or lightly compressed"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "3-10 years" },
+  "flavor_profile": "The third and most robust of Anhua's three tip grades (Tian Jian, Gong Jian, Jin Jian). Made from coarser, more mature leaves than its siblings, giving it a thicker, earthier body with less nuance but more staying power. The flavor is straightforward — woody, slightly smoky, with a mild sweetness that emerges in later infusions.",
+  "body": "full",
+  "aroma_notes": ["wood", "earth", "light smoke"],
+  "taste_notes": ["wood", "earth", "smoke", "sweet"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [15, 20, 25, 30, 40, 50, 60, 80, 120],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse 10 seconds — mature leaves benefit from a good wake-up.",
+    "tips": "Tolerates aggressive brewing well. Can be boiled for a thick, campfire-like cup. Pairs with food — popular as a daily drinker in Hunan."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/pages/understanding-anhua-tian-jian-dark-tea",
+    "https://yunnansourcing.com/collections/hei-cha",
+    "https://pathofcha.com/blogs/all-about-tea/a-deeper-look-into-hei-cha"
+  ],
+  "updated": "2026-04-08"
+}

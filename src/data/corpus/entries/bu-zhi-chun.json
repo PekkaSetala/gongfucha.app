@@ -1,0 +1,34 @@
+{
+  "id": "bu-zhi-chun",
+  "name": "Bu Zhi Chun",
+  "aliases": ["不知春", "Unaware of Spring", "Que She", "Sparrow Tongue Yancha"],
+  "category": "oolong",
+  "region": "Wuyishan, Fujian",
+  "terroir": "Wuyi rock mineral soil (zhengyan), narrow gorges and stream beds",
+  "cultivar": "Bu Zhi Chun (late-budding cultivar)",
+  "processing": ["withered", "semi-oxidized", "twisted", "charcoal-roasted"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "1-3 years" },
+  "flavor_profile": "A late-harvest yancha — the name means 'unaware of spring' because the cultivar buds so late it seems to miss the season entirely. Honey-sweet with a toasty fragrance and pronounced yan yun (rock rhyme). The palate is mellow and smooth with floral-mineral notes and hints of sugarcane, finishing with a cooling aftertaste and deep throat resonance.",
+  "body": "medium",
+  "aroma_notes": ["toasty", "honey", "stone-milk", "floral"],
+  "taste_notes": ["honey", "sugarcane", "mineral", "cooling aftertaste"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [10, 8, 8, 10, 15, 20, 25, 30, 45],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Quick rinse to wash off charcoal dust and warm the leaf.",
+    "tips": "Full boiling water brings out the best yan yun. The rock character (mineral, cooling) builds with each steep — be patient through the first few infusions."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://store-chazhiji.com/products/wuyi-rock-tea-bu-zhi-chun",
+    "https://dragonteahouse.biz/bu-zhi-chun-knows-not-of-spring-wuyi-yan-cha-rock-tea-oolong/"
+  ],
+  "updated": "2026-04-08"
+}

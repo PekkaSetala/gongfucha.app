@@ -1,0 +1,37 @@
+{
+  "id": "jin-suo-chi",
+  "name": "Jin Suo Chi",
+  "aliases": ["金锁匙", "Jīn Suǒ Chí", "Golden Key", "Jin Yao Shi"],
+  "category": "oolong",
+  "subcategory": "Yan Cha",
+  "region": "Wuyishan, Fujian, China",
+  "terroir": "Historically grown in Daping area of Wuyi; one of the Ten Famous Clusters (Shi Da Ming Cong)",
+  "cultivar": "Jin Suo Chi (over 100-year cultivation history; noted for natural cold and drought resistance)",
+  "processing": ["withered", "oxidized", "twisted", "multiple charcoal roasts"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "1-3 years" },
+  "flavor_profile": "A rare and understated yancha with a creamy aroma and smooth, full-bodied liquor. Opens with sweet herbal and chocolate-like notes on the dry leaf. In the cup, an initial light bitterness on the palate quickly transforms into building sweetness. A subtle rose fragrance weaves through the middle steeps. The Daping terroir brings fruity highlights and an intense lingering sweetness.",
+  "body": "medium",
+  "aroma_notes": ["cream", "chocolate", "rose", "herbs"],
+  "taste_notes": ["sweet", "herbal", "bitter-to-sweet", "mineral", "fruity"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [10, 10, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 8,
+    "rinse": true,
+    "rinse_hint": "Rinse opens the broad, twisted leaves and starts releasing the creamy aroma.",
+    "tips": "Full boiling water. The bitterness-to-sweetness transformation is part of the experience — don't pull steeps too short or you'll miss the huigan development."
+  },
+  "price_range": "premium",
+  "beginner_friendly": false,
+  "sources": [
+    "https://yunnansourcing.com/products/jin-yao-shi-golden-key-wu-yi-mountain-rock-oolong-tea",
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://en.wikipedia.org/wiki/Jin_Suo_Chi_tea",
+    "https://teapedia.org/en/Jin_Suo_Chi",
+    "https://cosmictortoisetea.com/products/golden-key"
+  ],
+  "updated": "2026-04-08"
+}

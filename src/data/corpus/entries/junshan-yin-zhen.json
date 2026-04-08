@@ -1,0 +1,38 @@
+{
+  "id": "junshan-yin-zhen",
+  "name": "Junshan Silver Needle",
+  "aliases": ["君山银针", "Jūn Shān Yín Zhēn", "Junshan Yin Zhen", "Jun Shan Yin Zhen"],
+  "category": "yellow",
+  "subcategory": "bud-only",
+  "region": "Junshan Island, Dongting Lake, Hunan, China",
+  "terroir": "Small island in Dongting Lake, subtropical, misty, fertile lakeside soil",
+  "cultivar": "Junshan Quntizhong (local big-leaf varieties including Yin Zhen #1, Bi Xiang Zao)",
+  "processing": ["pan-fired", "men-huang (smothered yellowing, 4-5 days)", "dried"],
+  "oxidation": "light",
+  "roast": "light",
+  "aging": { "viable": false },
+  "flavor_profile": "The rarest of China's yellow teas. The men-huang smothering gives it a distinctive sugary-sweet, corn silk character that no green tea can match. The body is brisk yet mellow, with fresh sugarcane, wildflower, and a deep aftertaste that builds across steeps. The tiny island origin and labor-intensive processing make authentic versions exceptionally scarce.",
+  "body": "medium",
+  "aroma_notes": ["sweet rice", "corn silk", "wildflower", "sugarcane"],
+  "taste_notes": ["sugarcane", "corn silk", "toasted grain", "wildflower"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [15, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 7,
+    "rinse": false,
+    "rinse_hint": "Do not rinse — the delicate buds yield their best flavor on the first steep.",
+    "tips": "Keep water at 80-85°C to protect the delicate buds. A glass vessel is traditional — the buds stand upright and dance in the water. Sweetness and body deepen with each round."
+  },
+  "price_range": "collector",
+  "beginner_friendly": false,
+  "sources": [
+    "https://sevencups.com/shop/junshan-yinzhen-yellow-tea/",
+    "https://sevencups.com/learn-about-tea/famous-chinese-tea/about-jun-shan-yin-zhen/",
+    "https://www.nannuoshan.org/blogs/blog/jun-shan-yin-zhen",
+    "https://hojotea.com/item_e/y01e.htm",
+    "https://www.teadrunk.com/pages/yellow-tea-fundamentals",
+    "https://www.mastersteas.com/teas/jun-shan-yin-zhen.html"
+  ],
+  "updated": "2026-04-08"
+}

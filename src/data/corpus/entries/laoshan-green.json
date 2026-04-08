@@ -1,0 +1,33 @@
+{
+  "id": "laoshan-green",
+  "name": "Laoshan Green",
+  "aliases": ["崂山绿茶", "Láoshān Lǜchá"],
+  "category": "green",
+  "region": "Laoshan, Shandong, China",
+  "terroir": "Coastal mountain (~1100m) on the Yellow Sea, mineral spring water, maritime climate with cold winters and ocean fog",
+  "cultivar": "Southern cultivars adapted to northern conditions (originally transplanted from Zhejiang in the 1950s)",
+  "processing": ["pan-fired", "hand-rolled"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "One of China's northernmost green teas, grown where harsh winters and mineral-rich spring water produce a uniquely thick, sweet cup. The cold climate slows leaf growth, concentrating flavor. The result is fuller-bodied than most Chinese greens with a pronounced chestnut sweetness, vegetal depth, and a smooth, almost creamy mouthfeel. The maritime influence adds a subtle mineral-saline quality.",
+  "body": "medium",
+  "aroma_notes": ["chestnut", "vegetal", "mineral"],
+  "taste_notes": ["thick", "sweet", "creamy", "vegetal"],
+  "brewing": {
+    "temp_c": 80,
+    "ratio_g_per_100ml": 4,
+    "schedule_s": [20, 25, 35, 45, 60],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "The thick, concentrated leaves handle slightly higher ratios well. Start around 80°C — the maritime character comes through best with controlled temperature."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://meileaf.com/tea/laoshan-green/",
+    "https://yunnansourcing.com/products/classic-laoshan-green-tea-from-shandong",
+    "https://verdanttea.com/he-family-laoshan-tea",
+    "https://www.curioustea.com/tea/green-tea/shandong-laoshan-green/"
+  ],
+  "updated": "2026-04-08"
+}

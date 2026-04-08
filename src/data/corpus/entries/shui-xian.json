@@ -1,0 +1,38 @@
+{
+  "id": "shui-xian",
+  "name": "Shui Xian",
+  "aliases": ["水仙", "Shuǐ Xiān", "Water Sprite", "Water Narcissus", "Narcissus"],
+  "category": "oolong",
+  "subcategory": "Yan Cha",
+  "region": "Wuyishan, Fujian, China",
+  "terroir": "Zhengyan; the most widely planted cultivar in Wuyi after Rou Gui. Old-growth Lao Cong bushes (80-100+ years) from core scenic area are the most prized",
+  "cultivar": "Shui Xian (large-leaf cultivar; Lao Cong old-bush examples develop distinctive 'cong wei' — woody, mossy trunk character)",
+  "processing": ["withered", "oxidized", "twisted", "charcoal roasted — traditionally fired a shade darker than most yancha"],
+  "oxidation": "medium",
+  "roast": "heavy",
+  "aging": { "viable": true, "sweet_spot": "2-10 years" },
+  "flavor_profile": "The workhorse of Wuyi and the tea most old-school yancha farmers name as their personal favorite. Thick, velvety body with pronounced woody and mossy notes — especially in Lao Cong examples where the 'cong wei' (bush flavor) dominates. Dark florals like orchid and lilac sit alongside stone fruit sweetness and an almost umami-like depth. Heavier roast versions show toasted wood and caramelized sugar. Blends seamlessly into Da Hong Pao as the body-and-depth component.",
+  "body": "full",
+  "aroma_notes": ["orchid", "charred wood", "moss", "stone fruit"],
+  "taste_notes": ["woody", "umami", "mineral", "caramel", "stone fruit"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [10, 10, 12, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse with full boiling water — the heavy roast needs heat to open.",
+    "tips": "Full boiling water, no compromise. Shui Xian's heavy fire and thick body mean it can handle slightly longer steeps than most yancha without turning bitter. Lao Cong examples reward patience — the woody 'cong wei' character deepens in the middle steeps."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://teadb.org/shui-xian/",
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://sevencups.com/shop/premium-shui-xian-narcissus-organic-rock-wulong-tea/",
+    "https://verdanttea.com/shui-xian-wuyi-oolong",
+    "https://verdanttea.com/what-is-the-story-of-shui-xian",
+    "https://en.wikipedia.org/wiki/Shui_Xian"
+  ],
+  "updated": "2026-04-08"
+}

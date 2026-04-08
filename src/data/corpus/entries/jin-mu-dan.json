@@ -1,0 +1,34 @@
+{
+  "id": "jin-mu-dan",
+  "name": "Jin Mu Dan",
+  "aliases": ["金牡丹", "Golden Peony", "Jin Mu Dan Yancha"],
+  "category": "oolong",
+  "region": "Wuyishan, Fujian",
+  "terroir": "Wuyi rock mineral soil",
+  "cultivar": "Jin Mu Dan (Huang Dan x Huang Guan Yin cross, developed by Fujian Tea Research Institute)",
+  "processing": ["withered", "semi-oxidized", "twisted", "multi-stage charcoal roast"],
+  "oxidation": "medium",
+  "roast": "heavy",
+  "aging": { "viable": true, "sweet_spot": "2-10 years" },
+  "flavor_profile": "A relatively new cultivar bred for bright aromatics and sweet taste, but the multi-stage charcoal roast gives it serious depth. Opens dark and resinous — baked tangerine peel, gingerbread — then blooms into floral sweetness with gardenia and violet. The thick mouthfeel and pleasant qi make it a session tea that improves with age.",
+  "body": "full",
+  "aroma_notes": ["gardenia", "violet", "tangerine peel"],
+  "taste_notes": ["gingerbread", "cherry liqueur", "vanilla", "tangerine peel"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [10, 8, 8, 10, 15, 20, 25, 30, 45],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse to wash off charcoal dust from the heavy roast.",
+    "tips": "The heavy roast means full boiling water is essential — it unlocks the resinous depth without turning bitter. The floral bloom emerges around steeps 3-4 as the roast notes soften."
+  },
+  "price_range": "mid",
+  "beginner_friendly": false,
+  "sources": [
+    "https://yunnansourcing.com/products/gold-mudan-jin-mu-dan-wu-yi-rock-oolong-tea",
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://meileaf.com/tea/cookie-fruit-barrel/"
+  ],
+  "updated": "2026-04-08"
+}

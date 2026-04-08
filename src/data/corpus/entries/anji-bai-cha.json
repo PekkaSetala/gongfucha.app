@@ -1,0 +1,33 @@
+{
+  "id": "anji-bai-cha",
+  "name": "Anji Bai Cha",
+  "aliases": ["安吉白茶", "Ānjí Báichá", "Anji White Tea"],
+  "category": "green",
+  "region": "Anji County, Zhejiang, China",
+  "terroir": "Bamboo-forested hills (~300-800m), cool spring temperatures trigger the albino leaf phenotype",
+  "cultivar": "Bai Ye Yi Hao (白叶一号) — temperature-sensitive albino cultivar",
+  "processing": ["pan-fired", "hand-shaped"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "Despite its name, this is a green tea processed from a rare albino cultivar whose leaves turn pale in cool spring weather. The result is extraordinary umami depth — often compared to chicken broth — owing to amino acid levels 3-5x higher than typical green teas. The cup is sweet and smooth with vegetal notes of soybean and cucumber, a hint of green apple, and virtually no bitterness. One of the most distinctive Chinese greens.",
+  "body": "medium",
+  "aroma_notes": ["soybean", "cucumber", "green apple"],
+  "taste_notes": ["umami", "sweet", "smooth", "vegetal"],
+  "brewing": {
+    "temp_c": 78,
+    "ratio_g_per_100ml": 3.5,
+    "schedule_s": [15, 15, 20, 30, 45],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "Lower temperature (75-80°C) is critical — higher heat destroys the delicate amino acids that give this tea its signature umami. A glass vessel shows off the pale jade liquor beautifully."
+  },
+  "price_range": "premium",
+  "beginner_friendly": true,
+  "sources": [
+    "https://pathofcha.com/blogs/all-about-tea/all-about-anji-bai-cha-green-tea",
+    "https://sevencups.com/shop/ming-qian-an-ji-bai-cha/",
+    "https://yunnansourcing.com/products/anji-bai-cha-from-zhejiang",
+    "https://www.curioustea.com/tea/green-tea/an-ji-bai-cha/"
+  ],
+  "updated": "2026-04-08"
+}

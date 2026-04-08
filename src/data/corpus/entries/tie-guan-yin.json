@@ -1,0 +1,35 @@
+{
+  "id": "tie-guan-yin",
+  "name": "Tie Guan Yin",
+  "aliases": ["铁观音", "Iron Goddess of Mercy", "Tieguanyin", "TGY", "Iron Buddha"],
+  "category": "oolong",
+  "region": "Anxi, Fujian",
+  "terroir": "Anxi highland gardens, red clay laterite soil, misty mountain climate",
+  "cultivar": "Tie Guan Yin",
+  "processing": ["withered", "semi-oxidized", "ball-rolled", "roasted (traditional) or unroasted (modern green)"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "3-15 years for traditional roast" },
+  "flavor_profile": "The most famous Chinese oolong, made in two distinct styles. Modern qing xiang (green fragrance) is lightly oxidized with cold-room withering, yielding bright floral and buttery notes. Traditional chuantong is more heavily oxidized, kneaded into twisted strips rather than pearls, and double-roasted over charcoal for deeper, layered complexity with greater sweetness. Traditional rewards aging; modern is best fresh.",
+  "body": "medium",
+  "aroma_notes": ["orchid", "butter", "toast (traditional)", "lily (modern)"],
+  "taste_notes": ["floral", "cream", "roasted grain (traditional)", "green bean (modern)", "huigan"],
+  "brewing": {
+    "temp_c": 95,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [15, 10, 10, 12, 15, 20, 25, 30, 40],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse to start unrolling the tight ball-rolled leaves.",
+    "tips": "Traditional roasted TGY takes full boiling water (100C). Modern green-style TGY is better at 90-95C to preserve the delicate floral aromatics. The Chaozhou method — crushing 15% of dry leaves and mixing with whole — adds body and aftertaste while keeping aromatics."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://verdanttea.com/buyers-guide-to-tieguanyin-and-anxi-oolong",
+    "https://sevencups.com/shop/chuan-tong-tie-guan-yin-traditional-tie-guan-yin/",
+    "https://meileaf.com/tea/superior-iron-goddess/",
+    "https://yunnansourcing.com/collections/anxi-oolong-tea-tie-guan-yin"
+  ],
+  "updated": "2026-04-08"
+}

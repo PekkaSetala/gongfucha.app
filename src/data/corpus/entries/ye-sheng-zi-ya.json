@@ -1,0 +1,36 @@
+{
+  "id": "ye-sheng-zi-ya",
+  "name": "Wild Purple Sprout",
+  "aliases": ["野生紫芽", "Yě Shēng Zǐ Yá", "Ye Sheng Zi Ya", "Purple Bud"],
+  "category": "white",
+  "subcategory": "wild-bud",
+  "region": "Dehong / Lincang, Yunnan, China",
+  "terroir": "High altitude (1500-3600m), persistent fog, wild old-growth tea forests, trees often 300-500+ years old",
+  "cultivar": "Camellia assamica var. dehongensis (wild purple mutation, high anthocyanin)",
+  "processing": ["sun-dried"],
+  "oxidation": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "A striking wild tea with a faintly purple liquor from its anthocyanin-rich buds. The flavor opens with sweet sage and elderflower, then builds into fruity sweetness — blueberry, apricot — with a sharp pine-needle finish that lingers. More structured and assertive than standard Ya Bao, with herbal depth.",
+  "body": "medium",
+  "aroma_notes": ["elderflower", "sage", "pine", "citrus zest"],
+  "taste_notes": ["blueberry", "apricot", "rosemary", "pine needle"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [15, 10, 10, 15, 20, 25, 30, 40, 50],
+    "max_infusions": 9,
+    "rinse": false,
+    "tips": "The purple buds can handle higher temperatures than most white teas. Watch for astringency on early steeps — if it bites, drop the temp to 85°C. The liquor will have a subtle violet tint from the anthocyanins."
+  },
+  "price_range": "premium",
+  "beginner_friendly": false,
+  "sources": [
+    "https://meileaf.com/tea/purple-bud/",
+    "https://sevencups.com/shop/zijuan-purple-tea-buds-2020/",
+    "https://www.yunnancraft.com/en/purple-sprout/",
+    "https://teaandwhisk.com/products/wild-purple-buds-white-tea",
+    "https://steepster.com/teas/mei-leaf/78914-purple-bud-ye-sheng-zi-ya",
+    "https://yunnansourcing.com/collections/wild-tree-ye-sheng-white-tea"
+  ],
+  "updated": "2026-04-08"
+}

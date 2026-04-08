@@ -1,0 +1,37 @@
+{
+  "id": "ban-tian-yao",
+  "name": "Ban Tian Yao",
+  "aliases": ["半天腰", "半天鹞", "Bàn Tiān Yāo", "Halfway to Heaven", "Half Day Sun"],
+  "category": "oolong",
+  "subcategory": "Yan Cha",
+  "region": "Wuyishan, Fujian, China",
+  "terroir": "Zhengyan; originated on the cliff face of Sanhua Peak in Jiulongke — grows high on rocky ledges, hence the name",
+  "cultivar": "Ban Tian Yao (shrub-type, late-maturing; purple-red buds, dense green leaves)",
+  "processing": ["withered", "oxidized", "hand-fired", "multiple roasts"],
+  "oxidation": "medium",
+  "roast": "medium",
+  "aging": { "viable": true, "sweet_spot": "1-5 years" },
+  "flavor_profile": "One of the Five Famous Wuyi cultivars. Rich and resinous with a honey-like fragrance that persists across many steeps. The cup is thick-bodied with tangy floral tones, sandalwood, and nectarine sweetness. Deep charcoal roasting adds woody and herbaceous layers without masking the cultivar's natural complexity.",
+  "body": "full",
+  "aroma_notes": ["honey", "sandalwood", "nectarine", "charcoal"],
+  "taste_notes": ["resinous", "floral", "woody", "sweet", "mineral"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 6,
+    "schedule_s": [8, 8, 10, 15, 20, 25, 30, 40],
+    "max_infusions": 8,
+    "rinse": true,
+    "rinse_hint": "A quick rinse wakes up the tightly twisted leaves and lets the roast aromatics bloom.",
+    "tips": "Full boiling water to penetrate the heavy roast. First steeps should be fast — the resinous character builds quickly. The tea evolves dramatically from steep to steep."
+  },
+  "price_range": "premium",
+  "beginner_friendly": false,
+  "sources": [
+    "https://verdanttea.com/dark-roast-medium-ban-tian-yao",
+    "https://white2tea.com/products/bantianyao",
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://oldwaystea.com/tea-info/ban-tian-yao",
+    "https://what-cha.com/products/china-fujian-banyan-ban-tian-yao-oolong-tea"
+  ],
+  "updated": "2026-04-08"
+}

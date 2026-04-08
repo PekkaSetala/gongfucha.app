@@ -1,0 +1,36 @@
+{
+  "id": "bao-zhong",
+  "name": "Bao Zhong Oolong",
+  "aliases": ["包種茶", "Pouchong", "Wenshan Baozhong", "Bāo Zhǒng", "文山包種"],
+  "category": "oolong",
+  "region": "Wenshan (Pinglin, Shiding), New Taipei City, Taiwan",
+  "terroir": "Low-to-moderate elevation (~300–600m), heavy rainfall, subtropical",
+  "cultivar": "Qing Xin",
+  "processing": ["withered", "semi-oxidized", "twisted"],
+  "oxidation": "light",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "The closest oolong gets to green tea — delicate gardenia and lily florals over a light, buttery body. Gentle honeyed sweetness with grassy freshness and a clean mineral finish. The twisted leaf gives immediate extraction, so early steeps are intensely aromatic but the session is shorter than ball-rolled oolongs.",
+  "body": "light",
+  "aroma_notes": ["gardenia", "lily", "jasmine", "butter"],
+  "taste_notes": ["honeyed flowers", "melon", "light grass", "mineral"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 4,
+    "schedule_s": [20, 15, 15, 20, 25, 30, 40],
+    "max_infusions": 7,
+    "rinse": false,
+    "tips": "Lower temperature than ball-rolled oolongs — 80–85°C protects the delicate florals. Twisted leaves extract fast; keep early steeps short or the tea turns bitter."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://beautifultaiwantea.com/products/baozhong-oolong-tea-taiwan",
+    "https://teadb.org/baozhong/",
+    "https://pathofcha.com/products/wenshan-baozhong-tea",
+    "https://pathofcha.com/blogs/all-about-tea/wenshan-baozhong-taiwans-treasured-oolong-tea-legacy",
+    "https://tecompanytea.com/blogs/tea-atelier/what-is-baozhong",
+    "https://en.wikipedia.org/wiki/Baozhong_tea"
+  ],
+  "updated": "2026-04-08"
+}

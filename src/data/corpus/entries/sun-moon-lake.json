@@ -1,0 +1,36 @@
+{
+  "id": "sun-moon-lake",
+  "name": "Sun Moon Lake Red Tea",
+  "aliases": ["日月潭红茶", "Ruby 18", "Red Jade", "TRES #18", "Hong Yu"],
+  "category": "red",
+  "subcategory": "taiwan-red",
+  "region": "Yuchi, Nantou County, Taiwan",
+  "terroir": "Lake-side highlands (~700m), humid subtropical, volcanic soil",
+  "cultivar": "TRES #18 (Ruby) — Burmese assamica × native Taiwanese wild tea hybrid, released 1999",
+  "processing": ["withered", "rolled", "fully oxidized", "dried"],
+  "oxidation": "full",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Unmistakable cinnamon and fresh mint character that no other red tea matches — the signature of the Ruby cultivar. Underneath the spice sits warm cocoa, aged wood, and a sweetness reminiscent of brown sugar. Lighter and cleaner than Indian Assam despite sharing large-leaf parentage.",
+  "body": "medium",
+  "aroma_notes": ["cinnamon", "mint", "cocoa"],
+  "taste_notes": ["cinnamon", "mint", "cocoa", "brown sugar", "aged wood"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [15, 15, 20, 20, 25, 30, 40],
+    "max_infusions": 7,
+    "rinse": false,
+    "tips": "Brew at 90°C or just above to bring out the signature cinnamon-mint aromatics without bitterness. Works well in both porcelain and Yixing."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://meileaf.com/tea/ruby-black/",
+    "https://yoshanteausa.com/products/781-sun-moon-lake-ruby-black-tea",
+    "https://mountainstreamteas.com/products/sun-moon-ruby-18",
+    "https://www.teahong.com/product/red-jade/",
+    "https://www.nickkembel.com/sun-moon-lake-tea/"
+  ],
+  "updated": "2026-04-08"
+}

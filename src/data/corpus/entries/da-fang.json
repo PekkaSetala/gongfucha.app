@@ -1,0 +1,34 @@
+{
+  "id": "da-fang",
+  "name": "Da Fang",
+  "aliases": ["大方", "Dàfāng", "Ding Gu Da Fang", "顶谷大方", "Zhupu Da Fang"],
+  "category": "green",
+  "region": "She County, Huangshan, Anhui, China",
+  "terroir": "Lao Zhuling and Fuguanshan mountains, ~600-1000m, misty with mineral-rich soil",
+  "cultivar": "Local Anhui cultivar",
+  "processing": ["pan-fired", "flat-pressed"],
+  "oxidation": "none",
+  "roast": "light",
+  "flavor_profile": "Considered the ancestor of all flat-pressed Chinese green teas, predating Long Jing by centuries. The leaves are yellowish-green, sleek and flat with hidden buds covered in golden down. The cup is sweet and nutty with deep mineral notes, hints of corn and almond, and a warm malty aroma. Fuller-bodied than Long Jing with a distinctive savoury quality and no astringency. The light roast imparts a warm, toasty character unique among green teas.",
+  "body": "medium",
+  "aroma_notes": ["malty", "nutty", "floral"],
+  "taste_notes": ["nutty", "mineral", "sweet", "almond"],
+  "brewing": {
+    "temp_c": 80,
+    "ratio_g_per_100ml": 3.5,
+    "schedule_s": [20, 20, 30, 40, 55],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "The flat-pressed leaves need a moment to open — the first steep can be slightly longer. The warm toasty character emerges best around 80°C."
+  },
+  "price_range": "mid",
+  "beginner_friendly": true,
+  "sources": [
+    "https://www.curioustea.com/tea/green-tea/ding-gu-da-fang/",
+    "https://what-cha.com/products/china-huangshan-da-fang-green-tea",
+    "https://en.wikipedia.org/wiki/Dafang_tea",
+    "https://verdanttea.com/ding-gu-da-fang-flat-pressed-anhui-huangshan-green-tea",
+    "https://www.teaguardian.com/quality-varieties/tea-varieties/roasted-green-tea-dinggu-dafang/"
+  ],
+  "updated": "2026-04-08"
+}

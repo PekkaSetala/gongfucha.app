@@ -1,0 +1,34 @@
+{
+  "id": "lu-an-gua-pian",
+  "name": "Lu'An Gua Pian",
+  "aliases": ["六安瓜片", "Liù'ān Guāpiàn", "Liu An Gua Pian", "Melon Seed", "Sunflower Seed"],
+  "category": "green",
+  "region": "Lu'an, Anhui, China",
+  "terroir": "Dabie Mountains, ~300-800m, subtropical humid climate",
+  "cultivar": "Local Lu'an cultivar",
+  "processing": ["pan-fired with bamboo broom", "open-flame roasted"],
+  "oxidation": "none",
+  "roast": "light",
+  "flavor_profile": "The only famous Chinese green tea made exclusively from single leaves with no buds — the unique plucking standard removes both the stem and the bud, leaving just the leaf. The processing involves aggressive open-flame roasting that imparts a faint toasted sesame character. The cup is thick and bright with sweet grass and turnip notes, a creamy umami core, and a refreshing vegetal finish with light almond and mineral hints. More robust than bud-heavy greens.",
+  "body": "medium",
+  "aroma_notes": ["toasted sesame", "vegetal", "sweet grass"],
+  "taste_notes": ["umami", "creamy", "sweet grass", "mineral"],
+  "brewing": {
+    "temp_c": 82,
+    "ratio_g_per_100ml": 3.5,
+    "schedule_s": [20, 25, 35, 45, 60],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "The single-leaf construction means these leaves are more robust than bud teas — they can handle slightly higher temperatures and extract evenly across infusions."
+  },
+  "price_range": "premium",
+  "beginner_friendly": true,
+  "sources": [
+    "https://meileaf.com/tea/melon-seed-green/",
+    "https://yunnansourcing.com/products/liu-an-gua-pian-melon-seed-green-tea-from-anhui",
+    "https://sevencups.com/shop/liu-an-gua-pian/",
+    "https://pathofcha.com/products/lu-an-gua-pian-green-tea",
+    "https://easternleaves.com/products/lu-an-gua-pian-melon-seed-green-tea"
+  ],
+  "updated": "2026-04-08"
+}

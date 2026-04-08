@@ -1,0 +1,36 @@
+{
+  "id": "da-yu-ling",
+  "name": "Da Yu Ling Oolong",
+  "aliases": ["大禹岭烏龍", "Dayuling Oolong", "Dà Yǔ Lǐng"],
+  "category": "oolong",
+  "subcategory": "Gao Shan",
+  "region": "Da Yu Ling, Central Mountain Range, Taiwan",
+  "terroir": "Highest tea-growing elevation in Taiwan (~2200–2600m), extreme cold, persistent fog, very slow leaf growth",
+  "cultivar": "Qing Xin",
+  "processing": ["withered", "semi-oxidized", "ball-rolled"],
+  "oxidation": "light",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Intensely floral with an almost perfumed orchid-and-lilac character that only extreme elevation produces. Silky mouthfeel, exceptional sweetness, and a clean finish with hints of mung bean and warm milk. Forgiving to brew — quality shines through even with imprecise parameters.",
+  "body": "light",
+  "aroma_notes": ["orchid", "lilac", "warm milk", "honey"],
+  "taste_notes": ["floral perfume", "mung bean", "sweet cream", "lingering sweetness"],
+  "brewing": {
+    "temp_c": 90,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [30, 20, 20, 25, 30, 35, 40, 50],
+    "max_infusions": 8,
+    "rinse": false,
+    "tips": "Very forgiving tea — focus on not over-steeping rather than hitting exact parameters. Lower temperature (85–90°C) preserves the delicate floral top notes."
+  },
+  "price_range": "collector",
+  "beginner_friendly": true,
+  "sources": [
+    "https://beautifultaiwantea.com/blogs/beautifultaiwantea/brewing-high-mountain-oolong-from-taiwan",
+    "https://teadb.org/da-yu-ling-104k-taiwanese-high-mountain-oolong/",
+    "https://teadb.org/da-yu-ling-oolong/",
+    "https://pathofcha.com/products/da-yu-ling-oolong-tea-taiwan",
+    "https://meileaf.com/resources/pdf/mei-leaf-tea-brewing-guide.pdf"
+  ],
+  "updated": "2026-04-08"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "taiwan-rou-gui",
+  "name": "Taiwan Rou Gui Oolong",
+  "aliases": ["台灣肉桂烏龍", "Taiwan Cassia Oolong", "Taiwanese Rou Gui", "Ròu Guì"],
+  "category": "oolong",
+  "region": "Various regions, Taiwan",
+  "terroir": "Varies by growing area; distinct from the mineral-rich Wuyi Mountain terroir that defines mainland Rou Gui",
+  "cultivar": "Rou Gui",
+  "processing": ["withered", "semi-oxidized", "ball-rolled", "light roast"],
+  "oxidation": "medium",
+  "roast": "light",
+  "aging": { "viable": true, "sweet_spot": "2–5 years" },
+  "flavor_profile": "The Rou Gui cultivar grown in Taiwan and processed in the Taiwanese style — lighter roast and lower oxidation than its Wuyi counterpart. Retains the cultivar's signature cinnamon spice but wrapped in a cleaner, more floral package. Less mineral depth than Wuyi Rou Gui, more bright sweetness and a smoother finish.",
+  "body": "medium",
+  "aroma_notes": ["cinnamon", "floral", "light toast"],
+  "taste_notes": ["cinnamon spice", "bright sweetness", "vanilla", "clean finish"],
+  "brewing": {
+    "temp_c": 93,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [25, 15, 15, 20, 25, 30, 35, 45],
+    "max_infusions": 8,
+    "rinse": true,
+    "rinse_hint": "A brief rinse helps open the ball-rolled leaf and takes the edge off any roast char.",
+    "tips": "Slightly hotter than unroasted gao shan to bring out the cinnamon character. Not as forgiving of boiling water as Wuyi Rou Gui — keep it under 95°C."
+  },
+  "price_range": "mid",
+  "beginner_friendly": false,
+  "sources": [
+    "https://beautifultaiwantea.com/products/rougui",
+    "https://teadb.org/taiwanese-tea-cultivars/",
+    "https://teadb.org/wuyi-oolong-compendium/",
+    "https://meileaf.com/teas/oolong/"
+  ],
+  "updated": "2026-04-08"
+}

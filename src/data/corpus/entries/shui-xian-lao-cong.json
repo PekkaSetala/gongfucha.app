@@ -1,0 +1,37 @@
+{
+  "id": "shui-xian-lao-cong",
+  "name": "Shui Xian Lao Cong",
+  "aliases": ["水仙老枞", "Old Bush Narcissus", "Old Bush Water Sprite", "Lao Cong Shui Xian", "Aged Bush Shui Xian"],
+  "category": "oolong",
+  "subcategory": "Yan Cha",
+  "region": "Wuyi Mountains, Fujian, China",
+  "terroir": "Rocky cliffs (zhengyan), mineral-rich volcanic soil, misty valleys",
+  "cultivar": "Shui Xian (水仙)",
+  "processing": ["withered", "shaken/bruised", "semi-oxidized", "charcoal-roasted (traditionally heavy)"],
+  "oxidation": "heavy",
+  "roast": "heavy",
+  "aging": { "viable": true, "sweet_spot": "3-15 years" },
+  "flavor_profile": "Old-bush (100+ year) Shui Xian develops a velvety thickness and umami depth that young-bush versions cannot match. The heavy charcoal roast produces layers of caramel, butterscotch, and roasted grain, while the ancient root systems contribute a distinctive mossy, mushroom-like complexity. The mouthfeel is remarkably thick and coating, with a long mineral finish characteristic of zhengyan (core-region) Wuyi rock tea.",
+  "body": "full",
+  "aroma_notes": ["caramel", "roasted grain", "mushroom"],
+  "taste_notes": ["butterscotch", "umami", "mushroom", "mineral", "roasted grain"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 7,
+    "schedule_s": [10, 10, 15, 15, 20, 25, 30, 40, 50, 60],
+    "max_infusions": 10,
+    "rinse": true,
+    "rinse_hint": "Quick 3-5 second rinse to shake off charcoal dust and prime the heavy-roasted leaves.",
+    "tips": "Use boiling water — heavily roasted yancha demands maximum heat. A dedicated Yixing pot seasoned with yancha enhances the experience. The roast character mellows with age; 1-2 years of rest after purchase is common."
+  },
+  "price_range": "premium",
+  "beginner_friendly": false,
+  "sources": [
+    "https://meileaf.com/tea/butterscotch-temple/",
+    "https://teadb.org/shui-xian/",
+    "https://teadb.org/wuyi-special-regions/",
+    "https://white2tea.com/products/obsx",
+    "https://yunnansourcing.com/products/old-bush-flower-aroma-shui-xian-oolong-tea"
+  ],
+  "updated": "2026-04-08"
+}

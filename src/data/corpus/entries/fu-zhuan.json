@@ -1,0 +1,35 @@
+{
+  "id": "fu-zhuan",
+  "name": "Fu Zhuan",
+  "aliases": ["茯砖茶", "Fu Brick Tea", "Fu Zhuan Cha", "Golden Flower Tea", "茯茶"],
+  "category": "dark",
+  "subcategory": "hunan-dark",
+  "region": "Anhua, Hunan, China",
+  "terroir": "Mountainous Hunan, conditions favorable for Eurotium cristatum colonization",
+  "processing": ["kill-green", "rolled", "pile-fermented", "compressed into bricks", "incubated for golden flowers (jin hua)"],
+  "oxidation": "post-fermented",
+  "aging": { "viable": true, "sweet_spot": "5-20 years" },
+  "flavor_profile": "Distinguished by golden flowers (Eurotium cristatum) — a beneficial fungus intentionally cultivated inside the brick during production. These give the tea a distinct mushroomy sweetness and grain-like warmth. The brew is smooth and mellow with dried fruit, wood, and a clean medicinal finish. Aged examples become silky and increasingly sweet.",
+  "body": "medium",
+  "aroma_notes": ["mushroom", "grain", "dried fruit"],
+  "taste_notes": ["mushroom", "grain", "sweet", "wood", "dried fruit"],
+  "brewing": {
+    "temp_c": 100,
+    "ratio_g_per_100ml": 7,
+    "schedule_s": [15, 20, 25, 30, 40, 50, 60, 80, 120],
+    "max_infusions": 9,
+    "rinse": true,
+    "rinse_hint": "Rinse 10 seconds — brick tea collects dust during aging. Don't over-rinse or you'll wash away golden flowers.",
+    "tips": "Use maximum heat and heavy teaware for best extraction. Chunks break apart easily by hand — no tea knife needed. Visible golden flowers on the broken surface indicate quality."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://yunnansourcing.com/products/2015-bai-sha-xi-jin-fu-rui-fu-zhuan-brick-tea-of-hunan",
+    "https://white2tea.com/products/2022-double-smoke-fuzhuan",
+    "https://white2tea.com/products/2024-baicha-fuzhuan",
+    "https://teaquest.com/tea-library/dark-tea/fu-zhuan/",
+    "https://www.teawithneldon.com/post/fu-for-all-a-beginner-s-guide-to-fu-zhuan-heicha"
+  ],
+  "updated": "2026-04-08"
+}

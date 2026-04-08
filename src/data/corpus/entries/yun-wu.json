@@ -1,0 +1,32 @@
+{
+  "id": "yun-wu",
+  "name": "Yun Wu",
+  "aliases": ["云雾", "Yúnwù", "Cloud Mist", "Cloud and Mist"],
+  "category": "green",
+  "region": "Various high-altitude regions, China (most famous: Lushan, Jiangxi; also Zhejiang, Sichuan, others)",
+  "terroir": "High-altitude mountains (600-1500m) with persistent cloud cover — the name literally means 'cloud mist', describing the growing conditions",
+  "processing": ["pan-fired", "hand-rolled"],
+  "oxidation": "none",
+  "roast": "none",
+  "flavor_profile": "A common name across China for locally produced green teas grown in misty, high-altitude conditions. The cloud cover acts as a natural shade, boosting amino acid content and reducing bitterness. The general profile is bright and vegetal with a clean sweetness, moderate body, and a refreshing finish. Quality and character vary significantly by origin — Lushan Yun Wu from Jiangxi is the most famous example. Good daily-drinking greens that offer honest quality without premium pricing.",
+  "body": "light",
+  "aroma_notes": ["fresh vegetal", "clean", "subtle floral"],
+  "taste_notes": ["sweet", "vegetal", "bright", "clean"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 3.5,
+    "schedule_s": [20, 25, 35, 45, 55],
+    "max_infusions": 5,
+    "rinse": false,
+    "tips": "A forgiving tea style that works well across a range of parameters. Good for gongfu beginners learning green tea technique."
+  },
+  "price_range": "budget",
+  "beginner_friendly": true,
+  "sources": [
+    "https://sevencups.com/shop/yun-wu-clouds-and-mist/",
+    "https://www.curioustea.com/tea/green-tea/yun-wu-ming-qian-cloud-mist/",
+    "https://www.teavivre.com/lu-shan-yun-wu-green-tea.html",
+    "https://www.teaguardian.com/quality-varieties/tea-varieties/roasted-green-tea-yunwu/"
+  ],
+  "updated": "2026-04-08"
+}

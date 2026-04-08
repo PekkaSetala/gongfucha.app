@@ -1,0 +1,35 @@
+{
+  "id": "bai-hao-wu-long",
+  "name": "Bai Hao Wu Long",
+  "aliases": ["白毫乌龙", "Oriental Beauty", "Eastern Beauty", "Dongfang Meiren", "White Tip Oolong", "Peng Feng Cha"],
+  "category": "oolong",
+  "subcategory": "bug-bitten",
+  "region": "Hsinchu and Miaoli, Taiwan",
+  "terroir": "Low to mid elevation, subtropical, requires leafhopper (Jacobiasca formosana) activity",
+  "cultivar": "Qing Xin Da Mao",
+  "processing": ["leafhopper-bitten", "heavily withered", "heavily oxidized", "unroasted"],
+  "oxidation": "heavy",
+  "roast": "none",
+  "aging": { "viable": false },
+  "flavor_profile": "Taiwan's most oxidized oolong — the leafhopper bites trigger defensive terpene production that creates a unique muscatel, honey, and resin character impossible to achieve through processing alone. The liquor is amber-red with a sweet, wine-like body. Musky and fermented with ripe peach, citrus peel, and a long camphor finish. No astringency when brewed properly.",
+  "body": "full",
+  "aroma_notes": ["muscatel", "honey", "ripe peach", "camphor"],
+  "taste_notes": ["muscatel grape", "honey", "citrus peel", "sweet resin"],
+  "brewing": {
+    "temp_c": 85,
+    "ratio_g_per_100ml": 5,
+    "schedule_s": [25, 20, 20, 25, 30, 40, 50, 60],
+    "max_infusions": 8,
+    "rinse": false,
+    "tips": "Lower temperature (85C) is critical — hot water destroys the delicate terpene aromatics that make this tea special. No rinse needed. The heavy oxidation means the leaves are already open and extract quickly. Some brewers go as low as 80C."
+  },
+  "price_range": "premium",
+  "beginner_friendly": true,
+  "sources": [
+    "https://meileaf.com/tea/eastern-beauty-oolong/",
+    "https://meileaf.com/article/appreciating-terpenes-in-bai-hao-oolong/",
+    "https://teadb.org/gui-fei-mei-ren/",
+    "https://www.teaforum.org/viewtopic.php?t=1933"
+  ],
+  "updated": "2026-04-08"
+}
