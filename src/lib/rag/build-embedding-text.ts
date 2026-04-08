@@ -10,8 +10,10 @@ import type { TeaEntry } from "@/data/corpus/schema";
 export function buildEmbeddingText(entry: TeaEntry): string {
   const parts: string[] = [
     entry.name,
-    entry.aliases.join(" "),
   ];
+
+  const aliasText = entry.aliases.join(" ");
+  if (aliasText) parts.push(aliasText);
 
   if (entry.subcategory) {
     parts.push(entry.subcategory);
@@ -20,7 +22,7 @@ export function buildEmbeddingText(entry: TeaEntry): string {
   parts.push(entry.region);
 
   const processingParts: string[] = [`${entry.oxidation} oxidation`];
-  if (entry.roast) {
+  if (entry.roast && entry.roast !== "none") {
     processingParts.push(`${entry.roast} roast`);
   }
   if (entry.aging?.viable) {

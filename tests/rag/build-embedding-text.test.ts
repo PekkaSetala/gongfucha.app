@@ -73,4 +73,10 @@ describe("buildEmbeddingText", () => {
     const text = buildEmbeddingText(noAging);
     expect(text).not.toContain("aging-viable");
   });
+
+  it('does not include "none roast" for unroasted teas', () => {
+    const unroasted = { ...mockEntry, roast: "none" as const };
+    const text = buildEmbeddingText(unroasted);
+    expect(text).not.toContain("none roast");
+  });
 });
