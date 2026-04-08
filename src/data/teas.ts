@@ -17,6 +17,49 @@ export interface TeaPreset {
   seasons: ("spring" | "summer" | "autumn" | "winter")[];
 }
 
+export interface TeaGroup {
+  id: string;
+  name: string;
+  subtitle: string;
+  categoryColor: string;
+  /** Temperature shown on collapsed row — lower variant's temp */
+  displayTempC: number;
+  variants: string[];
+  variantLabels: string[];
+}
+
+export const teaGroups: (TeaGroup | string)[] = [
+  "green",
+  {
+    id: "white",
+    name: "White Tea",
+    subtitle: "Delicate to aged",
+    categoryColor: "#B5A890",
+    displayTempC: 88,
+    variants: ["fresh-white", "aged-white"],
+    variantLabels: ["Fresh", "Aged"],
+  },
+  {
+    id: "oolong",
+    name: "Oolong",
+    subtitle: "Floral to roasted",
+    categoryColor: "#A8884A",
+    displayTempC: 95,
+    variants: ["light-oolong", "dark-oolong"],
+    variantLabels: ["Light", "Dark"],
+  },
+  {
+    id: "puerh",
+    name: "Pu-erh",
+    subtitle: "Living to earthy",
+    categoryColor: "#7B6B4D",
+    displayTempC: 95,
+    variants: ["sheng", "shou"],
+    variantLabels: ["Sheng", "Shou"],
+  },
+  "black",
+];
+
 export const teas: TeaPreset[] = [
   {
     id: "green",
@@ -93,7 +136,7 @@ export const teas: TeaPreset[] = [
   {
     id: "black",
     name: "Black Tea",
-    color: "#8B5E4B",
+    color: "#945046",
     subtitle: "Warm and rounded",
     ratioGPerMl: 0.055,
     tempC: 95,

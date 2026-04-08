@@ -10,10 +10,10 @@ export interface TeaCategory {
  */
 export const teaCategories: TeaCategory[] = [
   { id: "green", label: "Green", color: "#7A9E6B" },
-  { id: "white", label: "White", color: "#BFB49C" },
-  { id: "oolong", label: "Oolong", color: "#B5A26A" },
-  { id: "puerh", label: "Pu-erh", color: "#8B9E6F" },
-  { id: "black", label: "Black", color: "#8B5E4B" },
+  { id: "white", label: "White", color: "#B5A890" },
+  { id: "oolong", label: "Oolong", color: "#A8884A" },
+  { id: "puerh", label: "Pu-erh", color: "#7B6B4D" },
+  { id: "black", label: "Black", color: "#945046" },
 ];
 
 /**
