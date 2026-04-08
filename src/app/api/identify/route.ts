@@ -133,9 +133,9 @@ export async function POST(request: Request) {
   try {
     const { query } = await request.json();
 
-    if (!query || typeof query !== "string") {
+    if (!query || typeof query !== "string" || query.length > 500) {
       return NextResponse.json(
-        { error: "Query is required" },
+        { error: "Query is required (max 500 characters)" },
         { status: 400 }
       );
     }

@@ -80,6 +80,7 @@ export class QdrantClient {
           limit,
           with_payload: true,
         }),
+        signal: AbortSignal.timeout(5000),
       }
     );
 
