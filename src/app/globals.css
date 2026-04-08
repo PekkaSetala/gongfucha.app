@@ -361,6 +361,24 @@ textarea:focus-visible {
   animation: bridge-in 700ms var(--ease-out) forwards;
 }
 
+/* ─── Variant crossfade (tea group pill switch) ─── */
+.variant-exit {
+  transition: opacity 100ms var(--ease-out), filter 100ms var(--ease-out);
+  opacity: 0;
+  filter: blur(2px);
+}
+
+.variant-enter {
+  transition: opacity 150ms var(--ease-out), filter 150ms var(--ease-out);
+  opacity: 1;
+  filter: blur(0);
+}
+
+.variant-hidden {
+  opacity: 0;
+  filter: blur(2px);
+}
+
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -396,5 +414,13 @@ textarea:focus-visible {
   .headline-enter {
     animation: none !important;
     opacity: 1;
+  }
+
+  .variant-exit,
+  .variant-enter,
+  .variant-hidden {
+    transition: none !important;
+    filter: none !important;
+    opacity: 1 !important;
   }
 }
