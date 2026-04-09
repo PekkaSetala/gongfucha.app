@@ -45,7 +45,6 @@ src/
     SessionSummary.tsx    # End-of-session stats screen (infusions, time, leaf, vessel)
     Header.tsx            # App header — 功夫茶 masthead, weather mood, "pick your tea" label
     StepperControl.tsx    # Reusable ±stepper for vessel, leaf, time, infusions
-    SecondaryPaths.tsx    # Links to AI and Custom views
     InlineViewHeader.tsx  # Back-arrow + view title header for inline views
   data/
     teas.ts               # 8 tea presets (TeaPreset) + teaGroups display structure (5 groups: 3 with variants, 2 standalone)
