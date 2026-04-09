@@ -33,7 +33,6 @@ interface AIAdvisorProps {
     schedule: number[],
     scheduleAdjusted: boolean
   ) => void;
-  onOpenPrimer?: () => void;
 }
 
 export type { AIResult };
@@ -42,7 +41,6 @@ export function AIAdvisor({
   vesselMl,
   onVesselChange,
   onStartBrewing,
-  onOpenPrimer,
 }: AIAdvisorProps) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
@@ -137,17 +135,6 @@ export function AIAdvisor({
       </div>
 
       {error && <p id="ai-error" role="alert" className="text-[13px] text-error italic">{error}</p>}
-
-      {!result && !loading && !error && onOpenPrimer && (
-        <button
-          type="button"
-          onClick={onOpenPrimer}
-          className="self-start text-[12px] font-serif-cn italic text-tertiary hover:text-secondary -mt-1"
-          style={{ transition: "color 150ms var(--ease-out)" }}
-        >
-          New to gongfu? Read the primer <span aria-hidden="true">→</span>
-        </button>
-      )}
 
       {loading && (
         <div className="bg-surface border border-border rounded-[14px] p-5 mt-2 animate-pulse" aria-busy="true" aria-label="Identifying tea…">

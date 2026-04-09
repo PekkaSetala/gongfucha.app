@@ -308,7 +308,6 @@ export function TeaList({
                   vesselMl={vesselMl}
                   onVesselChange={onVesselChange}
                   onStartBrewing={onAIBrew}
-                  onOpenPrimer={onOpenPrimer}
                 />
               </div>
             )}
@@ -375,6 +374,27 @@ export function TeaList({
           </div>
         </div>
       </div>
+
+      {/* ─── Primer endnote ─── */}
+      {onOpenPrimer && (
+        <div className="px-5 pt-10 pb-2 flex justify-center">
+          <button
+            type="button"
+            onClick={onOpenPrimer}
+            className="group text-[13px] text-tertiary italic leading-relaxed hover:text-secondary"
+            style={{ transition: "color 150ms var(--ease-out)" }}
+          >
+            what is gongfu cha?{" "}
+            <span
+              aria-hidden="true"
+              className="inline-block group-hover:translate-x-0.5"
+              style={{ transition: "transform 160ms var(--ease-out)" }}
+            >
+              →
+            </span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
