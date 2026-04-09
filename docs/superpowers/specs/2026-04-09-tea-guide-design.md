@@ -16,9 +16,15 @@ Portfolio framing: one retrieval pipeline, two features — identify (single bes
 - One hand-written onboarding piece ("A short primer on gongfu cha")
 - A browsable index of all 84 corpus entries (chip filter + search)
 - A reference card template rendered per corpus entry
-- An `explore` mode on the existing RAG retrieval (`searchTeas` → top-k)
+- New `src/data/corpus-categories.ts` with six corpus-vocabulary categories (separate from the app's five)
+- New `src/data/corpus/ids.ts` — eager-loaded set of 84 corpus entry ids for `TeaDetail` cross-link gating
+- New `src/data/corpus/entries/index.ts` — barrel file re-exporting all 84 entries (dynamically imported by `page.tsx`)
+- New `src/lib/corpus-adapter.ts` — `corpusEntryToTeaPreset` for the brewing handoff
+- New `/api/guide/search` route exposing `searchTeas` in explore mode (top-k, no confidence gate)
+- Dynamic import of `src/data/corpus/entries` on first guide open
 - Cross-link from `TeaDetail` → reference card when a preset maps to a corpus entry
-- Cross-link from the existing in-list Search accordion result → reference card
+- Cross-link from the existing in-list Search (AIAdvisor) result → reference card, gated on `source === "corpus"`
+- `AIResult` + `/api/identify` response gain `corpusId?: string` so the cross-link has a target
 
 **Out of scope:**
 
@@ -39,6 +45,34 @@ Reference cards are **read-scroll-absorb**, not glance. A reference card will be
 
 On mobile, **chip-filter is the primary affordance** and the search box is secondary. Typing is a worse input mode than tapping.
 
+## Corpus Categories ≠ App Categories
+
+The corpus and the app use different category taxonomies. This matters because the Guide's chip filter is driven by the corpus, not the app.
+
+| Corpus category | App equivalent | Notes |
+|---|---|---|
+| `green` | `green` | Aligned |
+| `white` | `white` | Aligned |
+| `yellow` | — | **No app equivalent.** Four corpus entries (huoshan-huang-ya, junshan-yin-zhen, mengding-huang-ya, mo-gan-huang-ya) |
+| `oolong` | `oolong` | Aligned |
+| `red` | `black` | 红茶 in Chinese taxonomy is "black" in Western convention. Same tea. |
+| `dark` | `puerh` | Corpus groups all heicha (puerh + liu bao + fu zhuan + anhua hei cha etc.); app names the subset |
+
+**Resolution:** a new `src/data/corpus-categories.ts` file with six entries matching the corpus vocabulary exactly. The Guide uses these for its chip filter, reference-card category dot, and any category-dependent colors. It does **not** modify `tea-categories.ts`.
+
+Suggested palette (extending the existing harmony arc from `tea-categories.ts`):
+
+- `green` — `#7A9E6B` (reuse existing sage)
+- `white` — `#B5A890` (reuse existing dried leaf)
+- `yellow` — **new**, `#C9A94E` or similar warm gold (coordinate with the arc)
+- `oolong` — `#A8884A` (reuse existing amber)
+- `red` — `#945046` (reuse existing copper-red — same as app "black")
+- `dark` — `#7B6B4D` (reuse existing earth — same as app "puerh")
+
+Two helpers live in this file:
+- `corpusCategoryToAppCategory(c: CorpusCategory): AppCategory | null` — for handoff points where an app category is required (e.g., brewing view badges). `yellow → null` since no app equivalent exists.
+- `getCorpusCategory(id: CorpusCategory): CorpusCategory` — straight lookup for the Guide's own rendering.
+
 ## User Flow
 
 ```
@@ -47,7 +81,7 @@ TeaList
         ├── Tea guide ────────→ guide-index
         │                         ├── "New to gongfu? Start here →" ──→ guide-primer
         │                         ├── search box (RAG explore)
-        │                         ├── category chips (green/white/oolong/red/dark)
+        │                         ├── category chips (green/white/yellow/oolong/red/dark)
         │                         └── scrollable list of 84 entries
         │                               └── tap entry ──→ guide-entry
         │                                                   └── "Brew this →" ──→ brewing (same path as TeaDetail → Start Brewing)
@@ -81,11 +115,29 @@ Transitions:
 - `guide-index → guide-primer` — "Start here" link. Crossfade.
 - `guide-index → guide-entry` — tap on an entry row. Crossfade.
 - `guide-primer → guide-index` — back arrow (`InlineViewHeader`).
-- `guide-entry → guide-index` — back arrow.
+- `guide-entry → {origin}` — back arrow; destination depends on where the user came from (see **Entry return context** below).
 - `guide-entry → enter-brewing` — "Brew this" button. Adapts the corpus entry to a `TeaPreset`-shaped object via `corpusEntryToTeaPreset`, calls `buildBrewParams(preset, vesselMl, leafOverride)`, and follows the same `onStartBrewing` path as `TeaDetail`. No Custom-mode detour.
-- `guide-* → list` — back arrow from `guide-index`, or a full reset.
+- `guide-index → list` — back arrow from `guide-index`'s `InlineViewHeader`.
 
-Page scroll position on `guide-index` should be preserved when returning from `guide-entry`. A simple `useRef<number>` capture on leave, restore on return, is sufficient.
+### Entry return context
+
+`guide-entry` is reachable from three places: `guide-index` (primary), `TeaDetail → "About this tea →"`, and the in-list Search result → `"Read more →"`. Back-arrow behavior depends on origin.
+
+`page.tsx` tracks a return target alongside the selected entry:
+
+```ts
+type GuideEntryOrigin = "guide-index" | "tea-detail" | "in-list-search";
+
+const [guideSelectedEntryId, setGuideSelectedEntryId] = useState<string | null>(null);
+const [guideEntryOrigin, setGuideEntryOrigin] = useState<GuideEntryOrigin>("guide-index");
+```
+
+Set together whenever an entry opens. Back from `guide-entry`:
+- `origin === "guide-index"` → `viewState = "guide-index"` (scroll restored)
+- `origin === "tea-detail"` → `viewState = "list"` with the same preset/group still expanded (`expandedGroupId` and `selectedVariantId` are untouched, so the user returns to exactly where they were)
+- `origin === "in-list-search"` → `viewState = "list"` with the Search accordion still expanded (`aiExpanded` untouched)
+
+Scroll position on `guide-index` is preserved across entry round-trips via a single `useRef<number>` captured on leave, restored on return.
 
 ## Components (new)
 
@@ -97,9 +149,9 @@ The landing screen. Renders:
 
 - `InlineViewHeader` with title "Tea guide" and back arrow → `list`
 - "A short primer on gongfu cha" link row (opens `guide-primer`)
-- Search input (optional — mobile secondary)
-- Horizontal row of five category chips (reuse `tea-categories.ts` colors)
-- Filtered, scrollable list of entries — each row is a category dot + Chinese name (if present) + English name, ~56px tall
+- Search input (secondary affordance, de-emphasized visually — still present and functional in Phase 1)
+- Horizontal row of **six** category chips driven by `corpus-categories.ts`: Green / White / Yellow / Oolong / Red / Dark
+- Filtered, scrollable list of entries, alphabetical by English name — each row is a category dot + English name + (optional) Chinese name in smaller type, ~56px tall
 
 State:
 - `query: string` — bound to search input, empty by default
@@ -112,21 +164,49 @@ When `query` is empty: show filtered (by category) alphabetical list of all matc
 
 ### `GuidePrimer.tsx`
 
-Static TSX. `InlineViewHeader` + ~600 words of hand-written serif prose. No props. Hard-coded content. Sections:
+Static TSX. `InlineViewHeader` + ~600 words of hand-written serif prose. No props. Hard-coded content. Target ~600 words; hard cap 1000.
 
-1. What gongfu actually is
-2. How to read a brewing schedule
-3. What gear you actually need
+**Section beats** (the writing pass fills these in):
 
-Body uses Noto Serif SC. Generous line-height (1.7+). Max content width ~65ch (on mobile, fills the viewport minus padding — this is a desktop concern only).
+1. **What gongfu actually is** (~200 words)
+   - Small vessel (80–150ml), high leaf ratio, short steeps, many infusions in one session
+   - Not "strong tea" — it's a different *shape* of tea experience: the same leaves give 5–8 distinct cups, each one a little different
+   - The point: tasting a tea *evolve*, not extracting a single "correct" cup
+   - Contrast with Western brewing in one honest line, not as dunking on it
 
-The primer is static content, not MDX, not markdown-parsed. One TSX file. Easiest to typeset well and easiest to version-control as craft.
+2. **How to read a brewing schedule** (~200 words)
+   - Decode the four numbers that appear on every tea card: temperature, ratio (g / 100 ml), infusion count, time-per-infusion sequence
+   - Why times usually get *longer* across infusions (leaves open slowly, extractables deplete)
+   - How the app already adjusts for vessel size and leaf amount — you don't need to do the math
+   - One honest sentence: "these are starting points, not laws"
+
+3. **What gear you actually need** (~200 words)
+   - A gaiwan (or small teapot). That's it. Seriously.
+   - Cha hai / fairness pitcher is nice but skippable for V1
+   - Cups can be whatever — small is better because you're tasting in stages
+   - Pushback on "you need a $300 yixing" tea marketing. Kettle + gaiwan + any cup is a complete setup.
+
+Body uses Noto Serif SC. Generous line-height (1.7+). Max content width ~65ch on desktop; fills viewport with padding on mobile.
+
+The primer is static content, not MDX, not markdown-parsed. One TSX file. Easiest to typeset well and easiest to version-control as craft. Semantic headings (`<h1>` for title, `<h2>` for each beat) so screen readers can navigate.
 
 ### `GuideEntry.tsx`
 
-Reference card for a single corpus entry. Props: `entry: CorpusEntry`, `vesselMl`, `onVesselChange`, `onStartBrewing` — mirroring the `TeaDetail` interface where it overlaps. Structure (top to bottom):
+Reference card for a single corpus entry. Props:
 
-- `InlineViewHeader` — back arrow returns to `guide-index`
+```ts
+interface GuideEntryProps {
+  entry: CorpusEntry;
+  vesselMl: number;
+  onVesselChange: (ml: number) => void;
+  onStartBrewing: (params: BrewParams) => void;
+  onBack: () => void;
+}
+```
+
+Mirroring the `TeaDetail` interface where it overlaps, plus an explicit `onBack` because the return target is context-dependent (see **Entry return context** above) and the parent decides where back goes. Structure (top to bottom):
+
+- `InlineViewHeader` — back arrow calls `onBack`; the parent (`page.tsx`) routes to the correct return state based on `guideEntryOrigin`
 - Name block: English name (large serif), Chinese (中文) below, pinyin below that
 - Region line, one-line terroir sketch
 - Category dot + family placement
@@ -141,23 +221,56 @@ The card is deliberately a read-scroll-absorb surface *that also has brewing con
 
 **Brewing handoff:** internally, `GuideEntry` adapts the `CorpusEntry` to a `TeaPreset` shape via `corpusEntryToTeaPreset` (new, see below), then calls `buildBrewParams(preset, vesselMl, leafOverride)` and invokes `onStartBrewing`. This is identical to `TeaDetail`'s handoff — the brewing flow does not know or care that the request came from the guide.
 
-Loading: corpus entries are statically imported from `src/data/corpus/entries/` — 84 JSON files at ~2KB each is fine to bundle. No fetch, no lazy load on first version.
+Loading: the full entries map is dynamically imported by `page.tsx` on first guide-view entry and passed to `GuideEntry` as a prop (see **Loading corpus entries on the client**).
 
 ### `src/lib/corpus-adapter.ts` (new)
 
-Single function: `corpusEntryToTeaPreset(entry: CorpusEntry): TeaPreset`. Maps corpus fields to the shape `buildBrewParams` expects:
+Single function: `corpusEntryToTeaPreset(entry: CorpusEntry): TeaPreset`.
 
-- `id` ← `entry.id`
-- `name` ← `entry.name`
-- `category` ← `entry.category`
-- `temp` ← `entry.brewing.temp_c`
-- `ratio` ← `entry.brewing.ratio_g_per_100ml`
-- `schedule` ← `entry.brewing.schedule_s`
-- `rinse` ← `entry.brewing.rinse`
-- `maxInfusions` ← `entry.brewing.max_infusions`
-- any other fields `TeaPreset` requires — determined at build time by reading `src/data/teas.ts`
+Reading `src/data/teas.ts`, the `TeaPreset` shape is:
 
-If `TeaPreset` has fields the corpus doesn't provide (description, display color, etc.), the adapter fills them with sensible defaults derived from `tea-categories.ts`. No brewing-critical field is defaulted — those come straight from the corpus.
+```ts
+interface TeaPreset {
+  id: string;
+  name: string;
+  color: string;
+  subtitle: string;
+  ratioGPerMl: number;
+  tempC: number;
+  rinse: boolean;
+  doubleRinse: boolean;
+  rinseHint?: string;
+  baselineSchedule: number[];
+  maxAdjust: number;
+  brewNote: string;
+  seasons: ("spring" | "summer" | "autumn" | "winter")[];
+}
+```
+
+Field mapping (brewing-critical fields are bolded — these come straight from the corpus and are never defaulted):
+
+| TeaPreset field | Source | Notes |
+|---|---|---|
+| `id` | `entry.id` | |
+| `name` | `entry.name` | |
+| `color` | `corpus-categories.ts` lookup by `entry.category` | |
+| `subtitle` | derived: category label (e.g., `"Green tea"`) | Not shown in the reference card; included for TeaPreset-shape compatibility |
+| **`ratioGPerMl`** | `entry.brewing.ratio_g_per_100ml / 100` | **Unit conversion.** Corpus stores grams per 100 ml; preset stores grams per ml. Verify against a known preset during implementation (Long Jing is in both — `teas.ts` value vs corpus/100 must match). |
+| **`tempC`** | `entry.brewing.temp_c` | |
+| **`rinse`** | `entry.brewing.rinse` | |
+| **`doubleRinse`** | `false` | Corpus doesn't currently track double-rinse. V1 limitation — documented. |
+| `rinseHint` | `undefined` | Corpus has no equivalent. |
+| **`baselineSchedule`** | `entry.brewing.schedule_s` | |
+| `maxAdjust` | category lookup: `green` / `yellow` / `sheng` → `1.3`; `white` / `oolong` → `1.5`; `red` / `dark` → `1.8` | Controls how much the schedule can stretch when leaf amount deviates. Defaults are conservative; hand-tuned per category based on existing `teas.ts` values. |
+| `brewNote` | `entry.brewing.tips` ?? `entry.flavor_profile.slice(0, 120)` | |
+| `seasons` | category lookup: `green` / `white` / `yellow` → `["spring", "summer"]`; `oolong` → `["spring", "summer", "autumn", "winter"]`; `red` / `dark` → `["autumn", "winter"]` | Used by existing season-filtering logic in `lib/seasons.ts`. Corpus doesn't track seasons; defaults match common practice. |
+
+**Correctness test** (in `tests/corpus-adapter.test.ts`):
+1. Adapter runs over all 84 entries without throwing
+2. For every entry, all required `TeaPreset` fields are populated
+3. **Long Jing fixture**: the adapted `TeaPreset` feeds into `buildBrewParams` and produces identical output to the hand-written `long-jing` preset in `teas.ts` for brewing-critical fields (`tempC`, `ratioGPerMl`, `rinse`, `baselineSchedule`). This is the check that catches unit-conversion bugs.
+
+If the Long Jing fixture fails, the unit conversion or a field mapping is wrong — fix it before shipping.
 
 ### `BrewingTimeline.tsx`
 
@@ -170,10 +283,6 @@ Small SVG component. Props: `{ temp_c, ratio_g_per_100ml, schedule_s: number[] }
 ```
 
 Full content-width, ~40px tall for the bar row. Segment widths proportional to seconds with a minimum-width clamp so short steeps are still tappable-sized visually. No interactivity — this is a diagram, not a control.
-
-### `TypeLabel.tsx` (optional, if the pattern repeats)
-
-Small component for the category dot + family-name pattern, if it's used in more than one place. Otherwise inline.
 
 ## Components (changed)
 
@@ -192,19 +301,39 @@ Props: add `onOpenGuide: () => void`.
 
 ### `src/components/TeaDetail.tsx`
 
-When `selectedTea.id` matches a corpus entry id (check against a statically imported set of corpus ids), render a subtle "About this tea →" link row below the existing content. On tap: `onOpenGuideEntry?.(teaId)`. Prop is optional so the component still works in isolation.
+When `tea.id` matches a corpus entry id, render a subtle "About this tea →" link row below the existing content. On tap: `onOpenGuideEntry?.(tea.id)`. Prop is optional so the component still works in isolation.
 
-### `src/components/TeaList.tsx` — Search accordion result
+The check needs to happen *before* the guide's entries chunk has been dynamically loaded (the brewing flow is users' primary surface). Introduce a tiny eager-loaded constant:
 
-When the existing Search (formerly Ask AI) accordion returns a result that matches a corpus entry, add a subtle "Read more →" link on the result card that opens the matching reference card.
+- `src/data/corpus/ids.ts` — exports `CORPUS_IDS: ReadonlySet<string>` listing the 84 corpus entry ids as string literals. ~2 KB in the main bundle, no runtime file IO. Maintained manually for now (or regenerated by a one-line script during corpus edits — out of scope for this spec).
 
-This is the cleanest way to resolve the overlap between the existing in-list Search (single-best-match, returns brewing params inline) and the Tea Guide (browse, read, learn). They're different modes: the in-list Search is action-first ("I want to brew this now"), the Tea Guide is learning-first ("I want to understand this"). The "Read more →" link connects them without merging them.
+`TeaDetail` imports `CORPUS_IDS` and checks `CORPUS_IDS.has(tea.id)` to decide whether to show the link.
+
+### `src/components/AIAdvisor.tsx` — Search result "Read more →"
+
+The in-list Search accordion's result UI lives in `AIAdvisor.tsx`, not `TeaList.tsx`. `AIResult` already carries `source?: "corpus" | "llm"` — the "Read more →" link is rendered **only when `result.source === "corpus"`**, because LLM-fallback results have no corpus entry to open.
+
+**Required backend change:** the `/api/identify` route currently returns an `AIResult` without a corpus id. To link to a reference card, the response must include `corpusId?: string` when `source === "corpus"`. Two changes:
+
+1. `AIResult` interface in `AIAdvisor.tsx` gains `corpusId?: string`
+2. `/api/identify` route passes the matched entry's id through on corpus hits
+
+New prop on `AIAdvisor`: `onOpenGuideEntry?: (id: string) => void`. Called when the user taps "Read more →". Optional so the component still works in isolation.
+
+This resolves the overlap between the in-list Search (action-first: single best match, returns brewing params inline) and the Tea Guide (learning-first: browse, read, learn). They're different modes; "Read more →" connects them without merging them.
 
 ### `src/app/page.tsx`
 
-- Add the three new `ViewState` values
-- Add state: `guideSelectedEntryId: string | null`, `guideScrollY: number`
-- Add handlers: `openGuide`, `openGuideEntry(id)`, `openGuidePrimer`, `backToGuideIndex`, `backToList`, `brewFromGuide(entry)`
+- Add the three new `ViewState` values (`guide-index`, `guide-primer`, `guide-entry`)
+- Add state: `guideSelectedEntryId: string | null`, `guideEntryOrigin: GuideEntryOrigin`, `guideScrollY: number` (via `useRef`)
+- Add handlers:
+  - `openGuide()` — from `SecondaryPaths`; transitions `list → guide-index`
+  - `openGuideEntryFrom(id, origin)` — sets id + origin, transitions to `guide-entry`
+  - `openGuidePrimer()` — transitions `guide-index → guide-primer`
+  - `backFromGuideEntry()` — reads `guideEntryOrigin`, dispatches to the correct return state (see Entry return context)
+  - `backFromGuidePrimer()` — returns to `guide-index`
+  - `backFromGuideIndex()` — returns to `list`
+  - `brewFromGuide(entry)` — runs `corpusEntryToTeaPreset`, `buildBrewParams`, then the existing `onStartBrewing` path
 - Route rendering: when `viewState` starts with `guide-`, render the guide view stack instead of `TeaList`. The existing brewing transition is untouched.
 
 ### `src/i18n/messages.ts` (EN only)
@@ -247,20 +376,28 @@ Route implementation:
 
 - Input: `{ query: string, topK?: number }` — `query` ≤ 200 chars (same hard cap as identify), `topK` default 10, max 20
 - Output: `{ results: ScoredTeaResult[] }` — no confidence filtering, no LLM fallback
-- Error handling: 400 on invalid input, 500 on Qdrant failure. Client falls back to client-side substring match over a preloaded entry metadata array.
+- Error handling: 400 on invalid input, 500 on Qdrant failure. Client falls back to client-side substring match over the dynamically-loaded entries map (already available because the user is inside a guide view).
 
 Client-side fallback is important because the Tea Guide must be *usable* without Qdrant. A working app offline (or when the Qdrant instance is down) is more valuable than a better-ranked search. The fallback is: substring match over `{ name, aliases, category, aroma_notes, taste_notes }` joined as a single string per entry, case-insensitive.
 
-### Preloading entry metadata
+### Loading corpus entries on the client
 
-For the index list and the client-side fallback, we need a lightweight metadata array: `{ id, name, chineseName, category, aliases, aromaNotes, tasteNotes }` for all 84 entries. Two options:
+The Guide needs the full corpus (all 84 entries) on the client for: the index list, the reference card view, and the client-side fallback search. Approaches considered:
 
-1. Build-time JSON: a script that reads all corpus entries and emits `src/data/corpus/index.json` with the slim metadata. Script runs in `prebuild` or manually.
-2. Static import from TS: `import * as entries from "./entries/*.json"` — depends on bundler glob support. Next.js with Turbopack supports this but it's bundler-specific.
+1. **Build-time slim index + static full entries.** Two files, bundled everywhere. Rejected — two sources of truth, and the slim index is redundant with the full entries already loaded.
+2. **Static import of all entries, bundled on every page.** Simple but adds ~40–60 KB gzipped to the brewing flow, which never needs it.
+3. **Dynamic import on guide entry.** One chunk, loaded the first time the user taps "Tea guide". Subsequent guide opens are cached by the bundler. The brewing flow is unaffected. **Chosen.**
 
-**Chosen:** Option 1. A small build script, checked-in output. Predictable, bundler-agnostic, cacheable. The script lives at `scripts/build-guide-index.ts` and writes `src/data/corpus/guide-index.json`. Also runs as part of `npm run rag:index` (or as a separate `npm run guide:index` script — to be decided in the implementation plan).
+Implementation:
 
-Full entries (`src/data/corpus/entries/<id>.json`) remain statically importable at runtime for the reference card view.
+- `src/data/corpus/entries/index.ts` — a barrel file that re-exports all 84 JSON entries as a single object keyed by id. One-time manual write (or a trivial codegen script checked into the repo).
+- `GuideIndex`, `GuideEntry`, and the client-side fallback all receive the loaded entries map as a prop from `page.tsx`.
+- `page.tsx` dynamically imports `src/data/corpus/entries` when `viewState` first transitions to a guide state. The import returns a promise; the guide renders a minimal loading state until resolved (one paint, typically <50ms on cached navigations).
+- No `guide-index.json`, no `scripts/build-guide-index.ts`, no `npm run guide:index`. Simpler.
+
+**Bundle size impact:** ~40–60 KB gzipped added as a separate chunk, loaded only when the user enters the guide. Zero impact on the brewing flow's initial load.
+
+**Server-side search** (`/api/guide/search`) doesn't need the local entries at all — it calls `searchTeas` which hits Qdrant, and Qdrant returns full payloads.
 
 ## Typography & Visual Direction
 
@@ -280,21 +417,42 @@ The visual test for the primer: when you read it on a phone, does it feel like a
 
 The visual test for reference cards: when you see three in a row (imagined, since you only see one at a time), do they feel templated like a blog, or do they feel like entries in a hand-bound guide? Guide is the target. The SVG timeline is the only illustrative element and it earns its place by being functional.
 
+## Accessibility
+
+The Guide is a reading-focused surface and must work for keyboard and screen-reader users, not just touch.
+
+- **Category chips** — rendered as a `role="radiogroup"` with `aria-label="Filter by category"`. Each chip is a `<button role="radio" aria-checked>`, tab-navigable, space/enter to toggle, left/right arrow to move between chips.
+- **Search input** — labeled with an explicit `<label>` (visually hidden via `sr-only` if the design calls for no visible label). `aria-describedby` pointing to the hint text if any.
+- **Entry list rows** — `<button>` elements, not `<div onClick>`. Tab-focusable. Focus ring uses the existing app token.
+- **Primer and reference card** — semantic headings: `<h1>` for the title, `<h2>` for each section/beat. Reference card uses an `<article>` wrapper. Flavor profile is a `<p>`, not a `<div>`.
+- **`Sources ▾` disclosure** — native `<details>`/`<summary>` if typography allows; otherwise a `<button aria-expanded>` with proper state.
+- **Back arrows** (`InlineViewHeader`) — already have `aria-label` in the existing component; Guide views reuse it unchanged.
+- **"Brew this →"**, **"About this tea →"**, **"Read more →"** — all `<button>` or `<a>` depending on semantics (brew this triggers an action → button; read more navigates within the SPA → button that changes viewState).
+- **Color contrast** — category dots are decorative; the category name is always adjacent in text form so colorblind users are not locked out. No information is conveyed by color alone.
+- **`prefers-reduced-motion`** — all enter/exit transitions honor the existing media query (already a global rule; just don't forget in the new components).
+- **Language attributes** — Chinese names rendered with `lang="zh"` so screen readers use the correct pronunciation engine.
+
 ## Data Flow Summary
 
 ```
-Static:
-  corpus/entries/*.json   ──→ GuideEntry render
-  corpus/guide-index.json ──→ GuideIndex list + client-side fallback search
+First guide-view open:
+  page.tsx → dynamic import src/data/corpus/entries
+          → entries map { [id]: CorpusEntry } available
+          → passed to GuideIndex / GuideEntry as prop
 
-Dynamic (on search):
+Index list render:
+  entries → filter by activeCategory → alphabetical → list rows
+
+Search (query non-empty):
   query → POST /api/guide/search
         → searchTeas(query, 10)
-        → Qdrant
-        → top-10 ScoredTeaResult
+        → Qdrant → top-10 ScoredTeaResult
         → client renders list
-  On error:
-  query → substring match over guide-index.json (local)
+  On error / offline:
+  query → substring match over entries map (local, no network)
+
+Reference card render:
+  GuideEntry receives entries[id] directly — no fetch
 ```
 
 ## Testing
@@ -304,7 +462,9 @@ New tests under `tests/`:
 - `tests/guide-index.test.ts` — substring-match fallback returns expected entries for known queries
 - `tests/guide-entry.test.tsx` — component renders entry fields, SVG timeline handles edge cases (1 infusion, 10 infusions)
 - `tests/guide-api.test.ts` — API route validates input, rejects over-long queries, returns expected shape
-- `tests/corpus-adapter.test.ts` — `corpusEntryToTeaPreset` produces valid `TeaPreset` output for all 84 entries (loop over every file, assert no thrown errors, assert required fields populated)
+- `tests/corpus-adapter.test.ts` — `corpusEntryToTeaPreset`:
+  1. Runs over all 84 entries without throwing; every required `TeaPreset` field is populated
+  2. **Long Jing fixture**: adapted output's brewing-critical fields (`tempC`, `ratioGPerMl`, `rinse`, `baselineSchedule`) match the hand-written `long-jing` preset in `teas.ts`. Catches unit-conversion bugs and missing mappings.
 
 Manual checks:
 - Primer readability on a real phone (not just devtools)
@@ -329,17 +489,16 @@ Small polishes that are explicitly allowed *inside* Phase 1 (not punted):
 
 ## Open Questions
 
-1. **Which 8 presets map to corpus entries?** Need to audit `src/data/teas.ts` against corpus ids. Likely: `long-jing`, `bai-mu-dan`, `tie-guan-yin`, `da-hong-pao`, `sheng-pu-erh`, `shou-pu-erh`, `dian-hong`, and one more. Resolved during implementation.
-2. **Chinese name field in corpus JSON.** Not all entries have a structured `chineseName` field — some only have `aliases` containing the Chinese characters. The reference card and index list need to handle "no Chinese name" gracefully (just show English). Resolved at render time.
-3. **Primer length.** ~600 words is the target. If the writing comes in at 400 or 900, accept it — craft over wordcount. Hard cap 1000.
-4. **Icon for the `SecondaryPaths` Tea guide entry.** Open book? Stacked lines? Leaf-with-lines? Decide visually during build; not spec-blocking.
+1. **Which presets map to corpus entries?** Need to audit `src/data/teas.ts` against corpus ids. Confirmed matches so far: `long-jing`. Likely additional: `bai-mu-dan`, `tie-guan-yin`, `da-hong-pao`, `sheng-pu-erh`, `shou-pu-erh`, `dian-hong`. Full audit resolves during implementation — it's a 5-minute scan over two files.
+2. **Chinese name extraction.** Corpus entries don't have a dedicated `chineseName` field — the Chinese characters live inside `aliases`. A helper `extractChineseName(entry): string | undefined` picks the first alias matching `/^[\u4e00-\u9fff]+$/`. The reference card and index list gracefully show English only when no match exists.
+3. **Icon for the `SecondaryPaths` Tea guide entry.** Open book? Stacked lines? Leaf-with-lines? Decide visually during build; not spec-blocking.
+4. **`maxAdjust` defaults per category.** The adapter uses a category lookup table (green/yellow/sheng → 1.3, white/oolong → 1.5, red/dark → 1.8). Implementation should sanity-check these against existing `teas.ts` values — if hand-tuned presets use different numbers, align the defaults.
 
 ## Non-Goals (restated, because these are the easiest things to accidentally build)
 
 - Not a blog
 - Not a Wikipedia clone
 - Not a brand content site
-- Not a recommendation engine
 - Not a tea shop
 - Not a social surface
 - Not a visual encyclopedia with photos
