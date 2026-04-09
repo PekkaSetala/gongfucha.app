@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { teaGroups, getTeaById, type TeaGroup, type TeaPreset } from "@/data/teas";
 import type { BrewParams } from "./BrewingTimer";
-import { TeaDetail } from "./TeaDetail";
+import { TeaDetail, type VariantOption } from "./TeaDetail";
 import { AIAdvisor } from "./AIAdvisor";
 import { CustomMode } from "./CustomMode";
 import type { AIResult } from "./AIAdvisor";
@@ -46,31 +46,20 @@ export function TeaList({
   onAIBrew,
 }: TeaListProps) {
   const detailRef = useRef<HTMLDivElement>(null);
-  const pillsRef = useRef<HTMLDivElement>(null);
   const aiRef = useRef<HTMLDivElement>(null);
   const customRef = useRef<HTMLDivElement>(null);
   const [crossfadeState, setCrossfadeState] = useState<"idle" | "exit" | "enter">("idle");
   const prevVariantRef = useRef<string | null>(null);
 
-  // Scroll pills into view when group expands
+  // Scroll detail into view when group expands or variant selected
   useEffect(() => {
-    if (expandedGroupId && !selectedVariantId && pillsRef.current) {
-      const frame = requestAnimationFrame(() => {
-        pillsRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      });
-      return () => cancelAnimationFrame(frame);
-    }
-  }, [expandedGroupId, selectedVariantId]);
-
-  // Scroll detail into view when variant selected
-  useEffect(() => {
-    if (selectedVariantId && detailRef.current) {
+    if (expandedGroupId && detailRef.current) {
       const frame = requestAnimationFrame(() => {
         detailRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
       return () => cancelAnimationFrame(frame);
     }
-  }, [selectedVariantId]);
+  }, [expandedGroupId]);
 
   // Crossfade when switching between variants
   useEffect(() => {
@@ -225,59 +214,32 @@ export function TeaList({
                       backgroundColor: `color-mix(in srgb, ${display.color} 4%, var(--color-surface))`,
                     }}
                   >
-                    {/* Variant pills for grouped teas */}
-                    {isGroup && group && (
-                      <div
-                        ref={pillsRef}
-                        className="flex justify-center gap-2 px-4 py-3"
-                        role="radiogroup"
-                        aria-label={`${display.name} variants`}
-                      >
-                        {group.variants.map((variantId, vi) => {
-                          const variant = getTeaById(variantId)!;
-                          const isSelected = selectedVariantId === variantId;
-                          return (
-                            <button
-                              key={variantId}
-                              role="radio"
-                              aria-checked={isSelected}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onVariantSelect(variantId);
-                              }}
-                              className="text-[13px] font-medium rounded-[20px] px-4 py-1.5"
-                              style={{
-                                border: `1px solid color-mix(in srgb, ${variant.color} ${isSelected ? "40%" : "25%"}, transparent)`,
-                                backgroundColor: isSelected
-                                  ? `color-mix(in srgb, ${variant.color} 12%, var(--color-surface))`
-                                  : "transparent",
-                                color: isSelected ? "var(--color-primary)" : "var(--color-secondary)",
-                                transition: "background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), color 160ms var(--ease-out)",
-                              }}
-                            >
-                              {group.variantLabels[vi]}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-
-                    {/* TeaDetail — for standalone teas or after variant selection */}
+                    {/* TeaDetail — variant switcher is now embedded inside for grouped teas */}
                     {selectedTea && (
-                      (!isGroup || selectedVariantId) && (
-                        <div
-                          ref={detailRef}
-                          className={getCrossfadeClass()}
-                        >
-                          <TeaDetail
-                            tea={selectedTea}
-                            vesselMl={vesselMl}
-                            onVesselChange={onVesselChange}
-                            onStartBrewing={onStartBrewing}
-                            variant="inline"
-                          />
-                        </div>
-                      )
+                      <div ref={detailRef} className={getCrossfadeClass()}>
+                        <TeaDetail
+                          tea={selectedTea}
+                          vesselMl={vesselMl}
+                          onVesselChange={onVesselChange}
+                          onStartBrewing={onStartBrewing}
+                          variant="inline"
+                          variants={
+                            isGroup && group
+                              ? group.variants.map((vid, vi) => {
+                                  const v = getTeaById(vid)!;
+                                  return {
+                                    id: vid,
+                                    label: group.variantLabels[vi],
+                                    subtitle: v.subtitle,
+                                    color: v.color,
+                                  } satisfies VariantOption;
+                                })
+                              : undefined
+                          }
+                          activeVariantId={selectedVariantId ?? undefined}
+                          onVariantChange={onVariantSelect}
+                        />
+                      </div>
                     )}
                   </div>
                 )}

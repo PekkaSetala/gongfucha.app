@@ -5,12 +5,23 @@ import type { TeaPreset } from "@/data/teas";
 import { buildBrewParams, formatRatio } from "@/lib/brewing";
 import { StepperControl } from "./StepperControl";
 
+export interface VariantOption {
+  id: string;
+  label: string;
+  subtitle: string;
+  color: string;
+}
+
 interface TeaDetailProps {
   tea: TeaPreset;
   vesselMl: number;
   onVesselChange: (ml: number) => void;
   onStartBrewing: (params: ReturnType<typeof buildBrewParams>) => void;
   variant: "inline" | "panel";
+  /** If provided, renders an embedded segmented switcher at the top of the card */
+  variants?: VariantOption[];
+  activeVariantId?: string;
+  onVariantChange?: (id: string) => void;
 }
 
 export function TeaDetail({
@@ -19,6 +30,9 @@ export function TeaDetail({
   onVesselChange,
   onStartBrewing,
   variant,
+  variants,
+  activeVariantId,
+  onVariantChange,
 }: TeaDetailProps) {
   const [leafOverride, setLeafOverride] = useState<number | null>(null);
   const params = buildBrewParams(tea, vesselMl, leafOverride ?? undefined);
@@ -40,12 +54,70 @@ export function TeaDetail({
   return (
     <div className={variant === "panel" ? "detail-enter" : "px-5 pt-3 detail-enter"}>
       <div
-        className={`bg-surface border border-border rounded-[14px] ${variant === "panel" ? "p-6" : "p-5"}`}
+        className={`bg-surface border border-border rounded-[14px] overflow-hidden ${variant === "panel" ? "p-6" : "p-5"}`}
       >
         {variant === "panel" && (
           <div className="mb-5">
             <h2 className="text-xl font-serif-cn font-bold mb-1">{tea.name}</h2>
             <p className="text-[13px] text-tertiary">{tea.subtitle}</p>
+          </div>
+        )}
+
+        {/* Embedded variant switcher — segmented tabs with sliding tea-colored underline */}
+        {variants && variants.length > 1 && activeVariantId && (
+          <div
+            className="relative -mx-5 -mt-5 mb-5"
+            role="radiogroup"
+            aria-label="Variant"
+          >
+            <div className="grid" style={{ gridTemplateColumns: `repeat(${variants.length}, 1fr)` }}>
+              {variants.map((v) => {
+                const active = v.id === activeVariantId;
+                return (
+                  <button
+                    key={v.id}
+                    type="button"
+                    role="radio"
+                    aria-checked={active}
+                    onClick={() => onVariantChange?.(v.id)}
+                    className="py-3.5 px-2 text-center"
+                    style={{
+                      transition: "opacity 200ms var(--ease-out), color 200ms var(--ease-out)",
+                      opacity: active ? 1 : 0.55,
+                    }}
+                  >
+                    <span className="block text-[14px] font-serif-cn font-normal text-primary">
+                      {v.label}
+                    </span>
+                    <span className="block text-[11px] text-tertiary mt-0.5 truncate">
+                      {v.subtitle}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {/* center hairlines between tabs */}
+            {variants.slice(1).map((_, i) => (
+              <div
+                key={i}
+                className="absolute top-3 bottom-3 w-px bg-border/50 pointer-events-none"
+                style={{ left: `${((i + 1) * 100) / variants.length}%` }}
+              />
+            ))}
+            {/* bottom hairline */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-border/70 pointer-events-none" />
+            {/* sliding tea-colored indicator */}
+            <div
+              className="absolute bottom-0 h-[2px] pointer-events-none"
+              style={{
+                width: `${100 / variants.length}%`,
+                left: 0,
+                transform: `translateX(${variants.findIndex((v) => v.id === activeVariantId) * 100}%)`,
+                backgroundColor:
+                  variants.find((v) => v.id === activeVariantId)?.color ?? "var(--color-clay)",
+                transition: "transform 280ms var(--ease-out), background-color 240ms var(--ease-out)",
+              }}
+            />
           </div>
         )}
 

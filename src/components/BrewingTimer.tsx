@@ -494,6 +494,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
               <>
                 <button
                   onClick={() => {
+                    sound.playClose();
                     const finalTime =
                       phase === "brewing" && timer.isRunning
                         ? totalTime + (currentDuration - timer.secondsLeft)

@@ -67,6 +67,9 @@ export default function Home() {
       );
       if (typeof entry === "string") {
         setSelectedVariantId(entry);
+      } else if (entry) {
+        // Grouped teas auto-select first variant so the detail card renders immediately
+        setSelectedVariantId(entry.variants[0]);
       } else {
         setSelectedVariantId(null);
       }
