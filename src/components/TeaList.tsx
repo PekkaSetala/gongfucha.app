@@ -28,7 +28,7 @@ interface TeaListProps {
     schedule: number[],
     adjusted: boolean
   ) => void;
-  onOpenGuideEntry?: (corpusId: string) => void;
+  onOpenPrimer?: () => void;
 }
 
 export function TeaList({
@@ -45,7 +45,7 @@ export function TeaList({
   onVesselChange,
   onStartBrewing,
   onAIBrew,
-  onOpenGuideEntry,
+  onOpenPrimer,
 }: TeaListProps) {
   const detailRef = useRef<HTMLDivElement>(null);
   const aiRef = useRef<HTMLDivElement>(null);
@@ -308,7 +308,7 @@ export function TeaList({
                   vesselMl={vesselMl}
                   onVesselChange={onVesselChange}
                   onStartBrewing={onAIBrew}
-                  onOpenGuideEntry={onOpenGuideEntry}
+                  onOpenPrimer={onOpenPrimer}
                 />
               </div>
             )}

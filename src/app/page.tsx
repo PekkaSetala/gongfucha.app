@@ -5,13 +5,9 @@ import { getTeaById, teaGroups } from "@/data/teas";
 import { Header } from "@/components/Header";
 import { TeaList } from "@/components/TeaList";
 import { BrewingTimer } from "@/components/BrewingTimer";
-import { SecondaryPaths } from "@/components/SecondaryPaths";
-import { GuideIndex } from "@/components/guide/GuideIndex";
 import { GuidePrimer } from "@/components/guide/GuidePrimer";
-import { GuideEntry } from "@/components/guide/GuideEntry";
 import type { AIResult } from "@/components/AIAdvisor";
 import type { BrewParams } from "@/components/BrewingTimer";
-import type { TeaEntry } from "@/data/corpus/schema";
 import { getTeaColor } from "@/data/tea-categories";
 
 const VESSEL_KEY = "gongfucha-vessel-ml";
@@ -23,21 +19,12 @@ function getStoredVessel(): number {
   return stored ? parseInt(stored, 10) : DEFAULT_VESSEL;
 }
 
-async function loadCorpusEntries(): Promise<Record<string, TeaEntry>> {
-  const mod = await import("@/data/corpus/entries");
-  return mod.corpusEntries;
-}
-
 type ViewState =
   | "list"
   | "enter-brewing"
   | "brewing"
   | "exit-brewing"
-  | "guide-index"
-  | "guide-primer"
-  | "guide-entry";
-
-type GuideEntryOrigin = "guide-index" | "ai-advisor";
+  | "primer";
 
 export default function Home() {
   const [expandedGroupId, setExpandedGroupId] = useState<string | null>(null);
@@ -48,13 +35,6 @@ export default function Home() {
   const [brewParams, setBrewParams] = useState<BrewParams | null>(null);
   const [viewState, setViewState] = useState<ViewState>("list");
   const timerRef = useRef<HTMLDivElement>(null);
-
-  // Guide state
-  const [guideEntries, setGuideEntries] = useState<Record<string, TeaEntry> | null>(null);
-  const [guideLoading, setGuideLoading] = useState(false);
-  const [guideSelectedEntryId, setGuideSelectedEntryId] = useState<string | null>(null);
-  const [guideEntryOrigin, setGuideEntryOrigin] = useState<GuideEntryOrigin>("guide-index");
-  const guideScrollY = useRef<number>(0);
 
   useEffect(() => {
     setVesselMl(getStoredVessel());
@@ -167,62 +147,17 @@ export default function Home() {
     }, 800);
   };
 
-  // ── Guide handlers ──
-  const ensureGuideEntriesLoaded = async () => {
-    if (guideEntries) return guideEntries;
-    setGuideLoading(true);
-    const loaded = await loadCorpusEntries();
-    setGuideEntries(loaded);
-    setGuideLoading(false);
-    return loaded;
+  const handleOpenPrimer = () => {
+    setViewState("primer");
   };
 
-  const handleOpenGuide = async () => {
-    setViewState("guide-index");
-    await ensureGuideEntriesLoaded();
-  };
-
-  const handleOpenGuidePrimer = () => {
-    setViewState("guide-primer");
-  };
-
-  const handleOpenGuideEntryFromIndex = (id: string) => {
-    setGuideSelectedEntryId(id);
-    setGuideEntryOrigin("guide-index");
-    setViewState("guide-entry");
-  };
-
-  const handleOpenGuideEntryFromAdvisor = async (id: string) => {
-    await ensureGuideEntriesLoaded();
-    setGuideSelectedEntryId(id);
-    setGuideEntryOrigin("ai-advisor");
-    setViewState("guide-entry");
-  };
-
-  const handleBackFromGuideIndex = () => {
+  const handleClosePrimer = () => {
     setViewState("list");
-  };
-
-  const handleBackFromGuidePrimer = () => {
-    setViewState("guide-index");
-  };
-
-  const handleBackFromGuideEntry = () => {
-    if (guideEntryOrigin === "guide-index") {
-      setViewState("guide-index");
-    } else {
-      setViewState("list");
-    }
-    setGuideSelectedEntryId(null);
-  };
-
-  const handleGuideScrollYChange = (y: number) => {
-    guideScrollY.current = y;
   };
 
   const bridgeColor = brewParams?.teaColor || "#8C563E";
   const showBrewing = viewState === "enter-brewing" || viewState === "brewing" || viewState === "exit-brewing";
-  const isGuideView = viewState === "guide-index" || viewState === "guide-primer" || viewState === "guide-entry";
+  const isPrimer = viewState === "primer";
 
   const selectedTea = selectedVariantId ? getTeaById(selectedVariantId) ?? null : null;
 
@@ -246,7 +181,7 @@ export default function Home() {
             ? "view-fade-out"
             : viewState === "exit-brewing"
               ? "view-fade-in-slow"
-              : viewState === "brewing" || isGuideView
+              : viewState === "brewing" || isPrimer
                 ? "opacity-0 pointer-events-none"
                 : ""
         }`}
@@ -273,9 +208,8 @@ export default function Home() {
                 onVesselChange={handleVesselChange}
                 onStartBrewing={handleStartBrewing}
                 onAIBrew={handleAIBrew}
-                onOpenGuideEntry={handleOpenGuideEntryFromAdvisor}
+                onOpenPrimer={handleOpenPrimer}
               />
-              <SecondaryPaths onOpenGuide={handleOpenGuide} />
             </div>
             <footer className="px-5 pt-10 pb-14 text-center">
               <a
@@ -312,42 +246,13 @@ export default function Home() {
         </div>
       )}
 
-      {/* ─── Guide views ─── */}
-      {isGuideView && (
-        <div className="fixed inset-0 bg-surface z-40 overflow-hidden">
-          {guideLoading && !guideEntries && (
-            <div className="min-h-[100dvh] flex items-center justify-center text-tertiary text-[13px]">
-              Loading…
-            </div>
-          )}
-
-          {guideEntries && viewState === "guide-index" && (
-            <GuideIndex
-              entries={guideEntries}
-              onOpenPrimer={handleOpenGuidePrimer}
-              onOpenEntry={handleOpenGuideEntryFromIndex}
-              onBack={handleBackFromGuideIndex}
-              initialScrollY={guideScrollY.current}
-              onScrollYChange={handleGuideScrollYChange}
-            />
-          )}
-
-          {viewState === "guide-primer" && (
-            <GuidePrimer onBack={handleBackFromGuidePrimer} />
-          )}
-
-          {guideEntries &&
-            viewState === "guide-entry" &&
-            guideSelectedEntryId &&
-            guideEntries[guideSelectedEntryId] && (
-              <GuideEntry
-                entry={guideEntries[guideSelectedEntryId]}
-                vesselMl={vesselMl}
-                onVesselChange={handleVesselChange}
-                onStartBrewing={handleStartBrewing}
-                onBack={handleBackFromGuideEntry}
-              />
-            )}
+      {/* ─── Primer view ─── */}
+      {isPrimer && (
+        <div
+          className="fixed inset-0 bg-surface z-40 view-fade-in"
+          style={{ overflowY: "auto" }}
+        >
+          <GuidePrimer onBack={handleClosePrimer} />
         </div>
       )}
     </div>

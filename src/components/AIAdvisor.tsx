@@ -20,7 +20,6 @@ interface AIResult {
   schedule: number[];
   categoryId: string;
   rinseHint?: string;
-  corpusId?: string;
   source?: "corpus" | "llm";
 }
 
@@ -34,7 +33,7 @@ interface AIAdvisorProps {
     schedule: number[],
     scheduleAdjusted: boolean
   ) => void;
-  onOpenGuideEntry?: (corpusId: string) => void;
+  onOpenPrimer?: () => void;
 }
 
 export type { AIResult };
@@ -43,7 +42,7 @@ export function AIAdvisor({
   vesselMl,
   onVesselChange,
   onStartBrewing,
-  onOpenGuideEntry,
+  onOpenPrimer,
 }: AIAdvisorProps) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
@@ -165,15 +164,6 @@ export function AIAdvisor({
             >
               {result.source === "corpus" ? "From our library" : "AI estimate"}
             </span>
-          )}
-          {result.source === "corpus" && result.corpusId && onOpenGuideEntry && (
-            <button
-              type="button"
-              onClick={() => onOpenGuideEntry(result.corpusId!)}
-              className="block mt-1 mb-2 text-[12px] text-tertiary hover:text-secondary underline underline-offset-2"
-            >
-              Read more <span aria-hidden="true">→</span>
-            </button>
           )}
           <p className="text-[13px] font-serif-cn italic text-secondary leading-relaxed border-b border-border pb-3 mb-4">
             {result.summary}

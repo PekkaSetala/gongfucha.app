@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "rag:index": "tsx src/lib/rag/index.ts",
-    "corpus:entries": "tsx scripts/gen-corpus-entries-index.ts"
+    "rag:index": "tsx src/lib/rag/index.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.0.1",

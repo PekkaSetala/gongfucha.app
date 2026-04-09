@@ -65,7 +65,6 @@ function mapCorpusEntry(entry: TeaEntry) {
     schedule: entry.brewing.schedule_s,
     categoryId: CATEGORY_MAP[entry.category] || entry.category,
     rinseHint: entry.brewing.rinse_hint,
-    corpusId: entry.id,
     source: "corpus" as const,
   };
 }
