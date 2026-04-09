@@ -20,6 +20,7 @@ interface AIResult {
   schedule: number[];
   categoryId: string;
   rinseHint?: string;
+  corpusId?: string;
   source?: "corpus" | "llm";
 }
 
