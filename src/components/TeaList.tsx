@@ -253,7 +253,7 @@ export function TeaList({
         or
       </p>
 
-      {/* Ask AI — accordion row */}
+      {/* Search — accordion row */}
       <div>
         <button
           onClick={onToggleAI}
@@ -280,7 +280,7 @@ export function TeaList({
           </span>
           <span className="flex-1 min-w-0">
             <span className="text-[15px] font-medium text-primary">
-              Ask AI
+              Search
             </span>
             <span className="block text-[12px] text-tertiary mt-0.5">
               Describe your tea, get brew parameters
