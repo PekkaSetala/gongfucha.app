@@ -164,31 +164,52 @@ When `query` is empty: show filtered (by category) alphabetical list of all matc
 
 ### `GuidePrimer.tsx`
 
-Static TSX. `InlineViewHeader` + ~600 words of hand-written serif prose. No props. Hard-coded content. Target ~600 words; hard cap 1000.
+Static TSX. `InlineViewHeader` + the hand-written primer text below. No props. Hard-coded content.
 
-**Section beats** (the writing pass fills these in):
+Body uses Noto Serif SC. Generous line-height (1.7+). Max content width ~65ch on desktop; fills viewport with padding on mobile. Semantic headings: `<h1>` for the title, `<h2>` for each section. Chinese characters wrapped in `<span lang="zh">`. Not MDX, not markdown-parsed — just TSX.
 
-1. **What gongfu actually is** (~200 words)
-   - Small vessel (80–150ml), high leaf ratio, short steeps, many infusions in one session
-   - Not "strong tea" — it's a different *shape* of tea experience: the same leaves give 5–8 distinct cups, each one a little different
-   - The point: tasting a tea *evolve*, not extracting a single "correct" cup
-   - Contrast with Western brewing in one honest line, not as dunking on it
+**Fact-checked against:** white2tea brewing guides, Mei Leaf educational content, Yunnan Sourcing brewing guide, Teasenz (gaiwan vs yixing). First-steep times corrected from 30s → 5–15s (flash steep). Leaf ratio corrected from 4–6 g → 5–8 g per 100 ml. Yixing teapot added as a legitimate second vessel after originally recommending gaiwan only.
 
-2. **How to read a brewing schedule** (~200 words)
-   - Decode the four numbers that appear on every tea card: temperature, ratio (g / 100 ml), infusion count, time-per-infusion sequence
-   - Why times usually get *longer* across infusions (leaves open slowly, extractables deplete)
-   - How the app already adjusts for vessel size and leaf amount — you don't need to do the math
-   - One honest sentence: "these are starting points, not laws"
+---
 
-3. **What gear you actually need** (~200 words)
-   - A gaiwan (or small teapot). That's it. Seriously.
-   - Cha hai / fairness pitcher is nice but skippable for V1
-   - Cups can be whatever — small is better because you're tasting in stages
-   - Pushback on "you need a $300 yixing" tea marketing. Kettle + gaiwan + any cup is a complete setup.
+#### Primer text (final, 608 words)
 
-Body uses Noto Serif SC. Generous line-height (1.7+). Max content width ~65ch on desktop; fills viewport with padding on mobile.
+# A short primer on gongfu cha
 
-The primer is static content, not MDX, not markdown-parsed. One TSX file. Easiest to typeset well and easiest to version-control as craft. Semantic headings (`<h1>` for title, `<h2>` for each beat) so screen readers can navigate.
+Gongfu cha means "tea with effort" or "tea with skill" (功夫茶). Both translations work. The short version: small vessel, a lot of leaf, short steeps, and you drink the same tea over and over in one sitting.
+
+## What it actually is
+
+You take a small pot or gaiwan, maybe 100 ml. You put in more leaf than seems reasonable, 5 to 8 grams. Hot water goes in. Five to fifteen seconds later you pour it all out into a small cup and drink it.
+
+Then you do it again. And again. Five, six, sometimes eight infusions from the same leaves. Each round steeps a little longer than the last.
+
+It's a different way of drinking tea, not just "stronger tea." The first infusion tastes one way; the third tastes different; the fifth different again. The leaves open slowly, release different things each round, and you taste the whole arc. Some teas (good oolongs, pu-erh, aged whites) only really make sense this way. You can't get them from a teabag.
+
+Western brewing isn't wrong. It's faster and less attentive, which is sometimes what you want. Gongfu is the slower option. An hour, a dozen small cups, one batch of leaves.
+
+## How to read a brewing schedule
+
+Every tea in this app shows four numbers. They look fussy but they're not.
+
+- **Temperature.** Greens want it coolest, around 80°C. Roasted oolongs and pu-erh want it hot, 95°C or off the boil. Everything else lands in between. Too hot makes things bitter. Too cool keeps the tea thin.
+- **Ratio.** How much leaf for how much water, in grams per 100 ml. 5 to 8 g/100 ml is the normal range. Closer to 7 for oolongs and pu-erh, lighter for delicate greens.
+- **Infusions.** How many rounds the leaves will give you, usually five or six, sometimes more.
+- **Times.** How long each steep runs. Very short at first (five to fifteen seconds), getting longer as the leaves fatigue.
+
+You don't have to memorize any of this. The app does the math when you change your vessel or leaf amount. The numbers are starting points, not laws. After a few sessions you'll want to steep some teas longer or shorter than the app suggests. That's the whole idea.
+
+## What gear you actually need
+
+A gaiwan, to start.
+
+A gaiwan is a small lidded porcelain cup, around 100 ml. Porcelain doesn't hold flavor, so you can brew any tea in it and clean it with water. A decent one costs ten or fifteen euros online.
+
+The other traditional gongfu vessel is the yixing teapot. Yixing pots are unglazed clay that seasons slowly with the tea you brew in them, which means one pot, one kind of tea. That's a commitment. Yixing is wonderful if you've settled into drinking one tea a lot; it's fiddly if you're still trying things out. Come back to it later.
+
+Everything else is optional: a small pitcher (cha hai, or "fairness pitcher") for pouring evenly into multiple cups; small cups, 30 to 50 ml, any shape; a kettle with temperature control (nice but not required; boiling water rested for a minute gets you close enough for most teas).
+
+What you don't need: a bamboo tea tray, matching porcelain, artisan tongs. None of this makes the tea better. Buy beautiful things later if you want them. But the person telling you that you need a $300 pot to brew properly is selling you a pot.
 
 ### `GuideEntry.tsx`
 
