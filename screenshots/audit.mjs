@@ -1,6 +1,9 @@
 import { chromium } from 'playwright';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
 
-const SCREENSHOTS = '/Users/pekkasetala/Documents/Vibe/Sandbox/GongfuchaAI/screenshots';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const SCREENSHOTS = resolve(__dirname, '..', 'screenshots');
 const URL = 'http://localhost:3004';
 
 async function audit(viewport, label) {
