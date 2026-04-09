@@ -214,7 +214,6 @@ export function TeaList({
                       backgroundColor: `color-mix(in srgb, ${display.color} 4%, var(--color-surface))`,
                     }}
                   >
-                    {/* TeaDetail — variant switcher is now embedded inside for grouped teas */}
                     {selectedTea && (
                       <div ref={detailRef} className={getCrossfadeClass()}>
                         <TeaDetail

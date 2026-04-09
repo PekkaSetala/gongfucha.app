@@ -23,10 +23,43 @@ const CUE_GAIN: Record<CueName, number> = {
   close: 0.45,
 };
 
+// Module-level cache so decoded buffers and fallback elements survive across
+// hook mounts (e.g. starting multiple brewing sessions in one page visit).
+// Per-cue promise prevents concurrent decodes on fast remounts.
+const bufferCache: Partial<Record<CueName, AudioBuffer>> = {};
+const bufferPromises: Partial<Record<CueName, Promise<AudioBuffer | null>>> = {};
+let fallbackCache: Partial<Record<CueName, HTMLAudioElement>> | null = null;
+
+function loadBuffer(ctx: AudioContext, cue: CueName): Promise<AudioBuffer | null> {
+  if (bufferCache[cue]) return Promise.resolve(bufferCache[cue]!);
+  if (bufferPromises[cue]) return bufferPromises[cue]!;
+
+  const p = fetch(CUE_FILES[cue])
+    .then((res) => res.arrayBuffer())
+    .then((buf) => ctx.decodeAudioData(buf))
+    .then((decoded) => {
+      bufferCache[cue] = decoded;
+      return decoded;
+    })
+    .catch(() => null);
+
+  bufferPromises[cue] = p;
+  return p;
+}
+
+function getFallbacks(): Partial<Record<CueName, HTMLAudioElement>> {
+  if (fallbackCache) return fallbackCache;
+  fallbackCache = {};
+  (Object.entries(CUE_FILES) as [CueName, string][]).forEach(([cue, url]) => {
+    const audio = new Audio(url);
+    audio.volume = CUE_GAIN[cue];
+    fallbackCache![cue] = audio;
+  });
+  return fallbackCache;
+}
+
 export function useBrewSound() {
   const ctxRef = useRef<AudioContext | null>(null);
-  const buffersRef = useRef<Partial<Record<CueName, AudioBuffer>>>({});
-  const fallbackRef = useRef<Partial<Record<CueName, HTMLAudioElement>>>({});
   const unlockedRef = useRef(false);
 
   useEffect(() => {
@@ -37,38 +70,16 @@ export function useBrewSound() {
     if (AudioCtx) {
       const ctx = new AudioCtx();
       ctxRef.current = ctx;
-
-      (Object.entries(CUE_FILES) as [CueName, string][]).forEach(([cue, url]) => {
-        fetch(url)
-          .then((res) => res.arrayBuffer())
-          .then((buf) => ctx.decodeAudioData(buf))
-          .then((decoded) => {
-            buffersRef.current[cue] = decoded;
-          })
-          .catch(() => {
-            // swallow — fallback will handle it
-          });
-      });
+      (Object.keys(CUE_FILES) as CueName[]).forEach((cue) => void loadBuffer(ctx, cue));
     }
 
-    // HTMLAudio fallback per cue
-    (Object.entries(CUE_FILES) as [CueName, string][]).forEach(([cue, url]) => {
-      const audio = new Audio(url);
-      audio.volume = CUE_GAIN[cue];
-      fallbackRef.current[cue] = audio;
-    });
+    // Warm the fallback cache even if AudioContext is available — costs two
+    // Audio allocations but guarantees playback if decode ever fails.
+    getFallbacks();
 
     return () => {
       ctxRef.current?.close().catch(() => {});
       ctxRef.current = null;
-      buffersRef.current = {};
-      Object.values(fallbackRef.current).forEach((a) => {
-        if (a) {
-          a.pause();
-          a.src = "";
-        }
-      });
-      fallbackRef.current = {};
     };
   }, []);
 
@@ -87,7 +98,7 @@ export function useBrewSound() {
 
   const playCue = useCallback((cue: CueName) => {
     const ctx = ctxRef.current;
-    const buffer = buffersRef.current[cue];
+    const buffer = bufferCache[cue];
 
     if (ctx && buffer && ctx.state === "running") {
       const source = ctx.createBufferSource();
@@ -99,7 +110,7 @@ export function useBrewSound() {
       return;
     }
 
-    const fallback = fallbackRef.current[cue];
+    const fallback = getFallbacks()[cue];
     if (fallback) {
       fallback.currentTime = 0;
       fallback.play().catch(() => {});

@@ -63,63 +63,62 @@ export function TeaDetail({
           </div>
         )}
 
-        {/* Embedded variant switcher — segmented tabs with sliding tea-colored underline */}
-        {variants && variants.length > 1 && activeVariantId && (
-          <div
-            className="relative -mx-5 -mt-5 mb-5"
-            role="radiogroup"
-            aria-label="Variant"
-          >
-            <div className="grid" style={{ gridTemplateColumns: `repeat(${variants.length}, 1fr)` }}>
-              {variants.map((v) => {
-                const active = v.id === activeVariantId;
-                return (
-                  <button
-                    key={v.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={active}
-                    onClick={() => onVariantChange?.(v.id)}
-                    className="py-3.5 px-2 text-center"
-                    style={{
-                      transition: "opacity 200ms var(--ease-out), color 200ms var(--ease-out)",
-                      opacity: active ? 1 : 0.55,
-                    }}
-                  >
-                    <span className="block text-[14px] font-serif-cn font-normal text-primary">
-                      {v.label}
-                    </span>
-                    <span className="block text-[11px] text-tertiary mt-0.5 truncate">
-                      {v.subtitle}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-            {/* center hairlines between tabs */}
-            {variants.slice(1).map((_, i) => (
-              <div
-                key={i}
-                className="absolute top-3 bottom-3 w-px bg-border/50 pointer-events-none"
-                style={{ left: `${((i + 1) * 100) / variants.length}%` }}
-              />
-            ))}
-            {/* bottom hairline */}
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-border/70 pointer-events-none" />
-            {/* sliding tea-colored indicator */}
+        {variants && variants.length > 1 && activeVariantId && (() => {
+          const activeIdx = Math.max(0, variants.findIndex((v) => v.id === activeVariantId));
+          const activeColor = variants[activeIdx]?.color ?? "var(--color-clay)";
+          return (
             <div
-              className="absolute bottom-0 h-[2px] pointer-events-none"
-              style={{
-                width: `${100 / variants.length}%`,
-                left: 0,
-                transform: `translateX(${variants.findIndex((v) => v.id === activeVariantId) * 100}%)`,
-                backgroundColor:
-                  variants.find((v) => v.id === activeVariantId)?.color ?? "var(--color-clay)",
-                transition: "transform 280ms var(--ease-out), background-color 240ms var(--ease-out)",
-              }}
-            />
-          </div>
-        )}
+              className="relative -mx-5 -mt-5 mb-5"
+              role="radiogroup"
+              aria-label="Variant"
+            >
+              <div className="grid" style={{ gridTemplateColumns: `repeat(${variants.length}, 1fr)` }}>
+                {variants.map((v) => {
+                  const active = v.id === activeVariantId;
+                  return (
+                    <button
+                      key={v.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={active}
+                      onClick={() => onVariantChange?.(v.id)}
+                      className="py-3.5 px-2 text-center"
+                      style={{
+                        transition: "opacity 200ms var(--ease-out), color 200ms var(--ease-out)",
+                        opacity: active ? 1 : 0.55,
+                      }}
+                    >
+                      <span className="block text-[14px] font-serif-cn font-normal text-primary">
+                        {v.label}
+                      </span>
+                      <span className="block text-[11px] text-tertiary mt-0.5 truncate">
+                        {v.subtitle}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              {variants.slice(1).map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute top-3 bottom-3 w-px bg-border/50 pointer-events-none"
+                  style={{ left: `${((i + 1) * 100) / variants.length}%` }}
+                />
+              ))}
+              <div className="absolute bottom-0 left-0 right-0 h-px bg-border/70 pointer-events-none" />
+              <div
+                className="absolute bottom-0 h-[2px] pointer-events-none"
+                style={{
+                  width: `${100 / variants.length}%`,
+                  left: 0,
+                  transform: `translateX(${activeIdx * 100}%)`,
+                  backgroundColor: activeColor,
+                  transition: "transform 280ms var(--ease-out), background-color 240ms var(--ease-out)",
+                }}
+              />
+            </div>
+          );
+        })()}
 
         {/* Vessel & Leaf controls */}
         <div className="flex justify-around mb-4">
