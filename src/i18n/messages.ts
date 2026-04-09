@@ -98,6 +98,19 @@ const en: Messages = {
   // Secondary paths
   "secondary.customBrew": "Custom brew",
   "secondary.setParams": "Set your own parameters",
+  "secondary.teaGuide": "Tea guide",
+  "secondary.teaGuideDesc": "Origins, flavors, brewing",
+
+  // Guide
+  "guide.title": "Tea guide",
+  "guide.primerLink": "New to gongfu? Start here",
+  "guide.primerTitle": "A short primer on gongfu cha",
+  "guide.searchPlaceholder": "Search by name, flavor, region\u2026",
+  "guide.brewThis": "Brew this",
+  "guide.readMore": "Read more",
+  "guide.sources": "Sources",
+  "guide.emptyResults": "No teas match that.",
+  "guide.allCategories": "All",
 
   // Inline view header
   "inline.teaList": "Tea list",
