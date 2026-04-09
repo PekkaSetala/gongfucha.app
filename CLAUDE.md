@@ -36,7 +36,7 @@ src/
     api/identify/route.ts # POST endpoint — RAG retrieval first, OpenRouter LLM fallback
     globals.css           # Tailwind v4 @theme tokens, animations, easing vars
   components/
-    TeaList.tsx           # Grouped tea list — 5 rows (3 with variant pills, 2 standalone), accordion detail
+    TeaList.tsx           # Grouped tea list — 5 rows (3 grouped, 2 standalone), accordion detail
     TeaDetail.tsx         # Tea info + leaf/vessel config + "start brewing" + reset defaults
     BrewingTimer.tsx      # Full-screen timer — phases: rinse → rinse2 → brewing → between, session summary
     TimerRing.tsx         # SVG circular progress with completion pulse
@@ -87,7 +87,7 @@ These are constraints that prevent wrong code. They reflect deliberate choices, 
 - **Mobile-first, wet-handed use.** No bottom sheets, modals, or overlays — everything is inline in a single centered column. Touch targets must be large.
 - **No auto-start timer.** User pours water before timing. Timer starts on manual tap only.
 - **Ratio display is g/100ml** — how the Western gongfu community thinks, not raw g/ml.
-- **5 tea groups, 8 presets.** The list shows 5 rows: Green and Black are standalone; White (Fresh/Aged), Oolong (Light/Dark), and Pu-erh (Sheng/Shou) are grouped with inline variant pills. Don't add new presets or groups. The RAG corpus (84 entries) handles breadth; presets are curated starting points.
+- **5 tea groups, 8 presets.** The list shows 5 rows: Green and Black are standalone; White (Fresh/Aged), Oolong (Light/Dark), and Pu-erh (Sheng/Shou) are grouped. Expanding a grouped row auto-selects the first variant and reveals TeaDetail with an embedded segmented switcher. Don't add new presets or groups. The RAG corpus (84 entries) handles breadth; presets are curated starting points.
 - **Weather moods suggest qualities only** (cooling, warming, light, roasted) — never name specific teas.
 - **No AI slop.** Design must feel handmade. No gradients-on-gradients, no generic card layouts. Restraint and authenticity.
 - **All surfaces use `bg-surface`.** Never differentiate sections with `bg-warm` or alternate backgrounds.
@@ -100,7 +100,7 @@ These are constraints that prevent wrong code. They reflect deliberate choices, 
 ## Key Patterns
 
 - **View state machine**: `page.tsx` manages `list | ai | custom` views via React state. Brewing uses a 4-state machine (`list → enter-brewing → brewing → exit-brewing`) with opacity/pointer-events crossfade. Enter transition uses tea-color bridge overlay.
-- **Tea group selection**: `page.tsx` uses `expandedGroupId` + `selectedVariantId` (not a single selectedId). Standalone teas auto-set `selectedVariantId` on expand. Grouped teas show variant pills first, then TeaDetail after pill selection. Variant switching uses a crossfade with blur bridge (100ms exit, 150ms enter).
+- **Tea group selection**: `page.tsx` uses `expandedGroupId` + `selectedVariantId` (not a single selectedId). Both standalone and grouped teas auto-set `selectedVariantId` on expand (groups pick the first variant). TeaDetail shows a segmented variant switcher at the top of the card for grouped teas, with a sliding tea-colored indicator. Variant switching uses a crossfade (100ms exit, 150ms enter).
 - **Tea-colored timer**: accent color threads through the entire timer view via `color-mix()`. Color wash deepens with steep progress (quadratic ease-out, 8%→18%).
 - **Schedule adjustment**: changing leaf amount from recommended scales all steep times proportionally (capped 0.5x–2.0x) in `brewing.ts`.
 - **AI identify**: RAG retrieval first (Qdrant), LLM fallback below confidence threshold. Env vars: `QDRANT_URL`, `QDRANT_API_KEY`, `OPENROUTER_API_KEY`.
