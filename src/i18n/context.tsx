@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useCallback, useSyncExternalStore, type ReactNode } from "react";
 import { messages, type Locale } from "./messages";
 
 interface LocaleContextValue {
@@ -26,20 +26,47 @@ function detectLocale(): Locale {
   return "en";
 }
 
-export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("fi");
+// Module-level pub/sub so useSyncExternalStore can notify on setLocale.
+const localeListeners = new Set<() => void>();
+function subscribeLocale(cb: () => void) {
+  localeListeners.add(cb);
+  return () => {
+    localeListeners.delete(cb);
+  };
+}
+function notifyLocale() {
+  for (const cb of localeListeners) cb();
+}
 
-  useEffect(() => {
-    setLocaleState(detectLocale());
-  }, []);
+// Client snapshot reads from localStorage/navigator; server snapshot is stable "fi".
+// We cache the client snapshot so useSyncExternalStore gets a stable reference
+// between reads until something explicitly notifies a change.
+let cachedClientLocale: Locale | null = null;
+function getClientLocaleSnapshot(): Locale {
+  if (cachedClientLocale === null) {
+    cachedClientLocale = detectLocale();
+  }
+  return cachedClientLocale;
+}
+function getServerLocaleSnapshot(): Locale {
+  return "fi";
+}
+
+export function LocaleProvider({ children }: { children: ReactNode }) {
+  const locale = useSyncExternalStore(
+    subscribeLocale,
+    getClientLocaleSnapshot,
+    getServerLocaleSnapshot,
+  );
 
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
 
   const setLocale = useCallback((l: Locale) => {
-    setLocaleState(l);
+    cachedClientLocale = l;
     localStorage.setItem(STORAGE_KEY, l);
+    notifyLocale();
   }, []);
 
   const t = useCallback((key: string, vars?: Record<string, string | number>) => {
