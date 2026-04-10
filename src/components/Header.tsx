@@ -7,12 +7,11 @@ export function Header() {
 
   return (
     <header className="px-5 pt-14">
-      {/* ─── Brand mark ─── */}
-      <h1 className="mb-1">
-        <span className="block text-[42px] font-serif-cn font-normal leading-tight text-primary/80">
+      <h1 className="inline-flex flex-col items-center mb-1">
+        <span className="text-[42px] font-serif-cn font-normal leading-tight text-primary/80">
           功夫茶
         </span>
-        <span className="block text-[12px] font-serif-cn tracking-[3.5px] uppercase text-tertiary/50 mt-1.5">
+        <span className="text-[12px] font-serif-cn tracking-[3.5px] uppercase text-tertiary/50 mt-1.5 pl-[3.5px]">
           Gongfu Cha
         </span>
       </h1>
