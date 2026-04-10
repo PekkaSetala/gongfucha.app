@@ -4,7 +4,7 @@
 import { embedText } from "./embed";
 import { QdrantClient, type QdrantSearchResult } from "./qdrant";
 
-export const CONFIDENCE_THRESHOLD = 0.6;
+export const CONFIDENCE_THRESHOLD = 0.5;
 export const NAME_BOOST = 0.15;
 
 const COLLECTION = "teas";
