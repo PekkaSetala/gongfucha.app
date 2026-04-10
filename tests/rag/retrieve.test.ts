@@ -95,7 +95,7 @@ describe("searchTeas", () => {
   });
 
   it("exports threshold and boost constants", () => {
-    expect(CONFIDENCE_THRESHOLD).toBe(0.6);
+    expect(CONFIDENCE_THRESHOLD).toBe(0.5);
     expect(NAME_BOOST).toBe(0.15);
   });
 });
