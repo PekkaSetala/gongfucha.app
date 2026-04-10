@@ -51,7 +51,15 @@ export function TeaList({
   const aiRef = useRef<HTMLDivElement>(null);
   const customRef = useRef<HTMLDivElement>(null);
   const [crossfadeState, setCrossfadeState] = useState<"idle" | "exit" | "enter">("idle");
-  const prevVariantRef = useRef<string | null>(null);
+  const [trackedVariantId, setTrackedVariantId] = useState<string | null>(selectedVariantId);
+
+  // Detect variant change during render and trigger crossfade exit immediately.
+  if (trackedVariantId !== selectedVariantId) {
+    setTrackedVariantId(selectedVariantId);
+    if (trackedVariantId && selectedVariantId) {
+      setCrossfadeState("exit");
+    }
+  }
 
   // Scroll detail into view when group expands or variant selected
   useEffect(() => {
@@ -63,24 +71,17 @@ export function TeaList({
     }
   }, [expandedGroupId]);
 
-  // Crossfade when switching between variants
+  // Drive the exit → enter → idle timeline after a crossfade starts.
   useEffect(() => {
-    const prev = prevVariantRef.current;
-    prevVariantRef.current = selectedVariantId;
-
-    // Only crossfade when switching from one variant to another (not initial selection)
-    if (prev && selectedVariantId && prev !== selectedVariantId) {
-      setCrossfadeState("exit");
-      const exitTimer = setTimeout(() => {
-        setCrossfadeState("enter");
-        const enterTimer = setTimeout(() => {
-          setCrossfadeState("idle");
-        }, 150);
-        return () => clearTimeout(enterTimer);
-      }, 100);
-      return () => clearTimeout(exitTimer);
+    if (crossfadeState === "exit") {
+      const t = setTimeout(() => setCrossfadeState("enter"), 100);
+      return () => clearTimeout(t);
     }
-  }, [selectedVariantId]);
+    if (crossfadeState === "enter") {
+      const t = setTimeout(() => setCrossfadeState("idle"), 150);
+      return () => clearTimeout(t);
+    }
+  }, [crossfadeState]);
 
   // Scroll AI into view when expanded
   useEffect(() => {
