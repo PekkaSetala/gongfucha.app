@@ -143,6 +143,9 @@ export async function POST(request: Request) {
     // Try corpus retrieval first
     try {
       const results = await searchTeas(query, 3);
+      console.log(
+        `[identify] query=${JSON.stringify(query)} results=${results.length} topScore=${results[0]?.score.toFixed(3) ?? "n/a"} topName=${JSON.stringify(results[0]?.payload.name ?? null)}`
+      );
       if (results.length > 0 && results[0].score >= CONFIDENCE_THRESHOLD) {
         const entry = JSON.parse(results[0].payload.entry as string) as TeaEntry;
         return NextResponse.json(mapCorpusEntry(entry));
