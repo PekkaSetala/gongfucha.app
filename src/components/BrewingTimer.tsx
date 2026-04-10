@@ -42,7 +42,6 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   const sound = useBrewSound();
   const [completed, setCompleted] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
-  const [prevPhase, setPrevPhase] = useState<Phase | null>(null);
   const [shownTipIds, setShownTipIds] = useState<string[]>([]);
   const [currentTip, setCurrentTip] = useState<string | null>(null);
   const [showSummary, setShowSummary] = useState(false);
@@ -59,18 +58,6 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
     return () => { document.body.style.overflow = ""; };
   }, []);
 
-  useEffect(() => {
-    if (phase === "between") {
-      const tip = selectTip(brewTips, params.teaId, infusionIndex + 1, shownTipIds);
-      if (tip) {
-        setCurrentTip(tip.text);
-        setShownTipIds((prev) => [...prev, tip.id]);
-      } else {
-        setCurrentTip(null);
-      }
-    }
-  }, [phase]); // eslint-disable-line react-hooks/exhaustive-deps
-
   const currentDuration = schedule[infusionIndex] ?? schedule[schedule.length - 1];
 
   const handleTimerComplete = useCallback(() => {
@@ -85,31 +72,40 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
     setTimeout(() => {
       setCompleted(false);
-
-      setPrevPhase(phase);
       setTransitioning(true);
 
       setTimeout(() => {
+        // Select tip for the upcoming "between" view at the moment of
+        // the phase transition, not via an effect reacting to phase.
+        const tip = selectTip(brewTips, params.teaId, infusionIndex + 1, shownTipIds);
+        if (tip) {
+          setCurrentTip(tip.text);
+          setShownTipIds((prev) => [...prev, tip.id]);
+        } else {
+          setCurrentTip(null);
+        }
         setPhase("between");
         setTransitioning(false);
-        setPrevPhase(null);
       }, 200);
     }, 400);
-  }, [phase, sound, currentDuration]);
+  }, [sound, currentDuration, params.teaId, infusionIndex, shownTipIds]);
 
   const timer = useTimer({
     durationSeconds: currentDuration,
     onComplete: handleTimerComplete,
   });
 
-  const [autoPlay, setAutoPlay] = useState(false);
+  // Auto-play flag for the next brew cycle. We use a ref so the effect that
+  // triggers timer.play() never needs to call setState (which would violate
+  // react-hooks/set-state-in-effect and cause an extra render).
+  const autoPlayRef = useRef(false);
 
   useEffect(() => {
-    if (autoPlay && phase === "brewing") {
+    if (autoPlayRef.current && phase === "brewing") {
+      autoPlayRef.current = false;
       timer.play();
-      setAutoPlay(false);
     }
-  }, [autoPlay, phase, timer]);
+  }, [phase, currentDuration, timer]);
 
   // Spacebar play/pause
   useEffect(() => {
@@ -147,8 +143,8 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
     setInfusionIndex(nextIndex);
     setNextAdjust(0);
+    autoPlayRef.current = true;
     setPhase("brewing");
-    setAutoPlay(true);
   };
 
   const adjustedNextTime = () => {
