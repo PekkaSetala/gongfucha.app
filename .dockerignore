@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+.vscode
+.vibe-check
+docs
+tests
+*.md
+.env*
