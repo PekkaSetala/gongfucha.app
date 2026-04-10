@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { getTeaById, teaGroups } from "@/data/teas";
 import { Header } from "@/components/Header";
 import { TeaList } from "@/components/TeaList";
@@ -13,10 +13,25 @@ import { getTeaColor } from "@/data/tea-categories";
 const VESSEL_KEY = "gongfucha-vessel-ml";
 const DEFAULT_VESSEL = 120;
 
-function getStoredVessel(): number {
+// Module-level pub/sub so useSyncExternalStore can react to local updates
+// without calling setState inside an effect.
+const vesselListeners = new Set<() => void>();
+function subscribeVessel(cb: () => void) {
+  vesselListeners.add(cb);
+  return () => {
+    vesselListeners.delete(cb);
+  };
+}
+let cachedVessel: number | null = null;
+function getVesselSnapshot(): number {
+  if (cachedVessel !== null) return cachedVessel;
   if (typeof window === "undefined") return DEFAULT_VESSEL;
   const stored = localStorage.getItem(VESSEL_KEY);
-  return stored ? parseInt(stored, 10) : DEFAULT_VESSEL;
+  cachedVessel = stored ? parseInt(stored, 10) : DEFAULT_VESSEL;
+  return cachedVessel;
+}
+function getVesselServerSnapshot(): number {
+  return DEFAULT_VESSEL;
 }
 
 type ViewState =
@@ -31,14 +46,14 @@ export default function Home() {
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
   const [aiExpanded, setAiExpanded] = useState(false);
   const [customExpanded, setCustomExpanded] = useState(false);
-  const [vesselMl, setVesselMl] = useState(DEFAULT_VESSEL);
+  const vesselMl = useSyncExternalStore(
+    subscribeVessel,
+    getVesselSnapshot,
+    getVesselServerSnapshot,
+  );
   const [brewParams, setBrewParams] = useState<BrewParams | null>(null);
   const [viewState, setViewState] = useState<ViewState>("list");
   const timerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setVesselMl(getStoredVessel());
-  }, []);
 
   useEffect(() => {
     if (viewState !== "list") {
@@ -57,8 +72,9 @@ export default function Home() {
   }, [brewParams]);
 
   const handleVesselChange = (ml: number) => {
-    setVesselMl(ml);
+    cachedVessel = ml;
     localStorage.setItem(VESSEL_KEY, String(ml));
+    for (const cb of vesselListeners) cb();
   };
 
   const handleGroupToggle = (groupId: string) => {
