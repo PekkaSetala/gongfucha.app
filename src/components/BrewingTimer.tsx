@@ -48,6 +48,9 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   const [totalTime, setTotalTime] = useState(0);
   const [washFlash, setWashFlash] = useState(false);
   const [confirmEnd, setConfirmEnd] = useState(false);
+  const [ringSize] = useState(() =>
+    typeof window !== "undefined" && window.innerHeight < 700 ? 180 : 210
+  );
 
   const accentColor = params.teaColor || DEFAULT_COLOR;
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -179,7 +182,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
     )`;
   }, [isBrewing, timer.progress, accentColor]);
 
-  const endBtnClass = "text-sm min-h-[48px] px-5 py-2.5 flex items-center justify-center rounded-xl bg-surface hover-lift";
+  const endBtnClass = "text-sm min-h-[44px] px-5 py-2 flex items-center justify-center rounded-xl bg-surface hover-lift";
 
   if (showSummary) {
     return (
@@ -256,7 +259,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
           <h1
             ref={titleRef}
             tabIndex={-1}
-            className="text-xl font-normal font-serif-cn outline-none pt-12"
+            className="text-xl font-normal font-serif-cn outline-none pt-6"
             style={{ color: accentColor }}
           >
             {params.teaName}
@@ -303,7 +306,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
           {isBrewing && (
             <div
               key={`timer-${phase}`}
-              className={`flex flex-col items-center mt-6 ${transitioning ? "phase-exit" : "phase-enter"}`}
+              className={`flex flex-col items-center mt-4 ${transitioning ? "phase-exit" : "phase-enter"}`}
             >
               <div role="timer" aria-label={`${timer.secondsLeft} seconds remaining`}>
                 <TimerRing
@@ -311,6 +314,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                   secondsLeft={timer.secondsLeft}
                   color={accentColor}
                   completed={completed}
+                  size={ringSize}
                 />
               </div>
 
@@ -320,7 +324,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                   sound.unlock();
                   if (timer.isRunning) { timer.pause(); } else { timer.play(); }
                 }}
-                className={`mt-4 w-14 h-14 flex items-center justify-center rounded-full ${
+                className={`mt-3 w-14 h-14 flex items-center justify-center rounded-full ${
                   timer.isRunning
                     ? "border border-border bg-surface text-secondary"
                     : "text-surface"
@@ -352,13 +356,14 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
           {/* ─── Between state ─── */}
           {isBetween && (
-            <div key="between" className="flex flex-col items-center mt-6 between-enter">
+            <div key="between" className="flex flex-col items-center mt-4 between-enter">
               {/* Ring in dashed mode */}
               <TimerRing
                 progress={0}
                 secondsLeft={adjustedNextTime()}
                 color={accentColor}
                 dashed
+                size={ringSize}
               />
 
               {/* ±3 adjusters */}
@@ -397,10 +402,10 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
           {/* ─── Info card ─── */}
           <div
-            className="w-full max-w-[320px] bg-surface/60 border border-border/50 rounded-[14px] px-5 py-3.5 mt-7"
+            className="w-full max-w-[320px] bg-surface/60 border border-border/50 rounded-[14px] px-5 py-3 mt-4"
           >
             {/* Schedule label + pills */}
-            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2 text-center">
+            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-1.5 text-center">
               Schedule
             </span>
             <div className="flex flex-wrap gap-1.5 justify-center">
@@ -439,7 +444,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
             {/* Param row */}
             <div
-              className="flex justify-around text-center mt-3 pt-2.5"
+              className="flex justify-around text-center mt-2 pt-2"
               style={{ borderTop: `1px solid color-mix(in srgb, ${accentColor} 6%, var(--color-border))` }}
             >
               <div>
@@ -459,7 +464,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             {/* Brew note (brewing) or tip (between) */}
             {phase !== "between" && params.brewNote && (
               <p
-                className="text-[13px] font-serif-cn italic leading-relaxed mt-2.5 pt-2.5 text-center"
+                className="text-[13px] font-serif-cn italic leading-relaxed mt-2 pt-2 text-center"
                 style={{
                   borderTop: `1px solid color-mix(in srgb, ${accentColor} 6%, var(--color-border))`,
                   color: `color-mix(in srgb, ${accentColor} 25%, var(--color-secondary))`,
@@ -470,7 +475,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             )}
             {isBetween && currentTip && (
               <p
-                className="text-[13px] font-serif-cn italic leading-relaxed mt-2.5 pt-2.5 text-center"
+                className="text-[13px] font-serif-cn italic leading-relaxed mt-2 pt-2 text-center"
                 style={{
                   borderTop: `1px solid color-mix(in srgb, ${accentColor} 6%, var(--color-border))`,
                   color: `color-mix(in srgb, ${accentColor} 25%, var(--color-secondary))`,
@@ -485,7 +490,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
           <div className="flex-1" />
 
           {/* End session — two-tap confirmation */}
-          <div className="pb-7 pt-3 flex justify-center gap-2">
+          <div className="pb-4 pt-2 flex justify-center gap-2">
             {confirmEnd ? (
               <>
                 <button
