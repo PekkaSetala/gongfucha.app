@@ -56,9 +56,9 @@ export function TeaDetail({
   };
 
   return (
-    <div className={variant === "panel" ? "detail-enter" : "px-5 pt-3 detail-enter"}>
+    <div className={variant === "panel" ? "detail-enter" : "px-4 pt-3 detail-enter"}>
       <div
-        className={`bg-surface border border-border rounded-[14px] overflow-hidden ${variant === "panel" ? "p-6" : "p-5"}`}
+        className={`bg-surface border border-border rounded-[14px] overflow-hidden ${variant === "panel" ? "p-6" : "px-4 py-5"}`}
       >
         {variant === "panel" && (
           <div className="mb-5">
@@ -72,7 +72,7 @@ export function TeaDetail({
           const activeColor = variants[activeIdx]?.color ?? "var(--color-clay)";
           return (
             <div
-              className="relative -mx-5 -mt-5 mb-5"
+              className={`relative ${variant === "panel" ? "-mx-6 -mt-6" : "-mx-4 -mt-5"} mb-5`}
               role="radiogroup"
               aria-label="Variant"
             >
@@ -125,7 +125,7 @@ export function TeaDetail({
         })()}
 
         {/* Vessel & Leaf controls */}
-        <div className="flex justify-around mb-4">
+        <div className="grid grid-cols-2 mb-4">
           <StepperControl
             label="Vessel"
             value={`${vesselMl}ml`}

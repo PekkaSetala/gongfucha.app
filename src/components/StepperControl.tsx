@@ -36,7 +36,7 @@ export function StepperControl({
         {label}
         {suffix}
       </span>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5">
         <button
           onClick={onDecrement}
           className={stepperBtnClass}
@@ -45,7 +45,7 @@ export function StepperControl({
         >
           {decrementText}
         </button>
-        <span className="text-[16px] font-medium min-w-[52px] text-center">
+        <span className="text-[16px] font-medium min-w-[48px] text-center">
           {value}
         </span>
         <button
