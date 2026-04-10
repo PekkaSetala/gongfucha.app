@@ -125,7 +125,7 @@ export function TeaDetail({
         })()}
 
         {/* Vessel & Leaf controls */}
-        <div className="grid grid-cols-2 mb-4">
+        <div className="grid grid-cols-2 gap-3 mb-4">
           <StepperControl
             label="Vessel"
             value={`${vesselMl}ml`}

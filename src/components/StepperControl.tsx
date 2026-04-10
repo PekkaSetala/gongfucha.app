@@ -15,7 +15,7 @@ interface StepperControlProps {
 }
 
 const stepperBtnClass =
-  "w-11 h-11 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center disabled:opacity-30";
+  "w-10 h-10 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center disabled:opacity-30";
 
 export function StepperControl({
   label,
