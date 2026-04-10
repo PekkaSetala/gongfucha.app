@@ -118,5 +118,5 @@ Full spec: `docs/rag-spec.md`. 84 tea entries in `src/data/corpus/entries/*.json
 - **Indexing**: `npm run rag:index` embeds corpus and upserts to Qdrant
 - **Evaluation**: `scripts/rag-eval.ts` tests retrieval quality
 - **Hardening**: query length capped 200 chars, Qdrant timeout 5s
-- **Deploy**: Docker Compose (Qdrant + app + nginx) on Hetzner VPS — not yet deployed
-- **Next**: deploy Qdrant on Hetzner, run `npm run rag:index` against live instance, end-to-end test AI advisor with real retrieval
+- **Deploy**: Live at https://gongfucha.app on a Hetzner ARM64 VPS. Docker Compose (`app` + `qdrant`) behind the host's existing nginx + certbot (same box as selkokielelle.fi). App binds to `127.0.0.1:3000`, Qdrant to `127.0.0.1:6333` (localhost-only for SSH-tunneled re-indexing). See `docs/2026-04-10-go-live.md` for the runbook.
+- **Re-indexing**: `ssh -fN -L 6333:localhost:6333 webserve` from laptop, then `QDRANT_URL=http://localhost:6333 npm run rag:index`.
