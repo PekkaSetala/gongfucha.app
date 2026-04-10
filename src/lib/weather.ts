@@ -84,7 +84,7 @@ const moods: Record<WeatherCondition, MoodEntry[]> = {
   clear: [
     { text: "Warm out there — something cooling would be nice", seasons: ["summer"] },
     { text: "Clear and cold — a warming brew kind of day", seasons: ["winter"] },
-    { text: "Bright out — feels like a light tea morning", seasons: ["spring"] },
+    { text: "Bright out — a light tea kind of day", seasons: ["spring"] },
     { text: "Crisp autumn air — roasted leaves come to mind", seasons: ["autumn"] },
     { text: "Blue sky out there — steep outside?" },
   ],
