@@ -51,7 +51,6 @@ src/
     tips.ts               # 24 rotating daily gongfu tips for Western hobbyists
     tea-categories.ts     # Category ID → label/color map (green, white, oolong, puerh, black) with harmonized palette
     brew-tips.ts          # 120 contextual brewing tips with tea type + infusion range metadata
-    greetings.ts          # 20 rotating headlines with time-band tags (morning/afternoon/evening/anytime)
   lib/
     brewing.ts            # Pure functions: leaf calc, schedule adjustment, extension
     brew-tips.ts          # Tip selection algorithm (filter, weight by tea type, no-repeat)
@@ -72,7 +71,6 @@ scripts/
 tests/
     brewing.test.ts       # Vitest tests for brewing.ts
     brew-tips.test.ts     # Tests for tip selection algorithm
-    greetings.test.ts     # Tests for headline time-band filtering
     pick.test.ts          # Tests for seededPick determinism
     weather-moods.test.ts # Tests for expanded weather mood selection
     tea-groups.test.ts    # Tests for teaGroups structure and variant references
@@ -105,7 +103,7 @@ These are constraints that prevent wrong code. They reflect deliberate choices, 
 - **AI identify**: RAG retrieval first (Qdrant), LLM fallback below confidence threshold. Env vars: `QDRANT_URL`, `QDRANT_API_KEY`, `OPENROUTER_API_KEY`.
 - **Design tokens**: CSS custom properties in `globals.css` via Tailwind v4 `@theme inline`.
 - **Animations**: defined in `globals.css`, all respect `prefers-reduced-motion`. Easing: `--ease-out` for enters, `--ease-in-out` for on-screen movement. UI animations stay under 300ms. Press feedback is `scale(0.97)` at 160ms globally.
-- **Seeded randomness**: `seededPick` ensures stable per-visit selection (weather moods, greetings) within 30-min windows.
+- **Seeded randomness**: `seededPick` ensures stable per-visit selection (weather moods) within 30-min windows.
 - **End session**: two-tap confirmation to prevent accidental exits.
 
 ## Testing
