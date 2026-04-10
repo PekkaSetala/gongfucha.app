@@ -8,7 +8,7 @@ const en: Messages = {
 
   // Tea list
   "teaList.or": "or",
-  "teaList.askAi": "Ask AI",
+  "teaList.askAi": "Search",
   "teaList.askAiDesc": "Describe your tea, get brew parameters",
   "teaList.custom": "Custom",
   "teaList.customDesc": "Set your own parameters",

@@ -28,6 +28,7 @@ interface TeaListProps {
     schedule: number[],
     adjusted: boolean
   ) => void;
+  onOpenPrimer?: () => void;
 }
 
 export function TeaList({
@@ -44,6 +45,7 @@ export function TeaList({
   onVesselChange,
   onStartBrewing,
   onAIBrew,
+  onOpenPrimer,
 }: TeaListProps) {
   const detailRef = useRef<HTMLDivElement>(null);
   const aiRef = useRef<HTMLDivElement>(null);
@@ -253,7 +255,7 @@ export function TeaList({
         or
       </p>
 
-      {/* Ask AI — accordion row */}
+      {/* Search — accordion row */}
       <div>
         <button
           onClick={onToggleAI}
@@ -280,7 +282,7 @@ export function TeaList({
           </span>
           <span className="flex-1 min-w-0">
             <span className="text-[15px] font-medium text-primary">
-              Ask AI
+              Search
             </span>
             <span className="block text-[12px] text-tertiary mt-0.5">
               Describe your tea, get brew parameters
@@ -372,6 +374,27 @@ export function TeaList({
           </div>
         </div>
       </div>
+
+      {/* ─── Primer endnote ─── */}
+      {onOpenPrimer && (
+        <div className="px-5 pt-10 pb-2 flex justify-center">
+          <button
+            type="button"
+            onClick={onOpenPrimer}
+            className="group text-[13px] text-tertiary italic leading-relaxed hover:text-secondary"
+            style={{ transition: "color 150ms var(--ease-out)" }}
+          >
+            what is gongfu cha?{" "}
+            <span
+              aria-hidden="true"
+              className="inline-block group-hover:translate-x-0.5"
+              style={{ transition: "transform 160ms var(--ease-out)" }}
+            >
+              →
+            </span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

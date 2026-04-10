@@ -5,6 +5,7 @@ import { getTeaById, teaGroups } from "@/data/teas";
 import { Header } from "@/components/Header";
 import { TeaList } from "@/components/TeaList";
 import { BrewingTimer } from "@/components/BrewingTimer";
+import { GuidePrimer } from "@/components/guide/GuidePrimer";
 import type { AIResult } from "@/components/AIAdvisor";
 import type { BrewParams } from "@/components/BrewingTimer";
 import { getTeaColor } from "@/data/tea-categories";
@@ -18,7 +19,12 @@ function getStoredVessel(): number {
   return stored ? parseInt(stored, 10) : DEFAULT_VESSEL;
 }
 
-type ViewState = "list" | "enter-brewing" | "brewing" | "exit-brewing";
+type ViewState =
+  | "list"
+  | "enter-brewing"
+  | "brewing"
+  | "exit-brewing"
+  | "primer";
 
 export default function Home() {
   const [expandedGroupId, setExpandedGroupId] = useState<string | null>(null);
@@ -141,8 +147,17 @@ export default function Home() {
     }, 800);
   };
 
+  const handleOpenPrimer = () => {
+    setViewState("primer");
+  };
+
+  const handleClosePrimer = () => {
+    setViewState("list");
+  };
+
   const bridgeColor = brewParams?.teaColor || "#8C563E";
   const showBrewing = viewState === "enter-brewing" || viewState === "brewing" || viewState === "exit-brewing";
+  const isPrimer = viewState === "primer";
 
   const selectedTea = selectedVariantId ? getTeaById(selectedVariantId) ?? null : null;
 
@@ -166,7 +181,7 @@ export default function Home() {
             ? "view-fade-out"
             : viewState === "exit-brewing"
               ? "view-fade-in-slow"
-              : viewState === "brewing"
+              : viewState === "brewing" || isPrimer
                 ? "opacity-0 pointer-events-none"
                 : ""
         }`}
@@ -193,6 +208,7 @@ export default function Home() {
                 onVesselChange={handleVesselChange}
                 onStartBrewing={handleStartBrewing}
                 onAIBrew={handleAIBrew}
+                onOpenPrimer={handleOpenPrimer}
               />
             </div>
             <footer className="px-5 pt-10 pb-14 text-center">
@@ -227,6 +243,16 @@ export default function Home() {
           }}
         >
           <BrewingTimer params={brewParams} onEnd={handleEndBrewing} />
+        </div>
+      )}
+
+      {/* ─── Primer view ─── */}
+      {isPrimer && (
+        <div
+          className="fixed inset-0 bg-surface z-40 view-fade-in"
+          style={{ overflowY: "auto" }}
+        >
+          <GuidePrimer onBack={handleClosePrimer} />
         </div>
       )}
     </div>
