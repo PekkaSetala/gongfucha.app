@@ -14,6 +14,7 @@ interface UseTimerReturn {
   play: () => void;
   pause: () => void;
   reset: (newDuration?: number) => void;
+  adjust: (delta: number) => void;
 }
 
 export function useTimer({
@@ -66,6 +67,14 @@ export function useTimer({
     [clearTimer]
   );
 
+  // Extends or shortens the current countdown by `delta` seconds without
+  // restarting. activeDuration stays in sync so progress calculations remain
+  // accurate. Minimum of 1 second on both to keep the ring visible.
+  const adjust = useCallback((delta: number) => {
+    setActiveDuration((prev) => Math.max(1, prev + delta));
+    setSecondsLeft((prev) => Math.max(1, prev + delta));
+  }, []);
+
   useEffect(() => {
     if (!isRunning) {
       clearTimer();
@@ -89,5 +98,5 @@ export function useTimer({
 
   const progress = activeDuration > 0 ? 1 - secondsLeft / activeDuration : 0;
 
-  return { secondsLeft, isRunning, progress, play, pause, reset };
+  return { secondsLeft, isRunning, progress, play, pause, reset, adjust };
 }

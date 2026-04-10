@@ -39,6 +39,10 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   const [infusionIndex, setInfusionIndex] = useState(0);
   const [schedule, setSchedule] = useState(params.schedule);
   const [nextAdjust, setNextAdjust] = useState(0);
+  // Accumulated +/-3s adjustments applied to the currently-running infusion.
+  // Resets to 0 when that infusion completes; its final value is folded into
+  // schedule[infusionIndex] so the crossed-out pill shows the actual brew time.
+  const [currentAdjust, setCurrentAdjust] = useState(0);
   const sound = useBrewSound();
   const [completed, setCompleted] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
@@ -64,7 +68,8 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
   const currentDuration = schedule[infusionIndex] ?? schedule[schedule.length - 1];
 
   const handleTimerComplete = useCallback(() => {
-    setTotalTime((prev) => prev + currentDuration);
+    const brewedDuration = Math.max(1, currentDuration + currentAdjust);
+    setTotalTime((prev) => prev + brewedDuration);
     if ("vibrate" in navigator) {
       navigator.vibrate(200);
     }
@@ -78,6 +83,17 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
       setTransitioning(true);
 
       setTimeout(() => {
+        // Fold mid-brew adjustments into the schedule so the done pill
+        // shows the actual time brewed, not the originally-scheduled one.
+        if (currentAdjust !== 0) {
+          setSchedule((prev) => {
+            const next = [...prev];
+            next[infusionIndex] = brewedDuration;
+            return next;
+          });
+          setCurrentAdjust(0);
+        }
+
         // Select tip for the upcoming "between" view at the moment of
         // the phase transition, not via an effect reacting to phase.
         const tip = selectTip(brewTips, params.teaId, infusionIndex + 1, shownTipIds);
@@ -91,7 +107,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
         setTransitioning(false);
       }, 200);
     }, 400);
-  }, [sound, currentDuration, params.teaId, infusionIndex, shownTipIds]);
+  }, [sound, currentDuration, currentAdjust, params.teaId, infusionIndex, shownTipIds]);
 
   const timer = useTimer({
     durationSeconds: currentDuration,
@@ -351,6 +367,32 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                   </svg>
                 )}
               </button>
+
+              {/* Mid-brew ±3s adjusters. Extend or trim the running steep;
+                  the final brewed time is written back into the schedule. */}
+              <div className="flex items-center justify-center gap-2 mt-3">
+                <button
+                  onClick={() => {
+                    timer.adjust(-3);
+                    setCurrentAdjust((a) => a - 3);
+                  }}
+                  disabled={timer.secondsLeft <= 3}
+                  className="w-10 h-10 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center disabled:opacity-30"
+                  aria-label="Shorten this infusion by 3 seconds"
+                >
+                  −3
+                </button>
+                <button
+                  onClick={() => {
+                    timer.adjust(3);
+                    setCurrentAdjust((a) => a + 3);
+                  }}
+                  className="w-10 h-10 rounded-xl border border-border bg-bg text-secondary text-[14px] font-medium flex items-center justify-center"
+                  aria-label="Extend this infusion by 3 seconds"
+                >
+                  +3
+                </button>
+              </div>
             </div>
           )}
 
