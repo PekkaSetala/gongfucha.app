@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { TeaPreset } from "@/data/teas";
 import { buildBrewParams, formatRatio } from "@/lib/brewing";
 import { StepperControl } from "./StepperControl";
@@ -35,11 +35,15 @@ export function TeaDetail({
   onVariantChange,
 }: TeaDetailProps) {
   const [leafOverride, setLeafOverride] = useState<number | null>(null);
-  const params = buildBrewParams(tea, vesselMl, leafOverride ?? undefined);
+  const [overrideKey, setOverrideKey] = useState<string>(`${tea.id}:${vesselMl}`);
 
-  useEffect(() => {
+  const currentKey = `${tea.id}:${vesselMl}`;
+  if (overrideKey !== currentKey) {
+    setOverrideKey(currentKey);
     setLeafOverride(null);
-  }, [tea.id, vesselMl]);
+  }
+
+  const params = buildBrewParams(tea, vesselMl, leafOverride ?? undefined);
 
   const handleLeafChange = (value: number) => {
     const clamped = Math.max(0.5, Math.min(30, value));
