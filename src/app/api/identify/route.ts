@@ -147,8 +147,8 @@ export async function POST(request: Request) {
         const entry = JSON.parse(results[0].payload.entry as string) as TeaEntry;
         return NextResponse.json(mapCorpusEntry(entry));
       }
-    } catch {
-      console.warn("RAG retrieval failed, falling back to LLM");
+    } catch (err) {
+      console.warn("RAG retrieval failed, falling back to LLM:", err);
     }
 
     // LLM fallback
