@@ -20,14 +20,22 @@ export function useTimer({
   durationSeconds,
   onComplete,
 }: UseTimerOptions): UseTimerReturn {
+  const [activeDuration, setActiveDuration] = useState(durationSeconds);
   const [secondsLeft, setSecondsLeft] = useState(durationSeconds);
   const [isRunning, setIsRunning] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const onCompleteRef = useRef(onComplete);
-  const durationRef = useRef(durationSeconds);
 
-  onCompleteRef.current = onComplete;
-  durationRef.current = durationSeconds;
+  // Reset when the duration prop changes (render-time sync).
+  if (activeDuration !== durationSeconds) {
+    setActiveDuration(durationSeconds);
+    setSecondsLeft(durationSeconds);
+  }
+
+  // Keep the latest onComplete callback without re-subscribing the interval.
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   const clearTimer = useCallback(() => {
     if (intervalRef.current) {
@@ -49,9 +57,11 @@ export function useTimer({
     (newDuration?: number) => {
       clearTimer();
       setIsRunning(false);
-      const d = newDuration ?? durationRef.current;
-      durationRef.current = d;
-      setSecondsLeft(d);
+      setActiveDuration((prev) => {
+        const d = newDuration ?? prev;
+        setSecondsLeft(d);
+        return d;
+      });
     },
     [clearTimer]
   );
@@ -77,16 +87,7 @@ export function useTimer({
     return clearTimer;
   }, [isRunning, clearTimer]);
 
-  // Reset when duration prop changes
-  useEffect(() => {
-    setSecondsLeft(durationSeconds);
-    durationRef.current = durationSeconds;
-  }, [durationSeconds]);
-
-  const progress =
-    durationRef.current > 0
-      ? 1 - secondsLeft / durationRef.current
-      : 0;
+  const progress = activeDuration > 0 ? 1 - secondsLeft / activeDuration : 0;
 
   return { secondsLeft, isRunning, progress, play, pause, reset };
 }
