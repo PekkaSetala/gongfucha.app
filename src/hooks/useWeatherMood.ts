@@ -1,35 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { fetchWeather, getWeatherMood, getCachedWeather, setCachedWeather } from "@/lib/weather";
 import { getCurrentSeason, getSeasonalHint } from "@/lib/seasons";
 import { getSessionSeed } from "@/lib/pick";
 
+// Empty subscribe — cache is read-once per mount; fetch fallback triggers a re-render via asyncMood.
+const subscribeNoop = () => () => {};
+const getCachedMood = (): string | null => {
+  const cached = getCachedWeather();
+  if (!cached) return null;
+  return getWeatherMood(cached.condition, getCurrentSeason(), getSessionSeed());
+};
+const getServerMood = (): string | null => null;
+
 export function useWeatherMood(): string | null {
-  const [mood, setMood] = useState<string | null>(null);
+  const cachedMood = useSyncExternalStore(subscribeNoop, getCachedMood, getServerMood);
+  const [asyncMood, setAsyncMood] = useState<string | null>(null);
 
   useEffect(() => {
+    if (cachedMood !== null) return;
     let ignore = false;
     const season = getCurrentSeason();
     const seed = getSessionSeed();
-
-    const cached = getCachedWeather();
-    if (cached) {
-      setMood(getWeatherMood(cached.condition, season, seed));
-      return;
-    }
 
     fetchWeather()
       .then((data) => {
         if (ignore) return;
         setCachedWeather(data);
-        setMood(getWeatherMood(data.condition, season, seed));
+        setAsyncMood(getWeatherMood(data.condition, season, seed));
       })
       .catch(() => {
         if (ignore) return;
-        setMood(getSeasonalHint(season));
+        setAsyncMood(getSeasonalHint(season));
       });
 
     return () => { ignore = true; };
-  }, []);
+  }, [cachedMood]);
 
-  return mood;
+  return cachedMood ?? asyncMood;
 }
