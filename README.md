@@ -67,4 +67,4 @@ Architecture notes live in `CLAUDE.md`. The RAG spec is in `docs/rag-spec.md`.
 
 ---
 
-Built solo by [Pekka Setälä](https://github.com/PekkaSetala). Tea over code. Always.
+Built with Claude Code by [Pekka Setälä](https://github.com/PekkaSetala).
