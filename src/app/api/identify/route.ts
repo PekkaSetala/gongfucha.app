@@ -88,6 +88,7 @@ async function llmFallback(query: string) {
         temperature: 0.3,
         max_tokens: 400,
       }),
+      signal: AbortSignal.timeout(15_000),
     }
   );
 
