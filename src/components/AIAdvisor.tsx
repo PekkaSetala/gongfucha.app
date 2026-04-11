@@ -137,20 +137,20 @@ export function AIAdvisor({
       {error && <p id="ai-error" role="alert" className="text-[13px] text-error italic">{error}</p>}
 
       {loading && (
-        <div className="bg-surface border border-border rounded-[14px] p-5 mt-2 animate-pulse" aria-busy="true" aria-label="Identifying tea…">
+        <div className="pt-2 animate-pulse" aria-busy="true" aria-label="Identifying tea…">
           <div className="h-5 w-2/5 bg-border/50 rounded mb-3" />
           <div className="h-3 w-full bg-border/30 rounded mb-2" />
           <div className="h-3 w-3/4 bg-border/30 rounded mb-4 pb-3 border-b border-border" />
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <div className="h-14 bg-border/20 rounded-xl" />
-            <div className="h-14 bg-border/20 rounded-xl" />
+          <div className="grid grid-cols-2 mt-4">
+            <div className="h-14 bg-border/20 rounded-xl mx-2" />
+            <div className="h-14 bg-border/20 rounded-xl mx-2" />
           </div>
           <div className="h-12 bg-border/20 rounded-[14px] mt-4" />
         </div>
       )}
 
       {result && (
-        <div className="bg-surface border border-border rounded-[14px] p-5 mt-2 detail-enter">
+        <div className="pt-2 detail-enter">
           <h3 className="text-lg font-medium mb-1">{result.teaName}</h3>
           {result.source && (
             <span
@@ -168,7 +168,7 @@ export function AIAdvisor({
           </p>
 
           {/* Vessel & Leaf steppers */}
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-2 mb-4">
             <StepperControl
               label="Vessel"
               value={`${vesselMl}ml`}
