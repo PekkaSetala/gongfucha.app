@@ -15,12 +15,14 @@
 
 Everything in this document other than Finding 1 should be fixed — but none of the rest are made meaningfully worse by public source code. They were always latent.
 
-**Go-live order:**
-1. Fix P0.
-2. Add security headers (P1 — missing entirely in production).
-3. Add the remaining P1 items (LLM timeout, dev-dep CVE, header cleanup).
-4. Make the repo public.
-5. P2 items can land post-flip.
+**Go-live order** (reversible changes first, production infra second):
+1. Code fixes — LLM timeout, dev-dep CVE bump.
+2. Deploy the code changes to production.
+3. Infrastructure fixes — nginx rate limit + security headers (one edit session).
+4. Runbook reconciliation.
+5. Final verification.
+6. Flip the repo to public.
+7. P2 items can land post-flip.
 
 ---
 
@@ -83,30 +85,46 @@ These came up during scoping but the audit concluded they are not exploitable or
 - At ~2 req/s and ~$0.0001 per LLM call (gpt-4o-mini input), 100k unique queries overnight ≈ $10 direct cost. Higher with a worse model.
 - Cost is the concrete harm. No data is exfiltrated, no system is compromised — the attacker just burns your OpenRouter balance.
 
-**Fix:** IP-based rate limit **in front of the Next.js function**, not inside it. Two realistic options:
+**Fix:** IP-based rate limit **in front of the Next.js function**, not inside it. nginx `limit_req` — shared state is free, no new code, survives function cold-starts, rejects at the edge before the request hits Node.
 
-**Option A — nginx `limit_req` (recommended).**
-Add a `limit_req_zone` + `limit_req` directive to the gongfucha.app vhost on the VPS. Shared state is free, no new code, survives function cold-starts, and rejects at the edge before the request hits Node. Example:
+**Exact production setup** (verified via `sudo nginx -T` on `webserve`):
+
+- Vhost lives at `/etc/nginx/sites-enabled/gongfucha.app`.
+- Nearby `sites-enabled/selkokielelle` already defines a zone named `api` at its file top. That's in the `http` context (included into it). I'll use a **separate zone** named `gongfucha_api` to keep per-site budgets isolated and avoid reusing the generic name.
+- Existing `proxy_set_header` directives are set at the `server` level and inherit into nested locations — no need to duplicate them inside the new `location =` block.
+- `proxy_read_timeout 60s` is already set, which gives Node a hard ceiling on an upstream hang *at the nginx layer*; Finding 3 still matters so the Node function returns a clean JSON error instead of a 504 from the proxy.
+
+**Exact diff** to apply on the VPS (`sudo vi /etc/nginx/sites-enabled/gongfucha.app`):
 
 ```nginx
-# In /etc/nginx/nginx.conf http { } block:
-limit_req_zone $binary_remote_addr zone=gongfucha_api:10m rate=10r/m;
++# Per-IP rate limit for the expensive AI endpoint. Zone name is site-specific
++# to avoid sharing state with selkokielelle's "api" zone in the same http ctx.
++limit_req_zone $binary_remote_addr zone=gongfucha_api:10m rate=10r/m;
++
+ server {
+     server_name gongfucha.app www.gongfucha.app;
 
-# In /etc/nginx/sites-available/gongfucha vhost, inside server { }:
-location = /api/identify {
-    limit_req zone=gongfucha_api burst=5 nodelay;
-    limit_req_status 429;
-    proxy_pass http://127.0.0.1:3000;
-    # ... existing proxy headers
-}
+     proxy_set_header Host              $host;
+     ... (unchanged)
+
+     client_max_body_size 2m;
+
++    location = /api/identify {
++        limit_req zone=gongfucha_api burst=5 nodelay;
++        limit_req_status 429;
++        proxy_pass http://127.0.0.1:3000;
++    }
++
+     location / {
+         proxy_pass http://127.0.0.1:3000;
+     }
+     ... (unchanged — listen/ssl/certbot)
+ }
 ```
 
-10 req/min per IP with a burst of 5 is generous for a human user (one brew session = a few queries at most) and destroys the economics of a scripted attack.
+10 req/min per IP with a burst of 5 is generous for a human (a brew session is at most a few AI queries) and destroys the economics of a scripted single-IP attack.
 
-**Option B — Application-level (fallback if nginx change is too invasive):**
-Add an in-memory sliding-window limiter inside the route handler keyed on `request.headers.get("x-forwarded-for")`. Works, but: loses state on container restart, doesn't help if multiple app replicas are ever added, costs Node CPU per-request. Use only if nginx can't be modified for some reason.
-
-**Recommendation:** Option A. Single edit to one nginx config file, `nginx -t && systemctl reload nginx`, done.
+**IP rotation note:** A distributed attacker rotating IPs bypasses per-IP limits, but that requires real infrastructure spend — disproportionate to the value of burning a portfolio project's LLM budget. If it ever happens, put Cloudflare in front and call it a day.
 
 **Verification:**
 ```bash
@@ -126,16 +144,21 @@ done
 
 **Current state:** `curl -sI https://gongfucha.app` shows zero security headers in the response.
 
-**Fix:** Set them in the nginx vhost (they apply to both static and dynamic routes, avoid the "did I set them in Next.js headers()?" foot-gun, and match whatever `selkokielelle.fi` uses so the box is consistent).
-
-Minimum set:
+**Fix:** Set them in the gongfucha.app nginx vhost at the `server` level, same edit session as Finding 1. Placed at `server` scope, nginx inherits them into every `location` block as long as none of those blocks defines its own `add_header` (which ours don't). The `always` flag ensures the headers are applied even on error responses from the upstream.
 
 ```nginx
-add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
-add_header X-Content-Type-Options "nosniff" always;
-add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
-add_header X-Frame-Options "DENY" always;
+server {
+    server_name gongfucha.app www.gongfucha.app;
+
++   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
++   add_header X-Content-Type-Options "nosniff" always;
++   add_header Referrer-Policy "strict-origin-when-cross-origin" always;
++   add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
++   add_header X-Frame-Options "DENY" always;
+
+    proxy_set_header Host ...
+    ...
+}
 ```
 
 **Not setting CSP yet** — CSP requires careful work (Next.js inlines scripts for hydration, Tailwind v4 has specific needs, the service worker has its own) and a misconfigured CSP breaks the app silently. CSP belongs in a dedicated follow-up pass, not this audit.
@@ -170,7 +193,7 @@ const response = await fetch(
 
 Match `qdrant.ts:83` pattern — same primitive already in use.
 
-**Verification:** Unit test with a mocked `fetch` that never resolves; assert the route returns an error within ~15s.
+**Verification:** Code review only. `AbortSignal.timeout` is a Node platform primitive — testing it tests Node, not our code. The one-line change is self-evidently correct (same pattern as `qdrant.ts:83`). `npm run build` + `npx vitest run` must stay green.
 
 ---
 
@@ -249,51 +272,61 @@ Execute top-to-bottom. Each step has its own commit and is independently verifia
 
 ### Step 1 — Fix Finding 3 (LLM timeout) — 5 min
 
-Pure code change, no infra touch. Do this first because it's reversible and unblocks the rest of the mental model.
+Pure code change. Reversible. Warm up the session.
 
 - Edit `src/app/api/identify/route.ts` to add `signal: AbortSignal.timeout(15_000)` to the OpenRouter fetch.
-- Add a Vitest unit test that mocks `fetch` to never resolve; assert a 500 is returned within ~16s.
-- `npx vitest run && npm run lint && npm run build`.
+- `npx vitest run && npm run lint && npm run build` — all must pass.
 - Commit: `fix(api): add 15s timeout to OpenRouter fetch`.
 
 ### Step 2 — Fix Finding 4 (dev-dep CVE) — 5 min
 
-- `npm audit fix`.
-- Review the resulting diff in `package-lock.json` — no major-version bumps of vitest, please.
+- `npm audit fix`. Inspect the proposed diff first — if it wants a major-version bump of `vitest`, stop and reconsider.
 - `npx vitest run` — must stay at 55 passed / 4 skipped.
+- `npm audit --json | grep -c '"severity": "high"'` — must return 0.
 - Commit: `chore: bump vite via vitest to patch GHSA-v2wj-q39q-566r`.
 
-### Step 3 — Fix Finding 1 (rate limiting) — 15 min
+### Step 3 — Push code changes and redeploy — 5 min
 
-This is the P0 blocker. Touches production infrastructure.
+**Without this step, Steps 1 and 2 live only on the laptop.** The nginx changes come next, and they assume the app is running the timeout-patched code.
 
-- SSH into `webserve`.
-- Locate the gongfucha nginx vhost. Likely `/etc/nginx/sites-available/gongfucha` or similar; confirm with `sudo nginx -T | grep -B2 gongfucha.app`.
-- Add `limit_req_zone` to the main `http { }` block (once per box — check it doesn't already exist for selkokielelle).
-- Add `limit_req` to a new `location = /api/identify` block in the gongfucha vhost.
-- `sudo nginx -t` → must say "syntax is ok".
+- `git push origin main` (pushes both code commits).
+- `ssh webserve "cd /home/servaaja/apps/gongfucha && git pull origin main && docker compose up -d --build app"`.
+- Watch logs: `ssh webserve "cd /home/servaaja/apps/gongfucha && docker compose logs --tail=30 app"` — look for `Ready in ...`.
+- Smoke test: `curl -sI https://gongfucha.app | head -3` — 200 OK.
+
+### Step 4 — Fix Findings 1 + 2 (nginx rate limit + security headers) — 15 min
+
+Single nginx edit session. Back up first, then apply both changes in one diff, one reload.
+
+- `ssh webserve`.
+- `sudo cp /etc/nginx/sites-enabled/gongfucha.app /etc/nginx/sites-enabled/gongfucha.app.bak.$(date +%F)`.
+- `sudo vi /etc/nginx/sites-enabled/gongfucha.app`. Apply both diffs shown in Findings 1 and 2: the `limit_req_zone` at file top, the five `add_header` lines at `server` level, and the new `location = /api/identify` block above the existing `location /`.
+- `sudo nginx -t` — must say "syntax is ok". **If it fails, edit and retry; do not reload.**
 - `sudo systemctl reload nginx`.
-- Run the verification `for` loop from above and confirm 429s appear.
-- **Commit the nginx config change** if the host keeps its nginx config in a repo (check `/etc/nginx` for a `.git` directory). If not, at least `sudo cp /etc/nginx/sites-available/gongfucha /etc/nginx/sites-available/gongfucha.bak.$(date +%F)`.
+- Verify rate limit (from laptop):
+  ```bash
+  for i in $(seq 1 20); do
+    curl -s -o /dev/null -w "%{http_code}\n" \
+      -X POST https://gongfucha.app/api/identify \
+      -H 'Content-Type: application/json' \
+      -d '{"query":"da hong pao"}'
+  done
+  ```
+  First ~15 should be 200, the rest should be 429.
+- Verify headers (from laptop):
+  ```bash
+  curl -sI https://gongfucha.app | grep -Ei 'strict-transport|content-type-options|referrer|permissions|frame-options'
+  ```
+  All five must appear.
 
-### Step 4 — Fix Finding 2 (security headers) — 5 min
+### Step 5 — Fix Finding 5 (runbook reconciliation) — 5 min
 
-Continues the same nginx edit session as Step 3.
-
-- In the same vhost, add the five `add_header` lines inside `server { }`.
-- `sudo nginx -t && sudo systemctl reload nginx`.
-- Verify with `curl -sI https://gongfucha.app | grep -Ei 'strict-transport|content-type-options|referrer|permissions|frame-options'`.
-- All five must be present.
-
-### Step 5 — Fix Finding 5 (runbook) — 5 min
-
-- Edit `docs/2026-04-10-go-live.md` to add an "Actual production" section noting the nginx-not-Caddy reality, point at the nginx vhost location, and cross-link this audit doc.
-- Commit: `docs: reconcile go-live runbook with actual nginx production setup`.
-- Push.
+- Edit `docs/2026-04-10-go-live.md` to add a short "Actual production" section at the top noting: runs on nginx, not Caddy; security headers + rate limit live in `/etc/nginx/sites-enabled/gongfucha.app`; cross-link this audit doc as the source of truth for current setup.
+- Commit and push: `docs: reconcile go-live runbook with nginx production reality`.
 
 ### Step 6 — Final sanity sweep — 5 min
 
-Run the full verification checklist below. Every line must pass.
+Run the full verification checklist below. Every line must pass. If any line fails, stop — don't flip.
 
 ### Step 7 — Flip the repo to public — 30 seconds
 
@@ -302,6 +335,8 @@ Only after the verification checklist is 100% green.
 ```
 GitHub → Settings → General → Danger Zone → Change repository visibility → Make public.
 ```
+
+Confirm the flip by opening an incognito window to https://github.com/PekkaSetala/gongfucha.app — the repo should load without auth.
 
 ---
 
@@ -375,7 +410,7 @@ No alerting needed — manual spot checks are proportionate for a solo portfolio
 
 ```bash
 # Repo scan
-git ls-files | xargs -0 grep -lE 'sk-or-[A-Za-z0-9]|sk-proj-|sk-ant-|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{20}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY' 2>/dev/null
+git ls-files -z | xargs -0 grep -lEI 'sk-or-[A-Za-z0-9]|sk-proj-|sk-ant-|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{20}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY' 2>/dev/null
 git log --all -p -S 'sk-or-v1' | head
 git log --all --full-history -p -- .env .env.local | head
 
