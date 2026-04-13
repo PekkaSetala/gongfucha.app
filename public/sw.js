@@ -1,6 +1,5 @@
-const CACHE_NAME = "gongfucha-v1";
+const CACHE_NAME = "gongfucha-v2";
 const STATIC_ASSETS = [
-  "/",
   "/icon.svg",
   "/icon-192.png",
   "/icon-512.png",
@@ -27,21 +26,42 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  // Skip non-GET and API requests
-  if (event.request.method !== "GET") return;
-  if (event.request.url.includes("/api/")) return;
+  const req = event.request;
+  if (req.method !== "GET") return;
+
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith("/api/")) return;
+
+  // Navigation requests (HTML documents): network-first, no cache fallback.
+  // Prevents stale app-shell HTML from being served to crawlers or users
+  // visiting newly-published SSG routes like /tea/[slug], /brewing, etc.
+  if (req.mode === "navigate" || req.destination === "document") {
+    event.respondWith(fetch(req).catch(() => Response.error()));
+    return;
+  }
+
+  // Static asset allowlist.
+  const isStatic =
+    url.pathname.startsWith("/_next/static/") ||
+    url.pathname.startsWith("/sounds/") ||
+    url.pathname === "/manifest.json" ||
+    url.pathname === "/icon.svg" ||
+    url.pathname === "/icon-192.png" ||
+    url.pathname === "/icon-512.png" ||
+    url.pathname === "/apple-touch-icon.png";
+
+  if (!isStatic) return;
 
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      const fetched = fetch(event.request).then((response) => {
-        // Cache successful responses
+    caches.match(req).then((cached) => {
+      const fetched = fetch(req).then((response) => {
         if (response.ok) {
           const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
         }
         return response;
       });
-      // Return cached first, then update cache in background
       return cached || fetched;
     })
   );

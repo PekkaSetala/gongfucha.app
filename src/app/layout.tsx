@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { DM_Sans, Noto_Serif_SC } from "next/font/google";
 import "./globals.css";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
+import { buildWebSite, buildOrganization, buildPerson } from "@/lib/jsonld";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
   ),
   title: "Gongfu Cha",
   description: "A gongfu-style tea brewing timer and guide",
+  alternates: { canonical: "/" },
   manifest: "/manifest.json",
   icons: {
     icon: "/icon.svg",
@@ -60,6 +62,12 @@ export default function RootLayout({
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-surface focus:text-primary focus:rounded-lg focus:border focus:border-border">
           Skip to main content
         </a>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([buildWebSite(), buildOrganization(), buildPerson()]),
+          }}
+        />
         {children}
         <ServiceWorkerRegistration />
       </body>
