@@ -216,7 +216,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
   return (
     <div
-      className="flex flex-col h-[100dvh] overflow-y-auto paper-texture"
+      className="flex flex-col min-h-[100dvh] overflow-y-auto paper-texture"
       style={{
         "--tea-accent": accentColor,
       } as React.CSSProperties}
@@ -269,7 +269,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
       {/* ─── Content ─── */}
       <div className="relative z-[1] flex-1 flex flex-col items-center px-5">
-        <div className="w-full max-w-[680px] mx-auto flex flex-col items-center flex-1">
+        <div className="w-full max-w-[680px] mx-auto flex flex-col items-center">
 
           {/* Tea name */}
           <h1
@@ -528,11 +528,8 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
             )}
           </div>
 
-          {/* Spacer */}
-          <div className="flex-1" />
-
           {/* End session — two-tap confirmation */}
-          <div className="pb-4 pt-2 flex justify-center gap-2">
+          <div className="pb-6 pt-8 flex justify-center gap-2">
             {confirmEnd ? (
               <>
                 <button
