@@ -12,6 +12,7 @@
   "roast": "none",
   "aging": { "viable": false },
   "flavor_profile": "Called the 'Champagne of Black Teas' for good reason. Opens with a distinct orchid fragrance, then layers of cocoa, stone fruit, and a wine-like smoothness unfold across infusions. Mao Feng grades have a lighter, more floral character; Hao Ya grades are richer with tobacco-like depth.",
+  "tasting_notes": "If you only know Keemun from English Breakfast blends, solo Qi Men Hong is going to confuse you — in a good way. The aroma off the warm gaiwan lid is genuinely floral: a dry orchid thing, almost like smelling a good Dan Cong, which you would not expect from a red tea. The liquor is lighter than Dian Hong, closer to medium-bodied, and the flavour runs cocoa → stone fruit → a faint red-wine tannin on the swallow. That wine-like edge is the Keemun signature; lose it and you are drinking a blend filler. Mao Feng grades stay floral and polite, Hao Ya grades thicken up with tobacco and leather. The trap is heat. Push past 90°C and the cocoa turns drying and the orchid walks off. Short, cooler steeps keep the aromatics in the cup where they belong.",
   "body": "medium",
   "aroma_notes": ["orchid", "cocoa", "stone fruit"],
   "taste_notes": ["cocoa", "wine", "orchid", "honey", "tobacco"],

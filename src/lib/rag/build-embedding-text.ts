@@ -31,6 +31,7 @@ export function buildEmbeddingText(entry: TeaEntry): string {
   parts.push(processingParts.join(", "));
 
   parts.push(entry.flavor_profile);
+  parts.push(entry.tasting_notes);
 
   if (entry.brewing.tips) {
     parts.push(entry.brewing.tips);

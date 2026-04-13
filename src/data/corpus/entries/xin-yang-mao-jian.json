@@ -11,6 +11,7 @@
   "oxidation": "none",
   "roast": "none",
   "flavor_profile": "One of China's top ten famous teas with over 2300 years of history. The liquor is thick and juicy with pronounced umami depth — sometimes compared to chicken broth — balanced by fresh vegetal and grassy notes. A chestnut-like aroma is characteristic. The aftertaste is long and layered, shifting from initial sweetness into savory depth. Bolder and more pungent than southern green teas due to its northern growing conditions.",
+  "tasting_notes": "This is where green tea stops being polite. Xin Yang Mao Jian is thick on the palate in a way that most Chinese greens never attempt — there's a genuine broth-like weight, a savoury chestnut depth, and a pungency under the sweetness that comes from growing at the northern edge of where tea can survive. The aftertaste is long and layered; the first sip is sweet, the second reveals the umami, and by the third sip you're chasing a savoury echo at the back of the throat. It's bolder than a southern green, and it doesn't try to be subtle. The tradeoff is a narrow temperature window. At 80°C it's exactly right; at 85°C the pungency sharpens into bitterness fast and the umami flattens. Don't discard the first infusion as a rinse — that's where most of the chicken-broth character lives. Four infusions with real character, and a fifth that's still interesting if you've been careful.",
   "body": "medium",
   "aroma_notes": ["chestnut", "pine", "grass"],
   "taste_notes": ["umami", "sweet", "vegetal", "pungent"],

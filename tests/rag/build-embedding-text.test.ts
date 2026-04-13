@@ -14,6 +14,7 @@ const mockEntry: TeaEntry = {
   roast: "heavy",
   aging: { viable: true, sweet_spot: "2-10 years" },
   flavor_profile: "Deep mineral backbone with dark chocolate and roasted almonds.",
+  tasting_notes: "The first sip lands darker than you expect — char and cocoa ride the front, then a chalky mineral edge takes over.",
   body: "full",
   aroma_notes: ["roasted nuts", "cocoa", "incense"],
   taste_notes: ["dark chocolate", "mineral", "stone fruit"],
@@ -44,6 +45,7 @@ describe("buildEmbeddingText", () => {
     expect(text).toContain("medium oxidation");
     expect(text).toContain("heavy roast");
     expect(text).toContain("Deep mineral backbone");
+    expect(text).toContain("chalky mineral edge");
     expect(text).toContain("Full boiling water");
     expect(text).toContain("roasted nuts");
     expect(text).toContain("dark chocolate");

@@ -33,6 +33,9 @@ export interface TeaEntry {
 
   // Flavor
   flavor_profile: string;
+  /** Firsthand observational tasting notes — complements flavor_profile.
+   *  ~150 words, handmade voice. Used on /tea/[slug] and in RAG embeddings. */
+  tasting_notes: string;
   body: "light" | "medium" | "full";
   aroma_notes: string[];
   taste_notes: string[];

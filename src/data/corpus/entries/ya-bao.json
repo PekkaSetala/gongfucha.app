@@ -11,6 +11,7 @@
   "oxidation": "none",
   "aging": { "viable": false },
   "flavor_profile": "Barely recognizable as tea — more like a wild herbal infusion. The flavor is bright, sweet, and resinous with strong pine needle character, dried apricot, and a savory-floral finish. Never becomes bitter even with extended steeping, making it extremely forgiving to brew.",
+  "tasting_notes": "The first thing to understand about Ya Bao is that it barely counts as tea. These are wild buds from forest trees that predate cultivated Camellia sinensis by a long way, and they drink like something between a conifer tip infusion and a stone-fruit tisane. Pine resin on the nose, dried apricot in the mouth, a faint ginger warmth on the back of the throat. No bitterness, ever — you can forget about a steep for ten minutes and the cup will still be drinkable, which is both a feature and a trap. It means beginners can't mess it up, but it also means you stop paying attention. Push the temperature toward boiling and the resinous side sharpens into something almost savory; drop it to 80°C and the apricot comes forward instead. The buds look strange in the cup, like small unopened pinecones. They're a break from tea habits, not a substitute.",
   "body": "light",
   "aroma_notes": ["pine resin", "dried apricot", "wildflower", "hops"],
   "taste_notes": ["pine needle", "apricot", "marzipan", "ginger"],

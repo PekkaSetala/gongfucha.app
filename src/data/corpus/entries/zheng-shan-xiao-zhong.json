@@ -12,6 +12,7 @@
   "roast": "none",
   "aging": { "viable": false },
   "flavor_profile": "The original black tea, with two distinct styles. Traditional smoked versions carry bold pine smoke and dried longan. Modern unsmoked versions are sweet and clean with longan, caramel, and cocoa notes. Both share a smooth, full mouthfeel and a honey-like finish that deepens across infusions.",
+  "tasting_notes": "Two teas share this name and you need to know which one you bought. Traditional smoked Zheng Shan from Tong Mu is dried over Wuyi pine, and if the producer knows what they are doing, the smoke sits underneath the tea rather than on top of it — think campfire in the next room, not smoke bomb in your mouth. Dried longan, caramel, a resinous pine warmth, sweetness at the finish. The aggressive Lapsang most Westerners grew up on is the industrial version and tastes like bacon; the real thing is quieter and much stranger. Unsmoked Zheng Shan is a different animal entirely: treat it like Jin Jun Mei's older sibling — honey, cocoa, longan, clean. Both styles reward a real rinse. For smoked leaf, give the rinse five to eight seconds to take the harsh edge off before you start drinking.",
   "body": "full",
   "aroma_notes": ["longan", "pine smoke", "caramel"],
   "taste_notes": ["longan", "honey", "cocoa", "pine", "caramel"],
