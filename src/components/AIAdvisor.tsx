@@ -9,6 +9,25 @@ import {
   isScheduleAdjusted,
   formatRatio,
 } from "@/lib/brewing";
+import { seededPick, getSessionSeed } from "@/lib/pick";
+
+// Short enough to fit alongside the Identify button on narrow mobile widths
+// (input has ~180px when Identify is visible). Keep each ≤ 22 chars including
+// the e.g. prefix.
+const EXAMPLE_QUERIES = [
+  'e.g. "Da Hong Pao"',
+  'e.g. "Tie Guan Yin"',
+  'e.g. "Long Jing"',
+  'e.g. "Silver Needle"',
+  'e.g. "Yiwu sheng"',
+  'e.g. "Rou Gui"',
+  'e.g. "Jin Jun Mei"',
+  'e.g. "Shou Mei"',
+  'e.g. "Dong Ding"',
+  'e.g. "Bai Hao"',
+  'e.g. "Keemun"',
+  'e.g. "Gyokuro"',
+];
 
 interface AIResult {
   teaName: string;
@@ -47,6 +66,9 @@ export function AIAdvisor({
   const [result, setResult] = useState<AIResult | null>(null);
   const [leafOverride, setLeafOverride] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [placeholder] = useState(() =>
+    seededPick(EXAMPLE_QUERIES, getSessionSeed()),
+  );
 
   const handleSubmit = async () => {
     if (!query.trim() || loading) return;
@@ -115,7 +137,7 @@ export function AIAdvisor({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-          placeholder='e.g. "Da Hong Pao" or "2020 Yiwu sheng"'
+          placeholder={placeholder}
           aria-label="Describe your tea"
           aria-describedby={error ? "ai-error" : undefined}
           className="flex-1 px-4 py-3 rounded-xl border border-border bg-surface text-[14px] text-primary placeholder:text-tertiary focus-visible:outline-none focus-visible:border-clay transition-colors duration-150"
