@@ -58,7 +58,8 @@ export async function searchTeas(
       score += NAME_BOOST;
     }
 
-    return { id: r.id as string, score, payload: r.payload };
+    const slug = (r.payload.slug as string | undefined) ?? (r.id as string);
+    return { id: slug, score, payload: r.payload };
   });
 
   boosted.sort((a, b) => b.score - a.score);

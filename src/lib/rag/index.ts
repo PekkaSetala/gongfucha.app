@@ -4,25 +4,17 @@
 // Requires: QDRANT_URL env var (default http://localhost:6333)
 
 import { readFileSync, readdirSync } from "fs";
-import { createHash } from "crypto";
 import { join } from "path";
 import type { TeaEntry } from "../../data/corpus/schema";
 import { buildEmbeddingText } from "./build-embedding-text";
 import { embedText } from "./embed";
 import { QdrantClient } from "./qdrant";
+import { slugToPointId } from "./point-id";
 
 const COLLECTION = "teas";
 const VECTOR_SIZE = 384;
 const CORPUS_DIR = join(process.cwd(), "src/data/corpus/entries");
 const QDRANT_URL = process.env.QDRANT_URL ?? "http://localhost:6333";
-
-// Qdrant only accepts unsigned ints or UUIDs as point IDs. Corpus IDs are
-// slugs ("ali-shan"), so we derive a deterministic UUID from the slug via
-// SHA-1. Stable across re-indexes; the original slug is kept in payload.
-function slugToPointId(slug: string): string {
-  const h = createHash("sha1").update(slug).digest("hex");
-  return `${h.slice(0, 8)}-${h.slice(8, 12)}-5${h.slice(13, 16)}-${h.slice(16, 20)}-${h.slice(20, 32)}`;
-}
 
 async function main(): Promise<void> {
   console.log("=== Tea Corpus Indexer ===\n");

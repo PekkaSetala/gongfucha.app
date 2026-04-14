@@ -10,6 +10,7 @@ import type { TeaEntry } from "@/data/corpus/schema";
 import { buildEmbeddingText } from "@/lib/rag/build-embedding-text";
 import { embedText } from "@/lib/rag/embed";
 import { QdrantClient } from "@/lib/rag/qdrant";
+import { slugToPointId } from "@/lib/rag/point-id";
 import { searchTeas, CONFIDENCE_THRESHOLD } from "@/lib/rag/retrieve";
 
 const QDRANT_URL = process.env.QDRANT_URL || "http://localhost:6333";
@@ -48,9 +49,10 @@ describe.skipIf(!qdrantAvailable)("RAG integration", () => {
 
       await client.upsert(COLLECTION, [
         {
-          id: entry.id,
+          id: slugToPointId(entry.id),
           vector,
           payload: {
+            slug: entry.id,
             name: entry.name,
             aliases: entry.aliases,
             category: entry.category,
