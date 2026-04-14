@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { searchTeas, CONFIDENCE_THRESHOLD } from "@/lib/rag/retrieve";
+import { searchTeas } from "@/lib/rag/retrieve";
 import type { TeaEntry } from "@/data/corpus/schema";
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
@@ -141,10 +141,11 @@ export async function POST(request: Request) {
       );
     }
 
-    // Try corpus retrieval first
+    // Try corpus retrieval first. searchTeas returns [] when no tier
+    // fires; only a non-empty result is a confident match.
     try {
       const results = await searchTeas(query, 3);
-      if (results.length > 0 && results[0].score >= CONFIDENCE_THRESHOLD) {
+      if (results.length > 0) {
         const entry = JSON.parse(results[0].payload.entry as string) as TeaEntry;
         return NextResponse.json(mapCorpusEntry(entry));
       }

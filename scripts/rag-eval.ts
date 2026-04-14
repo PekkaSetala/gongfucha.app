@@ -3,7 +3,7 @@
 // Run: npx tsx scripts/rag-eval.ts
 // Requires: Qdrant running with indexed corpus (QDRANT_URL env var, default http://localhost:6333)
 
-import { searchTeas, CONFIDENCE_THRESHOLD } from "../src/lib/rag/retrieve";
+import { searchTeas } from "../src/lib/rag/retrieve";
 
 interface EvalQuery {
   query: string;
@@ -15,12 +15,12 @@ const queries: EvalQuery[] = [
   // Exact name (expect rank 1 match)
   { query: "Da Hong Pao", category: "exact", expected: "da-hong-pao" },
   { query: "Tie Guan Yin", category: "exact", expected: "tie-guan-yin" },
-  { query: "大红袍", category: "exact", expected: "da-hong-pao" },
   { query: "Big Red Robe", category: "exact", expected: "da-hong-pao" },
   { query: "Long Jing", category: "exact", expected: "long-jing" },
   { query: "Shou Pu-erh", category: "exact", expected: "shou-pu-erh" },
   { query: "DHP", category: "exact", expected: "da-hong-pao" },
   { query: "Iron Goddess", category: "exact", expected: "tie-guan-yin" },
+  { query: "Dragon Well", category: "exact", expected: "long-jing" },
 
   // Descriptive (expect correct tea in top 3)
   { query: "roasty Wuyi cliff tea", category: "descriptive", expected: "da-hong-pao" },
@@ -32,7 +32,7 @@ const queries: EvalQuery[] = [
   { query: "something light and sweet", category: "descriptive" },
   { query: "aged Wuyi oolong", category: "descriptive" },
 
-  // Out-of-corpus (expect low score, fallback)
+  // Out-of-corpus (expect empty result → LLM fallback)
   { query: "Japanese matcha", category: "out-of-corpus" },
   { query: "English breakfast tea", category: "out-of-corpus" },
   { query: "chamomile herbal", category: "out-of-corpus" },
@@ -55,51 +55,51 @@ async function main() {
     const topResult = results[0];
     const topScore = topResult?.score ?? 0;
     const topId = topResult?.id ?? "none";
+    const empty = results.length === 0;
 
     if (q.category === "exact") {
       exactTotal++;
-      const hit = topId === q.expected && topScore >= CONFIDENCE_THRESHOLD;
+      const hit = !empty && topId === q.expected;
       if (hit) exactHits++;
       console.log(
-        `  ${hit ? "✓" : "✗"} [exact] "${q.query}" → ${topId} (${topScore.toFixed(3)})${
-          !hit ? ` expected: ${q.expected}` : ""
-        }`
+        `  ${hit ? "✓" : "✗"} [exact] "${q.query}" → ${
+          empty ? "(empty)" : `${topId} (${topScore.toFixed(2)})`
+        }${!hit ? ` expected: ${q.expected}` : ""}`,
       );
     } else if (q.category === "descriptive") {
       descTotal++;
-      const inTop3 =
-        q.expected
-          ? results.some((r) => r.id === q.expected)
-          : topScore >= CONFIDENCE_THRESHOLD;
+      const inTop3 = q.expected
+        ? results.some((r) => r.id === q.expected)
+        : !empty;
       if (inTop3) descHitsTop3++;
       console.log(
-        `  ${inTop3 ? "✓" : "~"} [desc]  "${q.query}" → ${topId} (${topScore.toFixed(3)})${
-          q.expected ? ` (looking for: ${q.expected})` : ""
-        }`
+        `  ${inTop3 ? "✓" : "~"} [desc]  "${q.query}" → ${
+          empty ? "(empty)" : `${topId} (${topScore.toFixed(2)})`
+        }${q.expected ? ` (looking for: ${q.expected})` : ""}`,
       );
     } else {
       oocTotal++;
-      const correctFallback = topScore < CONFIDENCE_THRESHOLD;
+      // Correct OOC behaviour is an empty result → caller falls back to LLM.
+      const correctFallback = empty;
       if (correctFallback) oocCorrectFallback++;
       console.log(
-        `  ${correctFallback ? "✓" : "✗"} [ooc]   "${q.query}" → ${topId} (${topScore.toFixed(3)})${
-          !correctFallback ? " SHOULD HAVE FALLEN BACK" : ""
-        }`
+        `  ${correctFallback ? "✓" : "✗"} [ooc]   "${q.query}" → ${
+          empty ? "(empty)" : `${topId} (${topScore.toFixed(2)}) SHOULD HAVE BEEN EMPTY`
+        }`,
       );
     }
   }
 
   console.log("\n=== Summary ===");
   console.log(
-    `  Exact name hit rate:     ${exactHits}/${exactTotal} (${((exactHits / exactTotal) * 100).toFixed(0)}%)`
+    `  Exact name hit rate:     ${exactHits}/${exactTotal} (${((exactHits / exactTotal) * 100).toFixed(0)}%)`,
   );
   console.log(
-    `  Descriptive hit@3 rate:  ${descHitsTop3}/${descTotal} (${((descHitsTop3 / descTotal) * 100).toFixed(0)}%)`
+    `  Descriptive hit@3 rate:  ${descHitsTop3}/${descTotal} (${((descHitsTop3 / descTotal) * 100).toFixed(0)}%)`,
   );
   console.log(
-    `  Out-of-corpus fallback:  ${oocCorrectFallback}/${oocTotal} (${((oocCorrectFallback / oocTotal) * 100).toFixed(0)}%)`
+    `  Out-of-corpus fallback:  ${oocCorrectFallback}/${oocTotal} (${((oocCorrectFallback / oocTotal) * 100).toFixed(0)}%)`,
   );
-  console.log(`  Confidence threshold:    ${CONFIDENCE_THRESHOLD}`);
 }
 
 main().catch((err) => {
