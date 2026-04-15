@@ -219,7 +219,7 @@ export function AIAdvisor({
           </div>
 
           {/* Compact params row */}
-          <div className="flex gap-3 text-[13px] text-secondary mb-4">
+          <div className="flex flex-wrap justify-center gap-3 text-[13px] text-secondary mb-4">
             <span>{result.tempC}°C</span>
             <span className="text-border">·</span>
             <span>{formatRatio(currentLeaf, vesselMl)}</span>
@@ -237,10 +237,10 @@ export function AIAdvisor({
 
           {/* Schedule pills */}
           <div className="border-t border-border pt-3 mb-4">
-            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2">
+            <span className="block text-[11px] font-medium uppercase tracking-[1px] text-tertiary mb-2 text-center">
               Infusion schedule (seconds)
             </span>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1.5 justify-center">
               {displaySchedule.map((s, i) => (
                 <span
                   key={i}
