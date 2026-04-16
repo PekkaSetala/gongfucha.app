@@ -162,6 +162,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
     setInfusionIndex(nextIndex);
     setNextAdjust(0);
+    timer.reset(adjusted);
     autoPlayRef.current = true;
     setPhase("brewing");
   };
