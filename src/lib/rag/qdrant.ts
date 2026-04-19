@@ -15,19 +15,30 @@ export interface QdrantSearchResult {
 }
 
 export class QdrantClient {
-  constructor(private baseUrl: string) {}
+  constructor(
+    private baseUrl: string,
+    private apiKey?: string,
+  ) {}
+
+  private headers(extra: Record<string, string> = {}): Record<string, string> {
+    const h: Record<string, string> = { ...extra };
+    if (this.apiKey) h["api-key"] = this.apiKey;
+    return h;
+  }
 
   /**
    * Creates the collection if it does not yet exist.
    * Uses cosine distance — appropriate for normalised text embeddings.
    */
   async ensureCollection(name: string, vectorSize: number): Promise<void> {
-    const check = await fetch(`${this.baseUrl}/collections/${name}`);
+    const check = await fetch(`${this.baseUrl}/collections/${name}`, {
+      headers: this.headers(),
+    });
     if (check.ok) return;
 
     const res = await fetch(`${this.baseUrl}/collections/${name}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: this.headers({ "Content-Type": "application/json" }),
       body: JSON.stringify({
         vectors: {
           size: vectorSize,
@@ -50,7 +61,7 @@ export class QdrantClient {
       `${this.baseUrl}/collections/${collection}/points`,
       {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: this.headers({ "Content-Type": "application/json" }),
         body: JSON.stringify({ points }),
       }
     );
@@ -74,7 +85,7 @@ export class QdrantClient {
       `${this.baseUrl}/collections/${collection}/points/search`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: this.headers({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           vector,
           limit,

@@ -60,7 +60,7 @@ export const teaGroups: (TeaGroup | string)[] = [
   "black",
 ];
 
-export const teas: TeaPreset[] = [
+const teas: TeaPreset[] = [
   {
     id: "green",
     name: "Green Tea",
@@ -178,10 +178,6 @@ export const teas: TeaPreset[] = [
     seasons: ["winter"],
   },
 ];
-
-export function getTeas(): TeaPreset[] {
-  return teas;
-}
 
 export function getTeaById(id: string): TeaPreset | undefined {
   return teas.find((t) => t.id === id);

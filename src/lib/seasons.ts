@@ -1,5 +1,3 @@
-import type { TeaPreset } from "@/data/teas";
-
 type Season = "spring" | "summer" | "autumn" | "winter";
 
 const MONTH_TO_SEASON: Record<number, Season> = {
@@ -19,10 +17,6 @@ const MONTH_TO_SEASON: Record<number, Season> = {
 
 export function getCurrentSeason(): Season {
   return MONTH_TO_SEASON[new Date().getMonth()];
-}
-
-export function isInSeason(tea: TeaPreset): boolean {
-  return tea.seasons.includes(getCurrentSeason());
 }
 
 export function getSeasonalHint(season: Season): string {

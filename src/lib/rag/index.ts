@@ -15,6 +15,7 @@ const COLLECTION = "teas";
 const VECTOR_SIZE = 384;
 const CORPUS_DIR = join(process.cwd(), "src/data/corpus/entries");
 const QDRANT_URL = process.env.QDRANT_URL ?? "http://localhost:6333";
+const QDRANT_API_KEY = process.env.QDRANT_API_KEY;
 
 async function main(): Promise<void> {
   console.log("=== Tea Corpus Indexer ===\n");
@@ -27,7 +28,7 @@ async function main(): Promise<void> {
     return JSON.parse(raw) as TeaEntry;
   });
 
-  const client = new QdrantClient(QDRANT_URL);
+  const client = new QdrantClient(QDRANT_URL, QDRANT_API_KEY);
   await client.ensureCollection(COLLECTION, VECTOR_SIZE);
   console.log(`Collection "${COLLECTION}" ready (${VECTOR_SIZE} dimensions)\n`);
 

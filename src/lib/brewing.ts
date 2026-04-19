@@ -85,7 +85,8 @@ export function extendSchedule(
 ): number[] {
   const extended = [...schedule];
   let last = extended[extended.length - 1];
-  for (let i = 0; i < additionalCount; i++) {
+  const capped = Math.max(0, Math.min(additionalCount, 20));
+  for (let i = 0; i < capped; i++) {
     last = Math.round(last * EXTENSION_FACTOR);
     extended.push(last);
   }

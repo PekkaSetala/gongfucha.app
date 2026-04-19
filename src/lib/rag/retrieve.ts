@@ -27,6 +27,7 @@ import type { TeaEntry } from "@/data/corpus/schema";
 
 const COLLECTION = "teas";
 const QDRANT_URL = process.env.QDRANT_URL || "http://localhost:6333";
+const QDRANT_API_KEY = process.env.QDRANT_API_KEY;
 
 // Tier gates. Calibrated against scripts/rag-eval.ts on the 84-doc corpus.
 //
@@ -77,7 +78,7 @@ async function denseSearch(
   topK: number,
   collection: string,
 ): Promise<QdrantSearchResult[]> {
-  const client = new QdrantClient(QDRANT_URL);
+  const client = new QdrantClient(QDRANT_URL, QDRANT_API_KEY);
   const vector = await embedText(query);
   return client.search(collection, vector, topK);
 }

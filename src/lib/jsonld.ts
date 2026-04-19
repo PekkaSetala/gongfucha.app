@@ -40,7 +40,7 @@ export function buildWebSite() {
   };
 }
 
-export interface BreadcrumbSegment {
+interface BreadcrumbSegment {
   name: string;
   url: string;
 }
@@ -58,7 +58,7 @@ export function buildBreadcrumbs(segments: BreadcrumbSegment[]) {
   };
 }
 
-export interface ArticleInput {
+interface ArticleInput {
   headline: string;
   description: string;
   url: string;
@@ -115,7 +115,7 @@ export function buildTechArticle(entry: TeaEntry) {
   };
 }
 
-export interface DatasetInput {
+interface DatasetInput {
   url: string;
   downloadUrl?: string;
   entryCount: number;

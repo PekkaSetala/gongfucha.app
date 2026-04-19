@@ -1,6 +1,6 @@
 type Season = "spring" | "summer" | "autumn" | "winter";
 
-export type WeatherCondition =
+type WeatherCondition =
   | "clear"
   | "cloudy"
   | "overcast"
@@ -10,7 +10,7 @@ export type WeatherCondition =
   | "storm"
   | "snow";
 
-export type WeatherData = {
+type WeatherData = {
   condition: WeatherCondition;
   tempC: number;
 };
@@ -67,7 +67,9 @@ const CODE_MAP: Record<number, WeatherCondition> = {
 import { seededPick } from "@/lib/pick";
 
 export async function fetchWeather(): Promise<WeatherData> {
-  const res = await fetch("https://wttr.in/?format=j1");
+  const res = await fetch("https://wttr.in/?format=j1", {
+    signal: AbortSignal.timeout(3000),
+  });
   const json = await res.json();
   const current = json.current_condition[0];
   const code = parseInt(current.weatherCode, 10);

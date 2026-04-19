@@ -109,8 +109,3 @@ export function lexicalSearch(
     .sort((a, b) => b.score - a.score)
     .slice(0, topK);
 }
-
-// Testing helper — lets tests reset the module-level cache between runs.
-export function __resetLexicalCache(): void {
-  cachedDocs = null;
-}

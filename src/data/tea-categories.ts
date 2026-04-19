@@ -1,4 +1,4 @@
-export interface TeaCategory {
+interface TeaCategory {
   id: string;
   label: string;
   color: string;
@@ -8,7 +8,7 @@ export interface TeaCategory {
  * Tea categories for the type selector and AI mapping.
  * Colors match the corresponding presets in teas.ts.
  */
-export const teaCategories: TeaCategory[] = [
+const teaCategories: TeaCategory[] = [
   { id: "green", label: "Green", color: "#7A9E6B" },
   { id: "white", label: "White", color: "#B5A890" },
   { id: "oolong", label: "Oolong", color: "#A8884A" },
