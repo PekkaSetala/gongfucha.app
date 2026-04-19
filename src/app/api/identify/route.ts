@@ -5,6 +5,41 @@ import type { TeaEntry } from "@/data/corpus/schema";
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const MODEL = process.env.OPENROUTER_MODEL ?? "openai/gpt-4o-mini";
 
+// In-process per-IP sliding window. Defense-in-depth — primary rate limit
+// should live in host nginx (limit_req_zone). A single-process Docker worker
+// behind a reverse proxy means this Map is the whole rate-limit state.
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX = 20;
+const rateBuckets = new Map<string, number[]>();
+
+function clientIp(request: Request): string {
+  const fwd = request.headers.get("x-forwarded-for");
+  if (fwd) return fwd.split(",")[0].trim();
+  const real = request.headers.get("x-real-ip");
+  if (real) return real.trim();
+  return "unknown";
+}
+
+function rateLimitExceeded(ip: string): boolean {
+  const now = Date.now();
+  const bucket = (rateBuckets.get(ip) ?? []).filter(
+    (t) => now - t < RATE_WINDOW_MS,
+  );
+  if (bucket.length >= RATE_MAX) {
+    rateBuckets.set(ip, bucket);
+    return true;
+  }
+  bucket.push(now);
+  rateBuckets.set(ip, bucket);
+  // Opportunistic cleanup to cap memory on a long-lived process.
+  if (rateBuckets.size > 1000) {
+    for (const [key, ts] of rateBuckets) {
+      if (ts.every((t) => now - t > RATE_WINDOW_MS)) rateBuckets.delete(key);
+    }
+  }
+  return false;
+}
+
 const SYSTEM_PROMPT = `You are a gongfu cha brewing expert. Given a tea name or description, generate specific gongfu brewing parameters for that exact tea.
 
 You must respond ONLY with valid JSON in this exact format:
@@ -132,11 +167,18 @@ async function llmFallback(query: string) {
 
 export async function POST(request: Request) {
   try {
+    if (rateLimitExceeded(clientIp(request))) {
+      return NextResponse.json(
+        { error: "Rate limit exceeded. Try again in a minute." },
+        { status: 429 },
+      );
+    }
+
     const { query } = await request.json();
 
-    if (!query || typeof query !== "string" || query.length > 500) {
+    if (!query || typeof query !== "string" || query.length > 200) {
       return NextResponse.json(
-        { error: "Query is required (max 500 characters)" },
+        { error: "Query is required (max 200 characters)" },
         { status: 400 }
       );
     }
