@@ -21,7 +21,7 @@ npm run lint         # ESLint
 npx vitest run       # All tests
 npx vitest run tests/brewing.test.ts  # Single test file
 npm run rag:index    # Index tea corpus into Qdrant
-npx tsx scripts/rag-eval.ts           # Evaluate RAG retrieval quality
+npm run rag:eval     # Evaluate RAG retrieval quality (needs running Qdrant)
 ```
 
 ## Architecture
@@ -45,10 +45,8 @@ src/
     SessionSummary.tsx    # End-of-session stats screen (infusions, time, leaf, vessel)
     Header.tsx            # App header — 功夫茶 masthead, weather mood, "pick your tea" label
     StepperControl.tsx    # Reusable ±stepper for vessel, leaf, time, infusions
-    InlineViewHeader.tsx  # Back-arrow + view title header for inline views
   data/
     teas.ts               # 8 tea presets (TeaPreset) + teaGroups display structure (5 groups: 3 with variants, 2 standalone)
-    tips.ts               # 24 rotating daily gongfu tips for Western hobbyists
     tea-categories.ts     # Category ID → label/color map (green, white, oolong, puerh, black) with harmonized palette
     brew-tips.ts          # 120 contextual brewing tips with tea type + infusion range metadata
   lib/
@@ -62,7 +60,9 @@ src/
       embed.ts                 # Local embedding via all-MiniLM-L6-v2 (HuggingFace Transformers)
       index.ts                 # Corpus indexing script — embeds all entries, upserts to Qdrant
       qdrant.ts                # Thin Qdrant HTTP client (search, upsert, collection ops)
-      retrieve.ts              # Hybrid search: name/alias boost + cosine similarity + confidence threshold
+      lexical.ts               # IDF-weighted substring scorer over tea identity fields
+      point-id.ts              # Deterministic slug → UUID (SHA-1) for stable Qdrant point IDs
+      retrieve.ts              # Two-tier hybrid: lexical (≥4.0) or dense (≥0.55), else [] → LLM fallback
   hooks/
     useTimer.ts           # Countdown timer hook (play/pause/reset/progress)
     useBrewSound.ts       # AudioContext sound with iOS unlock + HTMLAudio fallback
