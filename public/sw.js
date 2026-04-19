@@ -1,3 +1,7 @@
+// CACHE_NAME MUST be bumped on every static-asset release. The activate
+// handler deletes caches whose name doesn't match, so a fresh CACHE_NAME
+// is how clients drop the old bundle of /sounds/, /icons/, manifest, etc.
+// If you add or change anything in STATIC_ASSETS, bump the suffix.
 const CACHE_NAME = "gongfucha-v2";
 const STATIC_ASSETS = [
   "/icon.svg",
