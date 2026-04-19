@@ -162,6 +162,11 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
     setInfusionIndex(nextIndex);
     setNextAdjust(0);
+    // Explicit reset is load-bearing: useTimer's internal duration-change
+    // guard doesn't fire when back-to-back infusions have identical
+    // durations (e.g. 12s → 12s), so without this the second brew would
+    // inherit the exhausted state of the first and skip immediately.
+    // See commit f495036.
     timer.reset(adjusted);
     autoPlayRef.current = true;
     setPhase("brewing");
