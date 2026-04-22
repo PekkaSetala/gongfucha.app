@@ -55,6 +55,9 @@ src/
     pick.ts               # seededPick + getSessionSeed — stable per-visit array selection
     seasons.ts            # Season detection, seasonal tea filtering
     weather.ts            # Weather fetch (wttr.in), condition mapping, mood expressions
+    analytics/
+      track.ts      # Typed client wrapper around window.umami.track — silent no-op when absent
+      log-event.ts  # Server-side JSONL logger for /api/identify exit paths (stdout → docker logs)
     rag/
       build-embedding-text.ts  # Compose embedding text from tea entry fields
       embed.ts                 # Local embedding via all-MiniLM-L6-v2 (HuggingFace Transformers)
@@ -67,14 +70,19 @@ src/
     useTimer.ts           # Countdown timer hook (play/pause/reset/progress)
     useBrewSound.ts       # AudioContext sound with iOS unlock + HTMLAudio fallback
 scripts/
-    rag-eval.ts           # RAG retrieval evaluation — tests query→result quality
+    rag-eval.ts              # RAG retrieval evaluation — tests query→result quality
+    identify-queries.sh      # Pull identify JSONL from VPS docker logs for RAG eval
 tests/
-    brewing.test.ts       # Vitest tests for brewing.ts
-    brew-tips.test.ts     # Tests for tip selection algorithm
-    pick.test.ts          # Tests for seededPick determinism
-    weather-moods.test.ts # Tests for expanded weather mood selection
-    tea-groups.test.ts    # Tests for teaGroups structure and variant references
-    rag-integration.test.ts # Tests for RAG retrieval pipeline (Qdrant, embedding, search)
+    brewing.test.ts          # Vitest tests for brewing.ts
+    brew-tips.test.ts        # Tests for tip selection algorithm
+    pick.test.ts             # Tests for seededPick determinism
+    weather-moods.test.ts    # Tests for expanded weather mood selection
+    tea-groups.test.ts       # Tests for teaGroups structure and variant references
+    rag-integration.test.ts  # Tests for RAG retrieval pipeline (Qdrant, embedding, search)
+    analytics/
+      track.test.ts          # Tests for client track() wrapper
+      log-event.test.ts      # Tests for server logEvent()
+      identify-log.test.ts   # Smoke test: /api/identify emits JSONL at hit path
 ```
 
 ## Design Decisions
