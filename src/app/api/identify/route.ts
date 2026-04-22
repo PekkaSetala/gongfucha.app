@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { searchTeas } from "@/lib/rag/retrieve";
 import type { TeaEntry } from "@/data/corpus/schema";
+import { logEvent } from "@/lib/analytics/log-event";
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const MODEL = process.env.OPENROUTER_MODEL ?? "openai/gpt-4o-mini";
@@ -168,6 +169,7 @@ async function llmFallback(query: string) {
 export async function POST(request: Request) {
   try {
     if (rateLimitExceeded(clientIp(request))) {
+      logEvent({ event: "identify.rate_limited" });
       return NextResponse.json(
         { error: "Rate limit exceeded. Try again in a minute." },
         { status: 429 },
@@ -177,6 +179,8 @@ export async function POST(request: Request) {
     const { query } = await request.json();
 
     if (!query || typeof query !== "string" || query.length > 200) {
+      const reason = !query ? "empty" : typeof query !== "string" ? "wrong_type" : "too_long";
+      logEvent({ event: "identify.invalid", reason });
       return NextResponse.json(
         { error: "Query is required (max 200 characters)" },
         { status: 400 }
@@ -186,12 +190,15 @@ export async function POST(request: Request) {
     // Try corpus retrieval first. searchTeas returns [] when no tier
     // fires; only a non-empty result is a confident match.
     try {
+      const ragStart = Date.now();
       const results = await searchTeas(query, 3);
       if (results.length > 0) {
         const entry = JSON.parse(results[0].payload.entry as string) as TeaEntry;
+        logEvent({ event: "identify.hit", query, slug: entry.id, score: results[0].score, latencyMs: Date.now() - ragStart });
         return NextResponse.json(mapCorpusEntry(entry));
       }
     } catch (err) {
+      logEvent({ event: "identify.error", stage: "rag" });
       console.warn("RAG retrieval failed, falling back to LLM:", err);
     }
 
@@ -203,9 +210,12 @@ export async function POST(request: Request) {
       );
     }
 
+    const llmStart = Date.now();
     const result = await llmFallback(query);
+    logEvent({ event: "identify.llm", query, latencyMs: Date.now() - llmStart });
     return NextResponse.json(result);
   } catch {
+    logEvent({ event: "identify.error", stage: "llm" });
     return NextResponse.json(
       {
         error:
