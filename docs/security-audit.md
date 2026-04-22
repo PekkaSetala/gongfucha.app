@@ -395,6 +395,16 @@ No alerting needed — manual spot checks are proportionate for a solo portfolio
 
 ---
 
+## Infrastructure surface (as of 2026-04-22)
+
+| Component | Where |
+|---|---|
+| App | Next.js (`gongfucha-app-1`) bound to `127.0.0.1:3000`, nginx vhost `gongfucha.app` |
+| Vector DB | Qdrant (`gongfucha-qdrant-1`) bound to `127.0.0.1:6333` (localhost-only) |
+| Analytics dashboard | Umami (`gongfucha-umami-1`) bound to `127.0.0.1:3001`, nginx vhost `stats.gongfucha.app`, TLS via certbot. Umami login required; no public write surface. |
+
+---
+
 ## What this audit deliberately does not cover
 
 - **Database and corpus integrity.** Qdrant is localhost-bound; re-indexable from repo in ~30s. Not a security concern.
