@@ -4,6 +4,9 @@ import "./globals.css";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 import { buildWebSite, buildOrganization, buildPerson } from "@/lib/jsonld";
 
+const UMAMI_SRC = process.env.NEXT_PUBLIC_UMAMI_SRC;
+const UMAMI_ID  = process.env.NEXT_PUBLIC_UMAMI_ID;
+
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
@@ -69,6 +72,9 @@ export default function RootLayout({
           }}
         />
         {children}
+        {UMAMI_SRC && UMAMI_ID && (
+          <script defer src={UMAMI_SRC} data-website-id={UMAMI_ID} />
+        )}
         <ServiceWorkerRegistration />
       </body>
     </html>
