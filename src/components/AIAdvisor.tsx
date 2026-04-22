@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { StepperControl } from "./StepperControl";
+import { track } from "@/lib/analytics/track";
 import {
   calculateLeafAmount,
   actualRatio,
@@ -79,11 +80,13 @@ export function AIAdvisor({
     setLeafOverride(null);
 
     try {
+      const t0 = Date.now();
       const res = await fetch("/api/identify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: query.trim() }),
       });
+      track({ name: "ai_query", latencyMs: Date.now() - t0 });
 
       if (!res.ok) throw new Error("Failed to identify tea");
 

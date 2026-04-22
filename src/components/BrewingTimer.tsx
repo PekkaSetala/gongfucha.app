@@ -8,6 +8,7 @@ import { useBrewSound } from "@/hooks/useBrewSound";
 import { brewTips } from "@/data/brew-tips";
 import { selectTip } from "@/lib/brew-tips";
 import { SessionSummary } from "./SessionSummary";
+import { track } from "@/lib/analytics/track";
 
 export interface BrewParams {
   teaId: string;
@@ -58,6 +59,7 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
 
   const accentColor = params.teaColor || DEFAULT_COLOR;
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const startedAtRef = useRef<number | null>(null);
 
   useEffect(() => {
     titleRef.current?.focus();
@@ -344,7 +346,21 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
               <button
                 onClick={() => {
                   sound.unlock();
-                  if (timer.isRunning) { timer.pause(); } else { timer.play(); }
+                  if (timer.isRunning) {
+                    timer.pause();
+                  } else {
+                    if (startedAtRef.current === null) {
+                      startedAtRef.current = Date.now();
+                      track({
+                        name: "brew_started",
+                        teaSlug: params.teaId,
+                        leafG: params.actualLeaf,
+                        vesselMl: params.vesselMl,
+                        ratioG100ml: (params.actualLeaf / params.vesselMl) * 100,
+                      });
+                    }
+                    timer.play();
+                  }
                 }}
                 className={`mt-3 w-14 h-14 flex items-center justify-center rounded-full ${
                   timer.isRunning
@@ -545,6 +561,14 @@ export function BrewingTimer({ params, onEnd }: BrewingTimerProps) {
                       phase === "brewing" && timer.isRunning
                         ? totalTime + (currentDuration - timer.secondsLeft)
                         : totalTime;
+                    const completedInfusions = phase === "between" ? infusionIndex + 1 : Math.max(infusionIndex, 0);
+                    const allPlannedDone = phase === "between" && infusionIndex + 1 >= params.schedule.length;
+                    track({
+                      name: allPlannedDone ? "brew_completed" : "brew_aborted",
+                      teaSlug: params.teaId,
+                      infusions: completedInfusions,
+                      elapsedMs: Date.now() - (startedAtRef.current ?? Date.now()),
+                    });
                     setTotalTime(finalTime);
                     setShowSummary(true);
                   }}

@@ -56,8 +56,8 @@ describe("POST /api/identify — logging", () => {
     const res = await POST(req);
     expect(res.status).toBe(200);
     const hitLine = logSpy.mock.calls
-      .map((c) => c[0] as string)
-      .find((s) => s.includes('"identify.hit"'));
+      .map((c: unknown[]) => c[0] as string)
+      .find((s: string) => s.includes('"identify.hit"'));
     expect(hitLine).toBeDefined();
     const parsed = JSON.parse(hitLine!);
     expect(parsed.slug).toBe("da-hong-pao");

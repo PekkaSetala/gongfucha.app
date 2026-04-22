@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { getTeaById, teaGroups } from "@/data/teas";
+import { track } from "@/lib/analytics/track";
 import { Header } from "@/components/Header";
 import { TeaList } from "@/components/TeaList";
 import { BrewingTimer } from "@/components/BrewingTimer";
@@ -89,9 +90,11 @@ export default function Home() {
       );
       if (typeof entry === "string") {
         setSelectedVariantId(entry);
+        track({ name: "tea_selected", teaSlug: entry, source: "list" });
       } else if (entry) {
         // Grouped teas auto-select first variant so the detail card renders immediately
         setSelectedVariantId(entry.variants[0]);
+        track({ name: "tea_selected", teaSlug: entry.variants[0], source: "list" });
       } else {
         setSelectedVariantId(null);
       }
@@ -102,6 +105,7 @@ export default function Home() {
 
   const handleVariantSelect = (variantId: string) => {
     setSelectedVariantId(variantId);
+    track({ name: "tea_selected", teaSlug: variantId, source: "list" });
   };
 
   const handleToggleAI = () => {
@@ -139,6 +143,7 @@ export default function Home() {
     const recommendedLeaf =
       Math.round(result.ratioGPerMl * aiVesselMl * 10) / 10;
     const teaId = result.categoryId || "custom";
+    track({ name: "tea_selected", teaSlug: teaId, source: "ai" });
     handleStartBrewing({
       teaId,
       teaName: result.teaName,
